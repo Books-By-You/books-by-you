@@ -1,11 +1,11 @@
 import React from 'react';
 
-function AuthView() {
+function SearchView() {
   return (
     <div>
-login
+seach
     </div>
   );
 }
 
-export default AuthView;
+export default SearchView;

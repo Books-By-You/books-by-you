@@ -5,6 +5,9 @@ import Auth from "./components/authView"
 import Reading from "./components/readingView"
 import Book from "./components/bookView"
 import Profile from "./components/profileView"
+import Search from "./components/searchView"
+import Publishing from "./components/publishingView"
+import ChapterNew from "./components/chapterPublishing"
 
 export default (
   <Switch>
@@ -13,5 +16,8 @@ export default (
     <Route exact path="/reading" component={Reading} />
     <Route exact path="/book" component={Book} />
     <Route exact path="/profile" component={Profile} />
+    <Route exact path="/search" component={Search} />
+    <Route exact path="/publishing" component={Publishing} />
+    <Route exact path="/new-chapter" component={ChapterNew} />
   </Switch>
 );
