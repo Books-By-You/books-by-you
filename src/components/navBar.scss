@@ -1,0 +1,72 @@
+%icon-placeholder {
+  font-size: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$color-nav-bottom: linear-gradient(
+    270deg,
+    #702e3a 37.29%,
+    rgba(120, 31, 48, 0.0729167) 113.43%,
+    rgba(121, 30, 47, 0) 113.44%
+  ),
+  #21273f;
+
+.navbar {
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  justify-content: space-between;
+  height: 100px;
+
+  .book-icon {
+    @extend %icon-placeholder;
+  }
+
+  .nav-links-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin-top: 35px;
+    margin-bottom: 10px;
+
+    li {
+      padding-right: 50px;
+
+      a {
+        font-size: 22px;
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .gradient-bottom-border {
+    height: 10px;
+    background: $color-nav-bottom;
+  }
+
+  .three-links-wide {
+    float: right;
+    width: 360px;
+  }
+
+  .four-links-wide {
+    float: right;
+    width: 510px;
+  }
+
+  .user-profile-icon {
+    @extend %icon-placeholder;
+  }
+}
