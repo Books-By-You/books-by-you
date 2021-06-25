@@ -12,14 +12,15 @@ const client = MongoClient(url)
 module.exports = {
   getAllDatabases: async () => {
     try {
+      await client.connect()
       const dblist = await client.db().admin().listDatabases()
       let databases = []
       dblist.databases.forEach(db => {
         databases.push(db.name)
       })
       return databases
-    } catch(error) {
-      console.log(error)
+    } finally {
+      client.close()
     }
   },
   getUser: async (username) => {
@@ -29,23 +30,31 @@ module.exports = {
       return result
     } catch(error) {
       console.log(error)
+    } finally {
+      client.close()
     }
   },
   getAllUsers: async () => {
     try {
+      await client.connect()
       const cursor = client.db('Books-By-You').collection('Users').find()
       const results = await cursor.toArray()
       return results
     } catch(error) {
       console.log(error)
+    } finally {
+      client.close()
     }
   },
   createUser: async (newUser) => {
     try {
+      await client.connect()
       const result = await client.db('Books-By-You').collection('Users').insertOne(newUser)
       return result
     } catch(error) {
       console.log(error)
+    } finally {
+      client.close()
     }
   }
 }
