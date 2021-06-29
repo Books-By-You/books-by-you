@@ -1,7 +1,7 @@
 import React from 'react';
 import './Button.scss';
 
-const Button = () => {
+const Button: React.FC = () => {
   return <div>Button</div>;
 };
 

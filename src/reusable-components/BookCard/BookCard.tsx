@@ -1,7 +1,7 @@
 import React from 'react';
 import './BookCard.scss';
 
-const BookCard = () => {
+const BookCard: React.FC = () => {
   return <div>BookCard</div>;
 };
 
