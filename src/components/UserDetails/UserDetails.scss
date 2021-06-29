@@ -1,0 +1,18 @@
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  border: 1px solid black;
+
+  svg {
+    font-size: 150px;
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  button {
+  }
+}

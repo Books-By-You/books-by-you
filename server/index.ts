@@ -1,8 +1,13 @@
-import express from 'express'
-require('dotenv').config({path: '../.env'})
+import express from 'express';
+require('dotenv').config({ path: '../.env' });
 
-const {SERVER_PORT} = process.env
+const { SERVER_PORT } = process.env;
 
-const app = express()
+const app = express();
+const mongoController = require('./db/mongoController');
 
-app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`))
+app.listen(SERVER_PORT, async () => {
+  console.log(`Server running on ${SERVER_PORT}`);
+  let dbs = await mongoController.getUser('alex');
+  console.log(dbs);
+});

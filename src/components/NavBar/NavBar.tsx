@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsBook } from 'react-icons/bs';
-import './navBar.scss';
+import './NavBar.scss';
 
 const NavBar: React.FC = () => {
   const [toggleNavLinks, setToggleNavLinks] = useState(false);
