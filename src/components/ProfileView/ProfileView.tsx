@@ -9,9 +9,9 @@ const ProfileView: React.FC = () => {
       <section className='user-details'>
         <UserDetails />
       </section>
-      <main className='profile-data'>
+      <section className='profile-data'>
         <ProfileData />
-      </main>
+      </section>
     </div>
   );
 };
