@@ -1,4 +1,5 @@
 import React from 'react';
+import BookCard from '../BookCard/BookCard';
 import './ProfileData.scss';
 
 const ProfileData: React.FC = () => {
@@ -9,6 +10,12 @@ const ProfileData: React.FC = () => {
         <h3>Reviews</h3>
         <h3>Library</h3>
       </div>
+      <BookCard />
+      <BookCard />
+      <BookCard />
+      <BookCard />
+      <BookCard />
+      <BookCard />
     </div>
   );
 };
