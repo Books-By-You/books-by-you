@@ -4,7 +4,7 @@ import Home from './components/homeView';
 import Auth from './components/auth/authView';
 import Reading from './components/readingView';
 import Book from './components/bookView';
-import Profile from './components/profileView';
+import ProfileView from './components/ProfileView/ProfileView';
 import Search from './components/searchView';
 import Publishing from './components/publishingView';
 import ChapterNew from './components/chapterPublishing';
