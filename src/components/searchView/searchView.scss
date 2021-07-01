@@ -42,18 +42,7 @@ $color-nav-bottom: linear-gradient(
     position:relative;
     top:-80px;
 }
-.carousel {
-  // height:40%;
-  // width:100%;
-  // border-bottom: 2px solid;
-  width: 900px;
-  height: 200px;
-  padding: 50px;
-  border: 2px solid rgb(12, 12, 12);
-  position:relative;
-  top:-80px;
-  // background-color:rgb(221, 221, 251);
-}
+
 .gradient-bottom-border2 {
     height: 10px;
     width:40px;
@@ -156,4 +145,27 @@ $color-nav-bottom: linear-gradient(
   left:-40px;
   border: 3px solid rgb(12, 12, 12);
   //background-color:rgb(236, 178, 178);
+}
+
+
+.book-carousel-1{
+  display: flex;
+}
+
+.carousel-book-card{
+  margin:15px;
+}
+
+.carousel-container{
+  height:400px;
+  width:1080px;
+}
+
+.carousel {
+  width: 900px;
+  height: 200px;
+  padding: 50px;
+  border: 2px solid rgb(12, 12, 12);
+  position:relative;
+  top:-80px;
 }

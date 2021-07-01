@@ -5,6 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { SliderData } from "./SliderData";
 import "./searchView.scss"
+import BookCard from "../BookCard/BookCard"
 
 const SearchView: React.FC = () => {
   //need 15 "objects to fill array from back end"
@@ -12,11 +13,10 @@ const SearchView: React.FC = () => {
 
   function arrayMapper(slide: any, index: any) {
     return (
-      <div>
-        <img src={slide.image} alt="book cover" />
-        <li> {slide.title}</li>
-        <li>{slide.rating}</li>
-      </div>
+            <BookCard 
+            title={slide.title}
+            image_url={slide.image}
+            rating={slide.rating}/>
     );
   }
 
@@ -27,12 +27,12 @@ const SearchView: React.FC = () => {
   const listBooks = SliderData.map(arrayMapper);
   return (
     <div className="searchView">
-      <div>
-        <Carousel>
-            {listBooks}
-          {/* <div>
-            <img src="https://www.abebooks.com/Mirror-Work-21-Days-Heal-Life/30924143040/bd?cm_mmc=ggl-_-US_Shopp_Textbook-_-product_id=COM9781401949822USED-_-keyword=&gclid=CjwKCAjwieuGBhAsEiwA1Ly_nTJz0K7YVDSV_9ZKYSB1QzUWrPukOwbMR8JtwZIkwKqztpMrv-UMCBoC2b8QAvD_BwE#&gid=1&pid=1" />
-            <p className="legend">Legend 1</p>
+      <div className="carousel-container">
+        <Carousel autoPlay={true}
+        infiniteLoop={true}
+        showThumbs={false}>
+          <div className="book-carousel-1">
+          {listBooks}
           </div>
           <div>
             <img src="https://images-na.ssl-images-amazon.com/images/I/71aFt4+OTOL.jpg" />
@@ -41,7 +41,7 @@ const SearchView: React.FC = () => {
           <div>
             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/AngelsAndDemons.jpg/220px-AngelsAndDemons.jpg" />
             <p className="legend">Legend 3</p>
-          </div> */}
+          </div>
         </Carousel>
       </div>
       <div className="search_wrap">

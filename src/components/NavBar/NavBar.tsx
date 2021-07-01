@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsBook } from 'react-icons/bs';
-import './navBar.scss';
+import './NavBar.scss';
+
 
 const NavBar: React.FC = () => {
   const [toggleNavLinks, setToggleNavLinks] = useState(false);
@@ -10,7 +11,7 @@ const NavBar: React.FC = () => {
     : 'three-links-wide';
 
   // temporary variable until redux implemented
-  const loggedIn = true;
+  const loggedIn = false;
 
   useEffect(() => {
     const showLogout = () => {
@@ -39,7 +40,7 @@ const NavBar: React.FC = () => {
           </li>
           {!loggedIn && (
             <li>
-              <a href='#'>Login</a>
+              <a href='#/login'>Login</a>
             </li>
           )}
           {loggedIn && (
