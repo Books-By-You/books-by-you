@@ -3,7 +3,7 @@ import React from 'react';
 function chapterPublishing() {
   return (
     <div>
-choapter
+chapter
     </div>
   );
 }

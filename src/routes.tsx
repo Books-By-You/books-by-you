@@ -5,7 +5,7 @@ import Auth from "./components/authView"
 import Reading from "./components/readingView"
 import Book from "./components/bookView"
 import Profile from "./components/profileView"
-import Search from "./components/searchView"
+import Search from "./components/searchView/searchView"
 import Publishing from "./components/publishingView"
 import ChapterNew from "./components/chapterPublishing"
 
