@@ -1,5 +1,5 @@
 // body{
-//     background: url("img1.png");
+//     background: url("https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
 //     background-repeat: no-repeat;
 //     background-size: auto;
 //     object-fit: cover;
@@ -13,81 +13,81 @@ $color-nav-bottom: linear-gradient(
   ),
   #21273f;
 
-//   $search-borders:{
-//   position: relative;
-//   top: 100px;
-//   width: 100%;
-//   height: 100px;
-//   padding: 50px;
-//   position:relative;
-//   left:-40px;
-//   border: 3px solid rgb(12, 12, 12);
-//   }
-
 .searchView {
   height: 1600px;
   width: 80%;
   display: flex;
   flex-direction: column;
   padding-left: 100px;
-   align-items: center;
-   justify-content: center;
-   position:relative;
-   left:40px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 40px;
   background-color: F0F0F0;
 }
-.search_input{
-    height:25px;
-    width:350px;
-    position:relative;
-    top:-80px;
+.heading{
+  font-size:x-large;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 5px;;
+}
+.search_input {
+  height: 40px;
+  width: 350px;
+  position: relative;
+  top: 96px;
+  left: 450px;
 }
 
 .gradient-bottom-border2 {
-    height: 10px;
-    width:40px;
-    background: $color-nav-bottom;
-    position:relative;
-    // top:-20px;
-    right:480px;
-  }
-.searchicon{
-    height:20px;
-    width:20px;
-    position:relative;
-    left:0px;
+  height: 10px;
+  width: 906px;
+  background: $color-nav-bottom;
+  position: relative;
+  // top:-20px;
+  right: 300px;
 }
-.searchbutton{
-    height:30px;
-    width:35px;
-    position:relative;
-    left:35px;
-    top:-80px;
+.searchicon {
+  height: 27px;
+  width: 20px;
+  position: relative;
+  left: 0px;
+}
+.searchbutton {
+  height: 44px;
+  width: 35px;
+  position: relative;
+  left: 450px;
+  top: 96px;
 }
 .search_field {
   position: relative;
+  width: 700px;
   top: -100px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
 .filter_button {
-  background-color: #4caf50;
-  height: 30px;
+  background-color: #b6757f ;
+  height: 44px;
   width: 350px;
   position: relative;
-  right: 0px;
-  top:-80px;
-  
+  left: 450px;
+  top: 96px;
 }
 .search_wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: space-between;
-  position:relative;
-  top:-40px;
+  position: relative;
+  top: -40px;
 }
 
 .dropbtn {
@@ -107,9 +107,10 @@ $color-nav-bottom: linear-gradient(
 .dropdown-content {
   display: none;
   position: absolute;
-  top:-40px;
+  top: 130px;
+  left: 450px;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 350px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -137,35 +138,53 @@ $color-nav-bottom: linear-gradient(
   // height:60%;
   // width:100%;
   position: relative;
-  top: 100px;
-  width: 100%;
+  top: -60px;
+  width: 1000px;
   height: 100px;
   padding: 50px;
-  position:relative;
-  left:-40px;
-  border: 3px solid rgb(12, 12, 12);
+  position: relative;
+  left: 169px;
+  // border: 3px solid rgb(12, 12, 12);
   //background-color:rgb(236, 178, 178);
 }
 
-
-.book-carousel-1{
+.book-carousel-1 {
   display: flex;
+
+  width: 1100px;
 }
 
-.carousel-book-card{
-  margin:15px;
+.carousel-book-card {
+  margin: 15px;
 }
 
-.carousel-container{
-  height:400px;
-  width:1080px;
+.carousel-container {
+  height: 400px;
+  width: 1080px;
 }
 
 .carousel {
   width: 900px;
   height: 200px;
-  padding: 50px;
-  border: 2px solid rgb(12, 12, 12);
-  position:relative;
-  top:-80px;
+  padding-top: 0px;
+ // border: 2px solid rgb(12, 12, 12);
+  position: relative;
+  top: -80px;
+}
+.pexels-cover {
+  height: 250px;
+  display: flex;
+}
+.search-result-container {
+  width: 1200px;
+  height: 500px;
+}
+.gradient-line {
+  display: flex;
+  flex-direction: row;
+}
+.search-result {
+  border: 5px solid rgba(120, 31, 48, 0.0729167);
+  background-color: white;
+  box-shadow: 5px 10px #888888;
 }
