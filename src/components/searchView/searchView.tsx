@@ -30,11 +30,8 @@ const SearchView: React.FC = () => {
   const listBooks = SliderData.map(arrayMapper);
   const listBooks2 = SliderData2.map(arrayMapper);
   return (
-    
     <div className="searchView">
-      
       <div className="carousel-container">
-     
         <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
           <div className="book-carousel-1">{listBooks2}</div>
 
@@ -68,22 +65,25 @@ const SearchView: React.FC = () => {
             <p className="legend"></p>
           </div>
         </Carousel>
-        <div className="heading">  <h1> Our Popular Books!</h1></div>
+        <div className="heading">
+          {" "}
+          <h1> Our Popular Books!</h1>
+        </div>
       </div>
-      
+
       <div className="search_wrap">
-      
         <div className="search">
           <div className="search_field">
-            <button className="searchbutton">
-              <img className="searchicon" src={search} alt="search" />
-            </button>
-            <input
-              className="search_input"
-              type="text"
-              placeholder="search"
-            ></input>
-
+            <span className="input-icon">
+              <button className="searchbutton">
+                <img className="searchicon" src={search} alt="search" />
+              </button>
+              <input
+                className="search_input"
+                type="text"
+                placeholder="search"
+              ></input>
+            </span>
             {/* <button className="search_button"> Filter</button> */}
             <div className="dropdown">
               <button className="filter_button">Filter</button>
