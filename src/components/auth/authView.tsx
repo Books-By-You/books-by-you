@@ -71,9 +71,9 @@ const AuthView: React.FC<Props> = (props) => {
         </h1>
         <input
           className={`inp-blck${styles.inpHiddenLogin}`}
-          placeholder="Email"
+          placeholder="Username"
           onChange={(e) => {
-            setEmail(e.target.value);
+            setUsername(e.target.value);
           }}
         />
         <input
@@ -87,7 +87,7 @@ const AuthView: React.FC<Props> = (props) => {
         <section>
           <button
             className={`login-button ${styles.inpHiddenLogin}`}
-            onClick={() => props.login({ email: email, password: password })}
+            onClick={() => props.login({ username: username, password: password })}
           >
             Login
           </button>

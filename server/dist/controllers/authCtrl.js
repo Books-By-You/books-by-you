@@ -67,6 +67,8 @@ module.exports = {
     }),
     login: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { username, password } = req.body;
+        console.log('hit login function');
+        console.log(req.body);
         const user = {};
         let loginSuccessful = yield User.findOne({ username: username })
             .then(user => {
