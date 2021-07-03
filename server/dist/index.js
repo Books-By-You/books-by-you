@@ -26,9 +26,9 @@ mongoose.connect(url);
 app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`));
 //Auth Endpoints - maybe temporary pending passport w/Oauth implementation
 app.post('/api/auth/register', authCtrl.register);
-// app.post('/api/auth/login', authCtrl.login);
-// app.delete('/api/auth/logout', authCtrl.logout)
-// app.post('/api/auth/delete', authCtrl.delete)
+app.post('/api/auth/login', authCtrl.login);
+app.delete('/api/auth/logout', authCtrl.logout);
+app.post('/api/auth/delete', authCtrl.delete);
 //Book Endpoints 
 // app.post('/api/book', bookCtrl.createBook)
 // app.put ('/api/book/:id', bookCtrl.updateBook)
