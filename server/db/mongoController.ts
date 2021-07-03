@@ -7,7 +7,7 @@ const cluster = "books-by-you.stwxg";
 
 const url = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
-const client = MongoClient(url)
+const client = new MongoClient(url)
 
 module.exports = {
   getAllDatabases: async () => {
