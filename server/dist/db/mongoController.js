@@ -15,7 +15,7 @@ const user = process.env.MONGO_USER;
 const userPassword = process.env.MONGO_PASSWORD;
 const cluster = "books-by-you.stwxg";
 const url = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = mongodb_1.MongoClient(url);
+const client = new mongodb_1.MongoClient(url);
 module.exports = {
     getAllDatabases: () => __awaiter(void 0, void 0, void 0, function* () {
         try {

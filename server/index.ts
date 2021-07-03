@@ -1,14 +1,37 @@
 import express from 'express'
 require('dotenv').config({path: '../.env'})
-
-const {SERVER_PORT} = process.env
+const session = require('express-session')
+const authCtrl = require('./controllers/authCtrl') 
+const mongoose = require('mongoose')
+const {SERVER_PORT, SESSION_SECRET} = process.env
 
 const app = express()
+
+app.use(express.json())
+
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    rejectUnauthorized: false,
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 365},
+    secret: SESSION_SECRET
+  })
+)
+
+
+const user = process.env.MONGO_USER;
+const userPassword = process.env.MONGO_PASSWORD;
+const cluster = "books-by-you.stwxg";
+
+const url = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/Books-By-You?retryWrites=true&w=majority`;
+
+mongoose.connect(url)
 
 app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`))
 
 //Auth Endpoints - maybe temporary pending passport w/Oauth implementation
-  // app.post('/api/auth/register', authCtrl.register);
+  app.post('/api/auth/register', authCtrl.register);
   // app.post('/api/auth/login', authCtrl.login);
   // app.delete('/api/auth/logout', authCtrl.logout)
   // app.post('/api/auth/delete', authCtrl.delete)
