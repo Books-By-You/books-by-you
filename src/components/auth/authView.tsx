@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login, register } from "../../redux/reducers/userReducer";
 import { Props } from "./authInterface";
+import { Redirect } from "react-router-dom";
 import "./authView.scss";
 
 const AuthView: React.FC<Props> = (props) => {
@@ -28,7 +29,6 @@ const AuthView: React.FC<Props> = (props) => {
       props.register({
         email: email,
         password: password,
-        confirmPassword: confirmPassword,
         username: username,
         name1: name1,
         name2: name2,
@@ -57,6 +57,9 @@ const AuthView: React.FC<Props> = (props) => {
       descHiddenLogin: "desc-style",
     });
   }
+  if (props.username) {
+    return <Redirect to={`/profile/${props.userId}`} />;
+  }
   let passColorSwitch = props.errorMessage ? "inp-red" : "inp-blck",
     passwordCheckerColor = error ? "inp-red" : "inp-blck";
   return (
@@ -71,9 +74,9 @@ const AuthView: React.FC<Props> = (props) => {
         </h1>
         <input
           className={`inp-blck${styles.inpHiddenLogin}`}
-          placeholder="Email"
+          placeholder="Username"
           onChange={(e) => {
-            setEmail(e.target.value);
+            setUsername(e.target.value);
           }}
         />
         <input
@@ -87,7 +90,9 @@ const AuthView: React.FC<Props> = (props) => {
         <section>
           <button
             className={`login-button ${styles.inpHiddenLogin}`}
-            onClick={() => props.login({ email: email, password: password })}
+            onClick={() =>
+              props.login({ username: username, password: password })
+            }
           >
             Login
           </button>
