@@ -1,9 +1,4 @@
-// body{
-//     background: url("https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
-//     background-repeat: no-repeat;
-//     background-size: auto;
-//     object-fit: cover;
-// }
+
 
 $color-nav-bottom: linear-gradient(
     270deg,
@@ -36,10 +31,11 @@ $color-nav-bottom: linear-gradient(
 }
 .search_input {
   height: 40px;
-  width: 350px;
+  width: 262px;
   position: relative;
-  top: 96px;
-  left: 450px;
+  top: 74px;
+  left: 352px;
+  border-radius: 0px 5px 5px 0px;
 }
 
 .gradient-bottom-border2 {
@@ -48,7 +44,7 @@ $color-nav-bottom: linear-gradient(
   background: $color-nav-bottom;
   position: relative;
   // top:-20px;
-  right: 300px;
+  right: 183px;
 }
 .searchicon {
   height: 27px;
@@ -57,16 +53,18 @@ $color-nav-bottom: linear-gradient(
   left: 0px;
 }
 .searchbutton {
-  height: 44px;
-  width: 35px;
+  height: 46px;
+  width: 55px;
   position: relative;
-  left: 450px;
-  top: 96px;
+  left: 299px;
+  top: 120px;
+  border-radius: 5px 0px 0px 5px;
+  background-color: #EDCF63;
 }
 .search_field {
   position: relative;
   width: 700px;
-  top: -100px;
+  top: -119px;
 
   display: flex;
   flex-direction: row;
@@ -74,12 +72,19 @@ $color-nav-bottom: linear-gradient(
   align-items: center;
 }
 .filter_button {
-  background-color: #b6757f ;
+  background-color: #EDCF63 ;
   height: 44px;
-  width: 350px;
+  width: 300px;
   position: relative;
-  left: 450px;
+  left: 639px;
   top: 96px;
+  // box-shadow: 5px 10px #b6b4b4;
+  box-shadow:0px 4px 0px #D1B757;
+  border-radius: 5px;
+  color:white;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: large;
 }
 .search_wrap {
   display: flex;
@@ -87,7 +92,7 @@ $color-nav-bottom: linear-gradient(
   justify-content: space-between;
   align-content: space-between;
   position: relative;
-  top: -40px;
+  top: -223px;
 }
 
 .dropbtn {
@@ -107,10 +112,10 @@ $color-nav-bottom: linear-gradient(
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 130px;
-  left: 450px;
+  top: 140px;
+  left: 640px;
   background-color: #f9f9f9;
-  min-width: 350px;
+  min-width: 300px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -138,7 +143,7 @@ $color-nav-bottom: linear-gradient(
   // height:60%;
   // width:100%;
   position: relative;
-  top: -60px;
+  top: -40px;
   width: 1000px;
   height: 100px;
   padding: 50px;
@@ -156,10 +161,11 @@ $color-nav-bottom: linear-gradient(
 
 .carousel-book-card {
   margin: 15px;
+  
 }
 
 .carousel-container {
-  height: 400px;
+  height: 600px;
   width: 1080px;
 }
 
@@ -169,7 +175,7 @@ $color-nav-bottom: linear-gradient(
   padding-top: 0px;
  // border: 2px solid rgb(12, 12, 12);
   position: relative;
-  top: -80px;
+  top: -60px;
 }
 .pexels-cover {
   height: 250px;
@@ -187,4 +193,8 @@ $color-nav-bottom: linear-gradient(
   border: 5px solid rgba(120, 31, 48, 0.0729167);
   background-color: white;
   box-shadow: 5px 10px #888888;
+}
+.input-icon{
+
+  width:100px;
 }
