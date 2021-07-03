@@ -1,0 +1,50 @@
+.book {
+  display: inline-block;
+  img {
+    width: 100px;
+  }
+}
+
+.narrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 250px;
+  width: 150px;
+  line-height: 2em;
+}
+
+.wide {
+  display: grid;
+  height: 200px;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 40% 60%;
+
+  img {
+    grid-column: 1;
+    margin: 0 auto;
+    padding: 25px 0;
+  }
+
+  .title {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 25px;
+  }
+
+  .description {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    margin-right: 100px;
+    grid-row: 2;
+  }
+
+  .rating {
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0 auto;
+    padding-top: 25px;
+  }
+}

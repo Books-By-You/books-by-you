@@ -5,7 +5,8 @@ const authCtrl = require('./controllers/authCtrl')
 const mongoose = require('mongoose')
 const {SERVER_PORT, SESSION_SECRET} = process.env
 
-const app = express()
+const app = express();
+const mongoController = require('./db/mongoController');
 
 app.use(express.json())
 
@@ -45,40 +46,40 @@ app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`))
   // app.delete('/api/book/:id', bookCtrl.deleteBook)
 
 //Bookshelf Endpoints
-  // app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf)
-  // app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf)
-  // app.post('/api/bookshelf', bookshelfCtrl.removeFromBookshelf)
+// app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf)
+// app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf)
+// app.post('/api/bookshelf', bookshelfCtrl.removeFromBookshelf)
 
 //Chapter Endpoints
-  // app.post('/api/chapter', chapterCtrl.addChapter)
-  // app.put('/api/chapter', chapterCtrl.updateChapter)
-  // app.get('/api/chapter/:id', chapterCtrl.getChapter)
-  // app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
+// app.post('/api/chapter', chapterCtrl.addChapter)
+// app.put('/api/chapter', chapterCtrl.updateChapter)
+// app.get('/api/chapter/:id', chapterCtrl.getChapter)
+// app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
 
 //Book Reviews Endpoints
-  // app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
-  // app.post('/api/bookreview', bookReviewCtrl.addBookReview)
-  // app.put ('/api/bookreview', bookReviewCtrl.updateBookReview)
-  // app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
+// app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
+// app.post('/api/bookreview', bookReviewCtrl.addBookReview)
+// app.put ('/api/bookreview', bookReviewCtrl.updateBookReview)
+// app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
 
 //Chapter Reveiws Endpoints
-  // app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)
-  // app.post('/api/chapterreview', chapterReviewCtrl.addChapterReview)
-  // app.put('/api/chapterreview', chapterReviewCtrl.updateChapterReview)
-  // app.delete('/api/chapterreview/:id', chapterReviewCtrl.deleteChapterReview)
+// app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)
+// app.post('/api/chapterreview', chapterReviewCtrl.addChapterReview)
+// app.put('/api/chapterreview', chapterReviewCtrl.updateChapterReview)
+// app.delete('/api/chapterreview/:id', chapterReviewCtrl.deleteChapterReview)
 
 //Book Ratings Endpoints
-  // app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings)
-  // app.post('/api/bookrating', bookRatingsCtrl.addBookRating)
-  // app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating)
-  // app.put('/api/bookrating', bookRatingsCtrl.updateBookRating)
+// app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings)
+// app.post('/api/bookrating', bookRatingsCtrl.addBookRating)
+// app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating)
+// app.put('/api/bookrating', bookRatingsCtrl.updateBookRating)
 
 //Chapter Ratings Endpoints
-  // app.get('/api/chapterrating/:id', chapterRatingsCtrl.getChapterRatings)
-  // app.post('/api/chapterrating', chapterRatingsCtrl.addChapterRating)
-  // app.delete('/api/chapterrating/:id', chapterRatingsCtrl.deleteChapterRating)
-  // app.put('/api/chapterrating', chapterRatingsCtrl.updateChapterRating)
+// app.get('/api/chapterrating/:id', chapterRatingsCtrl.getChapterRatings)
+// app.post('/api/chapterrating', chapterRatingsCtrl.addChapterRating)
+// app.delete('/api/chapterrating/:id', chapterRatingsCtrl.deleteChapterRating)
+// app.put('/api/chapterrating', chapterRatingsCtrl.updateChapterRating)
 
 //Follow Author Endpoints
-  // app.post('/api/followauthor', followAuthorCtrl.followAuthor)
-  // app.post('/api/followauthor', followAuthorCtrl.unfollowAuthor)
+// app.post('/api/followauthor', followAuthorCtrl.followAuthor)
+// app.post('/api/followauthor', followAuthorCtrl.unfollowAuthor)

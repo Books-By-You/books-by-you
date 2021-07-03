@@ -1,24 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import { InitialStateInt, UserObj, ActionType } from "./userReducerInterface";
 
-interface InitialState {
-  loading: boolean;
-  errorMessage: string;
-  username: string;
-  userId: number;
-  profileImage: string;
-  firstName: string;
-  lastName: string;
-}
-type UserObj = {
-  username: string;
-  password: string;
-};
-type Action = {
-  type: string;
-  payload: any;
-};
-
-const initialState: InitialState = {
+const initialState: InitialStateInt = {
   loading: false,
   errorMessage: "",
   username: "kelsey",
@@ -39,10 +22,10 @@ export function login(userObj: UserObj) {
   };
 }
 
-export function register(userObj: UserObj) {
+export function register(newUserObj: UserObj) {
   return {
     type: REGISTER,
-    payload: axios.post("/api/auth/register", userObj),
+    payload: axios.post("/api/auth/register", newUserObj),
   };
 }
 
@@ -53,7 +36,7 @@ export function logout() {
   };
 }
 
-export default function reducer(state = initialState, action: Action) {
+export default function reducer(state = initialState, action: ActionType) {
   switch (action.type) {
     case LOGIN + "_FULFILLED":
       return {
@@ -61,6 +44,8 @@ export default function reducer(state = initialState, action: Action) {
         username: action.payload.data.username,
         userId: action.payload.data.userId,
         profileImage: action.payload.data.profileImage,
+        firstName: action.payload.data.firstName,
+        lastName: action.payload.data.lastName,
         loading: false,
       };
 
@@ -82,6 +67,9 @@ export default function reducer(state = initialState, action: Action) {
         ...state,
         username: action.payload.data.username,
         userId: action.payload.data.userId,
+        profileImage: action.payload.data.profileImage,
+        firstName: action.payload.data.firstName,
+        lastName: action.payload.data.lastName,
         loading: false,
       };
 

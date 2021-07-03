@@ -1,0 +1,200 @@
+
+
+$color-nav-bottom: linear-gradient(
+    270deg,
+    #702e3a 37.29%,
+    rgba(120, 31, 48, 0.0729167) 113.43%,
+    rgba(121, 30, 47, 0) 113.44%
+  ),
+  #21273f;
+
+.searchView {
+  height: 1600px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 100px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 40px;
+  background-color: F0F0F0;
+}
+.heading{
+  font-size:x-large;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 5px;;
+}
+.search_input {
+  height: 40px;
+  width: 262px;
+  position: relative;
+  top: 74px;
+  left: 352px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.gradient-bottom-border2 {
+  height: 10px;
+  width: 906px;
+  background: $color-nav-bottom;
+  position: relative;
+  // top:-20px;
+  right: 183px;
+}
+.searchicon {
+  height: 27px;
+  width: 20px;
+  position: relative;
+  left: 0px;
+}
+.searchbutton {
+  height: 46px;
+  width: 55px;
+  position: relative;
+  left: 299px;
+  top: 120px;
+  border-radius: 5px 0px 0px 5px;
+  background-color: #EDCF63;
+}
+.search_field {
+  position: relative;
+  width: 700px;
+  top: -119px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.filter_button {
+  background-color: #EDCF63 ;
+  height: 44px;
+  width: 300px;
+  position: relative;
+  left: 639px;
+  top: 96px;
+  // box-shadow: 5px 10px #b6b4b4;
+  box-shadow:0px 4px 0px #D1B757;
+  border-radius: 5px;
+  color:white;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: large;
+}
+.search_wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  position: relative;
+  top: -223px;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 140px;
+  left: 640px;
+  background-color: #f9f9f9;
+  min-width: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+.search {
+  // height:60%;
+  // width:100%;
+  position: relative;
+  top: -40px;
+  width: 1000px;
+  height: 100px;
+  padding: 50px;
+  position: relative;
+  left: 169px;
+  // border: 3px solid rgb(12, 12, 12);
+  //background-color:rgb(236, 178, 178);
+}
+
+.book-carousel-1 {
+  display: flex;
+
+  width: 1100px;
+}
+
+.carousel-book-card {
+  margin: 15px;
+  
+}
+
+.carousel-container {
+  height: 600px;
+  width: 1080px;
+}
+
+.carousel {
+  width: 900px;
+  height: 200px;
+  padding-top: 0px;
+ // border: 2px solid rgb(12, 12, 12);
+  position: relative;
+  top: -60px;
+}
+.pexels-cover {
+  height: 250px;
+  display: flex;
+}
+.search-result-container {
+  width: 1200px;
+  height: 500px;
+}
+.gradient-line {
+  display: flex;
+  flex-direction: row;
+}
+.search-result {
+  border: 5px solid rgba(120, 31, 48, 0.0729167);
+  background-color: white;
+  box-shadow: 5px 10px #888888;
+}
+.input-icon{
+
+  width:100px;
+}
