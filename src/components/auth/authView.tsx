@@ -57,8 +57,8 @@ const AuthView: React.FC<Props> = (props) => {
       descHiddenLogin: "desc-style",
     });
   }
-  if (props.username) {
-    return <Redirect to={`/profile/${props.userId}`} />;
+  if (props.userReducer.username) {
+    return <Redirect to={`/profile/:${props.userReducer.userId}`} />;
   }
   let passColorSwitch = props.errorMessage ? "inp-red" : "inp-blck",
     passwordCheckerColor = error ? "inp-red" : "inp-blck";
@@ -97,7 +97,9 @@ const AuthView: React.FC<Props> = (props) => {
             Login
           </button>
         </section>
-        <h2 className={`${styles.inpHiddenLogin}`}>{props.errorMessage}</h2>
+        <h2 className={`${styles.inpHiddenLogin}`}>
+          {props.userReducer.errorMessage}
+        </h2>
         <h1 className={`newPassword${styles.inpHiddenLogin}`}>
           Forgot your password?
         </h1>

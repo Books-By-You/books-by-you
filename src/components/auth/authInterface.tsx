@@ -9,4 +9,5 @@ export interface Props {
   login: any;
   register: any;
   match: any;
+  userReducer: any;
 }
