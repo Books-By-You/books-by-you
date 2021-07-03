@@ -62,7 +62,8 @@ module.exports = {
   },
   login: async (req, res) => {
     const { username, password } = req.body
-
+    console.log('hit login function')
+    console.log(req.body)
     const user = {}
 
     let loginSuccessful = await User.findOne({username: username})
