@@ -32,6 +32,4 @@ const BookCard: React.FC<Book> = (props) => {
   );
 };
 
-// BookCard.defaultProps = defaultProps;
-
 export default BookCard;
