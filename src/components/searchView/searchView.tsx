@@ -18,6 +18,7 @@ const SearchView: React.FC = () => {
         title={slide.title}
         image_url={slide.image}
         rating={slide.rating}
+        bookId={slide.bookId}
         description={slide.description}
       />
     );

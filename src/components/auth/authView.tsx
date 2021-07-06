@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login, register } from "../../redux/reducers/userReducer";
 import { Props } from "./authInterface";
+import { Redirect } from "react-router-dom";
 import "./authView.scss";
 
 const AuthView: React.FC<Props> = (props) => {
@@ -28,7 +29,6 @@ const AuthView: React.FC<Props> = (props) => {
       props.register({
         email: email,
         password: password,
-        confirmPassword: confirmPassword,
         username: username,
         name1: name1,
         name2: name2,
@@ -56,6 +56,9 @@ const AuthView: React.FC<Props> = (props) => {
       inpHiddenLogin: " hidden",
       descHiddenLogin: "desc-style",
     });
+  }
+  if (props.userReducer.username) {
+    return <Redirect to={`/profile/:${props.userReducer.userId}`} />;
   }
   let passColorSwitch = props.errorMessage ? "inp-red" : "inp-blck",
     passwordCheckerColor = error ? "inp-red" : "inp-blck";
@@ -87,12 +90,16 @@ const AuthView: React.FC<Props> = (props) => {
         <section>
           <button
             className={`login-button ${styles.inpHiddenLogin}`}
-            onClick={() => props.login({ username: username, password: password })}
+            onClick={() =>
+              props.login({ username: username, password: password })
+            }
           >
             Login
           </button>
         </section>
-        <h2 className={`${styles.inpHiddenLogin}`}>{props.errorMessage}</h2>
+        <h2 className={`${styles.inpHiddenLogin}`}>
+          {props.userReducer.errorMessage}
+        </h2>
         <h1 className={`newPassword${styles.inpHiddenLogin}`}>
           Forgot your password?
         </h1>
