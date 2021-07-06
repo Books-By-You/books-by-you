@@ -1,5 +1,3 @@
-
-
 $color-nav-bottom: linear-gradient(
     270deg,
     #702e3a 37.29%,
@@ -20,14 +18,14 @@ $color-nav-bottom: linear-gradient(
   left: 40px;
   background-color: F0F0F0;
 }
-.heading{
-  font-size:x-large;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.heading {
+  font-size: x-large;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: bolder;
   display: flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 5px;;
+  letter-spacing: 5px;
 }
 .search_input {
   height: 40px;
@@ -59,7 +57,7 @@ $color-nav-bottom: linear-gradient(
   left: 299px;
   top: 120px;
   border-radius: 5px 0px 0px 5px;
-  background-color: #EDCF63;
+  background-color: #edcf63;
 }
 .search_field {
   position: relative;
@@ -72,16 +70,16 @@ $color-nav-bottom: linear-gradient(
   align-items: center;
 }
 .filter_button {
-  background-color: #EDCF63 ;
+  background-color: #edcf63;
   height: 44px;
   width: 300px;
   position: relative;
   left: 639px;
   top: 96px;
   // box-shadow: 5px 10px #b6b4b4;
-  box-shadow:0px 4px 0px #D1B757;
+  box-shadow: 0px 4px 0px #d1b757;
   border-radius: 5px;
-  color:white;
+  color: white;
   letter-spacing: 1px;
   font-weight: bold;
   font-size: large;
@@ -161,7 +159,6 @@ $color-nav-bottom: linear-gradient(
 
 .carousel-book-card {
   margin: 15px;
-  
 }
 
 .carousel-container {
@@ -171,14 +168,13 @@ $color-nav-bottom: linear-gradient(
 
 .carousel {
   width: 900px;
-  height: 200px;
   padding-top: 0px;
- // border: 2px solid rgb(12, 12, 12);
+  // border: 2px solid rgb(12, 12, 12);
   position: relative;
   top: -60px;
 }
 .pexels-cover {
-  height: 250px;
+  max-height: 270px;
   display: flex;
 }
 .search-result-container {
@@ -194,7 +190,6 @@ $color-nav-bottom: linear-gradient(
   background-color: white;
   box-shadow: 5px 10px #888888;
 }
-.input-icon{
-
-  width:100px;
+.input-icon {
+  width: 100px;
 }
