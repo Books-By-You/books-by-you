@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home  from "./components/homeView"
 import Auth from "./components/auth/authView"
-import Reading from "./components/readingView"
+import Reading from "./components/Reading View/readingView"
 import Book from "./components/bookView"
 import Profile from "./components/ProfileView/ProfileView"
 import Search from "./components/searchView/searchView"

@@ -1,0 +1,64 @@
+.book-title{
+    position:relative;
+    top:0px;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.chapter-carousel{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:600px;
+    width:1000px;
+    position:relative;
+    top:130px;
+    left:-40px;
+}
+.body-cover{
+    // background-image: url("https://images.pexels.com/photos/3166839/pexels-photo-3166839.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    background-image: url("https://images.pexels.com/photos/1122639/pexels-photo-1122639.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+
+    background-color: #cccccc;
+    height: 700px;
+    width:1300px;
+    display:flex;
+    justify-content: center;
+    position:relative;
+    left:80px;
+    top:30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    box-shadow:3px 3px 5px 6px #ccc;
+    z-index: 0;
+}
+
+.carousel{
+    // height:600px;
+}
+
+.chapter{
+     height:600px;
+}
+
+.page-slider{
+    height:620px;
+}
+.chapter-text{
+    position:relative;
+    top:20px;
+    color:white;
+    letter-spacing: 2px;
+    font-size: large;
+    // padding-left: 30px;
+    padding-right:40px;
+    
+}
+.chapter-heading{
+    position:relative;
+    left:500px;
+    color:white;
+
+}
