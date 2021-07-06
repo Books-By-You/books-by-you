@@ -8,4 +8,6 @@ export interface Props {
   lastName: string;
   login: any;
   register: any;
+  match: any;
+  userReducer: any;
 }
