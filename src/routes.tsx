@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/homeView";
+import Home from "./components/HomeView/homeView";
 import Auth from "./components/auth/authView";
 import Reading from "./components/ReadingView/readingView";
 import Book from "./components/BookView/bookView";
