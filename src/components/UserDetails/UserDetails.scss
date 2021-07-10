@@ -1,3 +1,5 @@
+$top-margin: 20px;
+
 .user-details-container {
   display: flex;
   flex-direction: column;
@@ -10,10 +12,22 @@
     font-size: 150px;
   }
 
+  img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+  }
+
   h3 {
     font-size: 32px;
   }
 
   button {
+    font-size: 24px;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
