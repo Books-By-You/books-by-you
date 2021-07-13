@@ -79,21 +79,48 @@ module.exports = {
     const { id } = req.params;
     const { title, authorID, description, coverImage } = req.body;
 
-    const updatedBook = await Book.updateOne(
-      { _id: id },
-      {
-        title: title,
-        authorID: authorID,
-        description: description,
-        coverImage: coverImage,
-        isPublished: false,
+    let foundBook = await Book.findOne({ _id: id })
+      .then((book) => {
+        if (book) {
+          return book;
+        } else {
+          return null;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+
+
+      if(foundBook){
+        let bookToUpdate = {
+          title: foundBook.title,
+          authorID: foundBook.authorID,
+          coverImage: foundBook.coverImage,
+          description: foundBook.description
+        }
+
+        const updatedBook = await Book.updateOne(
+          { _id: id },
+          {
+            title: title || bookToUpdate.title,
+            authorID: authorID || bookToUpdate.authorID,
+            description: description || bookToUpdate.description,
+            coverImage: coverImage || bookToUpdate.coverImage,
+            isPublished: false,
+          }
+        );
+        
+        if (updatedBook) {
+          res.sendStatus(200);
+        } else {
+          res.status(400).send("Book not updated");
+        }
       }
-    );
-    if (updatedBook) {
-      res.sendStatus(200);
-    } else {
-      res.status(400).send("Book not updated");
-    }
+      
+
+    
   },
 
   getAllBooks: async (req, res) => {

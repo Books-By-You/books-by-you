@@ -90,53 +90,43 @@ module.exports = {
             }
         });
     }),
-    // updateBook: async (req, res) => {
-    //   const { id } = req.params;
-    //   const { title, authorID, description, coverImage } = req.body;
-    //   const updateBook = await Book.updateOne({
-    //     title: title,
-    //     authorID: authorID,
-    //     description: description,
-    //     coverImage: coverImage,
-    //     isPublished: false,
-    //   });
-    //   let updatedBook = await Book.save();
-    //   if (updateBook) {
-    //     res.status(201).send(updatedBook);
-    //     return;
-    //   }
-    //   res.status(400).send("unable to save book");
-    // },
     updateBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         const { title, authorID, description, coverImage } = req.body;
-        // let foundBook = await Book.findOne({ _id: id })
-        //   .then((book) => {
-        //     if (book) {
-        //       return book;
-        //     } else {
-        //       return null;
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //     return null;
-        //   });
-        // if (foundBook) {
-        const updatedBook = yield Book.updateOne({ _id: id }, {
-            title: title,
-            authorID: authorID,
-            description: description,
-            coverImage: coverImage,
-            isPublished: false,
+        let foundBook = yield Book.findOne({ _id: id })
+            .then((book) => {
+            if (book) {
+                return book;
+            }
+            else {
+                return null;
+            }
+        })
+            .catch((err) => {
+            console.log(err);
+            return null;
         });
-        if (updatedBook) {
-            res.sendStatus(200);
+        if (foundBook) {
+            let bookToUpdate = {
+                title: foundBook.title,
+                authorID: foundBook.authorID,
+                coverImage: foundBook.coverImage,
+                description: foundBook.description
+            };
+            const updatedBook = yield Book.updateOne({ _id: id }, {
+                title: title || bookToUpdate.title,
+                authorID: authorID || bookToUpdate.authorID,
+                description: description || bookToUpdate.description,
+                coverImage: coverImage || bookToUpdate.coverImage,
+                isPublished: false,
+            });
+            if (updatedBook) {
+                res.sendStatus(200);
+            }
+            else {
+                res.status(400).send("Book not updated");
+            }
         }
-        else {
-            res.status(400).send("Book not updated");
-        }
-        //}
     }),
     getAllBooks: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let getBooks = yield Book.find();
