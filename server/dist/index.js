@@ -8,6 +8,7 @@ require("dotenv").config({ path: "../.env" });
 const session = require("express-session");
 const authCtrl = require("./controllers/authCtrl");
 const bookshelfCtrl = require("./controllers/bookshelfCtrl");
+const bookCtrl = require("./controllers/bookCtrl");
 const mongoose = require("mongoose");
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
@@ -32,12 +33,12 @@ app.post("/api/auth/login", authCtrl.login);
 app.delete("/api/auth/logout", authCtrl.logout);
 app.post("/api/auth/delete", authCtrl.delete);
 //Book Endpoints
-// app.post('/api/book', bookCtrl.createBook)
-// app.put ('/api/book/:id', bookCtrl.updateBook)
-// app.get('/api/books', bookCtrl.getAllBooks)
-// app.get('/api/book/:id', bookCtrl.getBook)
-// app.get('/api/chaptercount/:id', bookCtrl.getChapterCount)
-// app.delete('/api/book/:id', bookCtrl.deleteBook)
+app.post('/api/book', bookCtrl.createBook);
+app.put('/api/book/:id', bookCtrl.updateBook);
+app.get('/api/books', bookCtrl.getAllBooks);
+app.get('/api/book/:id', bookCtrl.getBook);
+app.get('/api/chaptercount/:id', bookCtrl.getChapterCount);
+app.delete('/api/book/:id', bookCtrl.deleteBook);
 //Bookshelf Endpoints
 app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf);
 app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf);
