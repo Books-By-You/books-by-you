@@ -82,13 +82,9 @@ module.exports = {
         });
         if (foundUser) {
             let foundIndex = -1;
-            console.log(foundUser);
-            console.log(typeof (foundUser.books[0]));
-            console.log(typeof (id));
             for (let i = 0; i < foundUser.books.length; i++) {
                 if (foundUser.books[i].toString() === id) {
                     foundIndex = i;
-                    console.log(foundIndex);
                 }
             }
             if (foundIndex >= 0) {
