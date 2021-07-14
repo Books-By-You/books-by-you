@@ -9,9 +9,13 @@ const booksSchema = bookMongoose.Schema({
     tags: {type: [String], default: []}, 
     chapters:  {type: [{
       _id: bookMongoose.Schema.Types.ObjectId,
+      title: String,
       content: String,
       number: Number,
     }],  default: []},
+    aggregateRating: Number,
+    ratingCount: {type: Number, default: 0},
+    ratingAggregate: {type: Number, default: 0},
     isPublished: Boolean
   },
   {
