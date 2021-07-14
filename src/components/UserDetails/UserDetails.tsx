@@ -5,33 +5,28 @@ import { connect } from 'react-redux';
 import './UserDetails.scss';
 
 interface User {
-  id: string;
-  name: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
   email: string;
-  avatar: string;
+  profileImage: string;
 }
 
-const UserDetails: React.FC<{ user: User }> = ({
-  user = {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@test.com',
-    avatar: 'https://avatars3.githubusercontent.com/u/1234?v=3&s=200',
-  },
-}) => {
+const UserDetails: React.FC<{ user: User }> = ({ user }) => {
   const location = useLocation();
 
   console.log(user);
 
   return (
     <div className='user-details-container'>
-      {user.avatar ? (
-        <img src={user.avatar} alt={`pic of ${user.name}`} />
+      {user.profileImage ? (
+        <img src={user.profileImage} alt={`pic of ${user.firstName}`} />
       ) : (
         <FaUserCircle />
       )}
-      <h3>{user.name}</h3>
-      {user.id !== location.pathname.split('/')[2] && (
+      <h3>{user.firstName}</h3>
+      {user.userId !== location.pathname.split('/')[2] && (
         <button>Subscribe</button>
       )}
     </div>
@@ -40,7 +35,7 @@ const UserDetails: React.FC<{ user: User }> = ({
 
 const mapStateToProps = (reduxState: any) => {
   return {
-    user: reduxState.userReducer.user,
+    user: reduxState.userReducer,
   };
 };
 
