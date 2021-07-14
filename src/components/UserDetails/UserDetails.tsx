@@ -1,17 +1,27 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
+import { connect } from 'react-redux';
 import './UserDetails.scss';
 
-const UserDetails: React.FC = () => {
-  const location = useLocation();
-  // dummy data until we get real data
-  const user = {
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+const UserDetails: React.FC<{ user: User }> = ({
+  user = {
     id: '1',
     name: 'John Doe',
     email: 'john@test.com',
     avatar: 'https://avatars3.githubusercontent.com/u/1234?v=3&s=200',
-  };
+  },
+}) => {
+  const location = useLocation();
+
+  console.log(user);
 
   return (
     <div className='user-details-container'>
@@ -28,4 +38,10 @@ const UserDetails: React.FC = () => {
   );
 };
 
-export default UserDetails;
+const mapStateToProps = (reduxState: any) => {
+  return {
+    user: reduxState.userReducer.user,
+  };
+};
+
+export default connect(mapStateToProps)(UserDetails);
