@@ -1,9 +1,21 @@
 import React from 'react';
 import BookCard from '../BookCard/BookCard';
 import { SliderData } from '../searchView/SliderData';
+import { connect } from 'react-redux';
 import './ProfileData.scss';
 
-const ProfileData: React.FC = () => {
+interface Book {
+  bookId: string;
+  title: string;
+  authorId: string;
+  description: string;
+  coverImage: string;
+  tags: string[];
+  chapters: string[];
+  isPublished: boolean;
+}
+
+const ProfileData: React.FC<{ books: Book }> = ({ books }) => {
   const bookList = SliderData.map((book) => (
     <BookCard
       title={book.title}
@@ -25,4 +37,10 @@ const ProfileData: React.FC = () => {
   );
 };
 
-export default ProfileData;
+const mapStateToProps = (reduxState: any) => {
+  return {
+    books: reduxState.booksReducer,
+  };
+};
+
+export default connect(mapStateToProps)(ProfileData);
