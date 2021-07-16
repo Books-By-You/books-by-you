@@ -47,10 +47,19 @@ module.exports = {
         }
         foundBook.ratingCount = 1;
         foundBook.ratingAggregate = rating;
-        yield foundBook.save();
-        return res
-            .status(200)
-            .send(`Rating of ${rating} for ${foundBook.title} has been added.`);
+        yield foundBook
+            .save()
+            .then((savedDoc) => {
+            if (savedDoc === foundBook) {
+                return res
+                    .status(200)
+                    .send(`Rating of ${rating} for ${foundBook.title} has been added.`);
+            }
+        })
+            .catch((error) => {
+            console.log(error);
+            return res.status(400).send('Failed to complete changes.');
+        });
     }),
 };
 //# sourceMappingURL=bookRatingsController.js.map
