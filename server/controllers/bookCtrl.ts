@@ -98,7 +98,9 @@ module.exports = {
           title: foundBook.title,
           authorID: foundBook.authorID,
           coverImage: foundBook.coverImage,
-          description: foundBook.description
+          description: foundBook.description,
+          ratingAggregate: foundBook.ratingAggregate,
+          ratingCount: foundBook.ratingCount
         }
 
         const updatedBook = await Book.updateOne(
@@ -108,6 +110,8 @@ module.exports = {
             authorID: authorID || bookToUpdate.authorID,
             description: description || bookToUpdate.description,
             coverImage: coverImage || bookToUpdate.coverImage,
+            ratingAggregate: bookToUpdate.ratingAggregate,
+            ratingCount: bookToUpdate.ratingCount,
             isPublished: false,
           }
         );

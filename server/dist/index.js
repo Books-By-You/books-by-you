@@ -9,6 +9,8 @@ const session = require("express-session");
 const authCtrl = require("./controllers/authCtrl");
 const bookshelfCtrl = require("./controllers/bookshelfCtrl");
 const bookCtrl = require("./controllers/bookCtrl");
+const userCtrl = require("./controllers/userCtrl");
+const bookRatingsCtrl = require("./controllers/bookRatingsController");
 const mongoose = require("mongoose");
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
@@ -32,6 +34,8 @@ app.post("/api/auth/register", authCtrl.register);
 app.post("/api/auth/login", authCtrl.login);
 app.delete("/api/auth/logout", authCtrl.logout);
 app.post("/api/auth/delete", authCtrl.delete);
+//User Endpoints
+app.get('/api/users/:id', userCtrl.getUser);
 //Book Endpoints
 app.post('/api/book', bookCtrl.createBook);
 app.put('/api/book/:id', bookCtrl.updateBook);
@@ -59,7 +63,7 @@ app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 // app.put('/api/chapterreview', chapterReviewCtrl.updateChapterReview)
 // app.delete('/api/chapterreview/:id', chapterReviewCtrl.deleteChapterReview)
 //Book Ratings Endpoints
-// app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings)
+app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings);
 // app.post('/api/bookrating', bookRatingsCtrl.addBookRating)
 // app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating)
 // app.put('/api/bookrating', bookRatingsCtrl.updateBookRating)

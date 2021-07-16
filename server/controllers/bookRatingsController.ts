@@ -1,15 +1,23 @@
 import mongoose from 'mongoose'
 
-const BookRatings = require('../db/models/bookRatingsSchema')
+const Book = require('../db/models/booksSchema')
 
 module.exports = {
-  getRatings: async (req, res) => {
+  getBookRatings: async (req, res) => {
     const { id } = req.params
+    console.log('hit getBookRatings')
 
-    let bookRatings = await BookRatings.findOne({ _id: id}).then(res =>{
-      console.log(res)
-
+    
+    let bookRatings = await Book.findOne({ _id: id}).then(res =>{
+      console.log(`res: ${res}`)
+      
     })
+
+    if(bookRatings){
+      console.log(bookRatings)
+      
+    }
+    
     
   },
   addBookRating: async (req, res) => {

@@ -9,13 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BookRatings = require('../db/models/bookRatingsSchema');
+const Book = require('../db/models/booksSchema');
 module.exports = {
-    getRatings: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    getBookRatings: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        let bookRatings = yield BookRatings.findOne({ _id: id }).then(res => {
-            console.log(res);
+        console.log('hit getBookRatings');
+        let bookRatings = yield Book.findOne({ _id: id }).then(res => {
+            console.log(`res: ${res}`);
         });
+        if (bookRatings) {
+            console.log(bookRatings);
+        }
+        else {
+            console.log('nothing here to see');
+        }
     }),
     addBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const {} = req.body;

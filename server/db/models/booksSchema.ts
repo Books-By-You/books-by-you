@@ -13,7 +13,6 @@ const booksSchema = bookMongoose.Schema({
       content: String,
       number: Number,
     }],  default: []},
-    aggregateRating: Number,
     ratingCount: {type: Number, default: 0},
     ratingAggregate: {type: Number, default: 0},
     isPublished: Boolean
