@@ -13,19 +13,32 @@ const Book = require('../db/models/booksSchema');
 module.exports = {
     getBookRatings: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        console.log('hit getBookRatings');
-        let bookRatings = yield Book.findOne({ _id: id }).then(res => {
-            console.log(`res: ${res}`);
+        const bookRatings = yield Book.findOne({ _id: id })
+            .then((response) => {
+            const { ratingCount, ratingAggregate } = response;
+            const average = ratingAggregate / ratingCount;
+            return average;
+        })
+            .catch((error) => {
+            console.log(error);
+            return res.sendStatus(404);
         });
         if (bookRatings) {
-            console.log(bookRatings);
+            return res.status(200).send({ rating: bookRatings });
         }
-        else {
-            console.log('nothing here to see');
-        }
+        return res.status(400).send('No rating found');
     }),
     addBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const {} = req.body;
-    })
+        const { id } = req.params;
+        const { rating } = req.body;
+        const foundBook = yield Book.findOne({ _id: id }).then((response) => {
+            return response;
+        });
+        if (foundBook) {
+            const { ratingCount } = foundBook;
+            console.log(`Count: ${ratingCount}`);
+        }
+        console.log('Working');
+    }),
 };
 //# sourceMappingURL=bookRatingsController.js.map

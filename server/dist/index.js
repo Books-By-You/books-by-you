@@ -1,11 +1,9 @@
-'use strict';
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, '__esModule', { value: true });
-const express_1 = __importDefault(require('express'));
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
 require('dotenv').config({ path: '../.env' });
 const session = require('express-session');
 const authCtrl = require('./controllers/authCtrl');
@@ -13,19 +11,18 @@ const bookshelfCtrl = require('./controllers/bookshelfCtrl');
 const bookCtrl = require('./controllers/bookCtrl');
 const userCtrl = require('./controllers/userCtrl');
 const mongoose = require('mongoose');
+const bookRatingsCtrl = require('./controllers/bookRatingsController');
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
 const mongoController = require('./db/mongoController');
 app.use(express_1.default.json());
-app.use(
-  session({
+app.use(session({
     resave: false,
     saveUninitialized: true,
     rejectUnauthorized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 365 },
     secret: SESSION_SECRET,
-  })
-);
+}));
 const user = process.env.MONGO_USER;
 const userPassword = process.env.MONGO_PASSWORD;
 const cluster = 'books-by-you.stwxg';
@@ -67,9 +64,9 @@ app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 // app.delete('/api/chapterreview/:id', chapterReviewCtrl.deleteChapterReview)
 //Book Ratings Endpoints
 app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings);
-// app.post('/api/bookrating', bookRatingsCtrl.addBookRating)
+app.post('/api/bookrating/:id', bookRatingsCtrl.addBookRating);
 // app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating)
-// app.put('/api/bookrating', bookRatingsCtrl.updateBookRating)
+// app.put('/api/bookrating/:id', bookRatingsCtrl.updateBookRating)
 //Chapter Ratings Endpoints
 // app.get('/api/chapterrating/:id', chapterRatingsCtrl.getChapterRatings)
 // app.post('/api/chapterrating', chapterRatingsCtrl.addChapterRating)

@@ -1,22 +1,39 @@
-import { Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { Request, Response } from 'express';
 
 const Book = require('../db/models/booksSchema');
 
 module.exports = {
   getBookRatings: async (req: Request, res: Response) => {
     const { id } = req.params;
-    console.log('hit getBookRatings');
 
-    let bookRatings = await Book.findOne({ _id: id }).then((res) => {
-      console.log(`res: ${res}`);
-    });
+    const bookRatings = await Book.findOne({ _id: id })
+      .then((response) => {
+        const { ratingCount, ratingAggregate } = response;
+        const average = ratingAggregate / ratingCount;
+        return average;
+      })
+      .catch((error) => {
+        console.log(error);
+        return res.sendStatus(404);
+      });
 
     if (bookRatings) {
-      console.log(bookRatings);
+      return res.status(200).send({ rating: bookRatings });
     }
+    return res.status(400).send('No rating found');
   },
-  addBookRating: async (req, res) => {
-    const {} = req.body;
+  addBookRating: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { rating } = req.body;
+
+    const foundBook = await Book.findOne({ _id: id }).then((response) => {
+      return response;
+    });
+    if (foundBook) {
+      const { ratingCount } = foundBook;
+      console.log(`Count: ${ratingCount}`);
+    }
+    console.log('Working');
   },
 };
