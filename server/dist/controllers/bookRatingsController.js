@@ -31,14 +31,26 @@ module.exports = {
     addBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         const { rating } = req.body;
-        const foundBook = yield Book.findOne({ _id: id }).then((response) => {
+        const foundBook = yield Book.findOne({ _id: id })
+            .then((response) => {
             return response;
+        })
+            .catch((error) => {
+            console.log(error);
+            return res.sendStatus(404);
         });
-        if (foundBook) {
-            const { ratingCount } = foundBook;
-            console.log(`Count: ${ratingCount}`);
+        if (!foundBook) {
+            return res.sendStatus(404);
         }
-        console.log('Working');
+        if (foundBook.ratingCount || foundBook.ratingAggregate) {
+            return res.status(400).send('Rating already exists');
+        }
+        foundBook.ratingCount = 1;
+        foundBook.ratingAggregate = rating;
+        yield foundBook.save();
+        return res
+            .status(200)
+            .send(`Rating of ${rating} for ${foundBook.title} has been added.`);
     }),
 };
 //# sourceMappingURL=bookRatingsController.js.map
