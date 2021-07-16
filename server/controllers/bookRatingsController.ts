@@ -65,6 +65,6 @@ module.exports = {
     // Need to store individual user rating in order to update rating
   },
   deleteBookRating: async (req: Request, res: Response) => {
-    // Need to store individual user rating in order to update rating
+    // Need to store individual user rating in order to delete rating
   },
 };
