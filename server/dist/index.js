@@ -1,39 +1,42 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-require("dotenv").config({ path: "../.env" });
-const session = require("express-session");
-const authCtrl = require("./controllers/authCtrl");
-const bookshelfCtrl = require("./controllers/bookshelfCtrl");
-const bookCtrl = require("./controllers/bookCtrl");
-const userCtrl = require("./controllers/userCtrl");
-const bookRatingsCtrl = require("./controllers/bookRatingsController");
-const mongoose = require("mongoose");
+'use strict';
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, '__esModule', { value: true });
+const express_1 = __importDefault(require('express'));
+require('dotenv').config({ path: '../.env' });
+const session = require('express-session');
+const authCtrl = require('./controllers/authCtrl');
+const bookshelfCtrl = require('./controllers/bookshelfCtrl');
+const bookCtrl = require('./controllers/bookCtrl');
+const userCtrl = require('./controllers/userCtrl');
+const mongoose = require('mongoose');
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
-const mongoController = require("./db/mongoController");
+const mongoController = require('./db/mongoController');
 app.use(express_1.default.json());
-app.use(session({
+app.use(
+  session({
     resave: false,
     saveUninitialized: true,
     rejectUnauthorized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 365 },
     secret: SESSION_SECRET,
-}));
+  })
+);
 const user = process.env.MONGO_USER;
 const userPassword = process.env.MONGO_PASSWORD;
-const cluster = "books-by-you.stwxg";
+const cluster = 'books-by-you.stwxg';
 const url = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/Books-By-You?retryWrites=true&w=majority`;
 mongoose.connect(url);
 app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`));
 //Auth Endpoints - maybe temporary pending passport w/Oauth implementation
-app.post("/api/auth/register", authCtrl.register);
-app.post("/api/auth/login", authCtrl.login);
-app.delete("/api/auth/logout", authCtrl.logout);
-app.post("/api/auth/delete", authCtrl.delete);
+app.post('/api/auth/register', authCtrl.register);
+app.post('/api/auth/login', authCtrl.login);
+app.delete('/api/auth/logout', authCtrl.logout);
+app.post('/api/auth/delete', authCtrl.delete);
 //User Endpoints
 app.get('/api/users/:id', userCtrl.getUser);
 //Book Endpoints
