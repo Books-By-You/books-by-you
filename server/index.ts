@@ -4,6 +4,7 @@ const session = require("express-session");
 const authCtrl = require("./controllers/authCtrl");
 const bookshelfCtrl = require("./controllers/bookshelfCtrl");
 const bookCtrl = require("./controllers/bookCtrl")
+const userCtrl = require("./controllers/userCtrl")
 const mongoose = require("mongoose");
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 
@@ -37,6 +38,9 @@ app.post("/api/auth/register", authCtrl.register);
 app.post("/api/auth/login", authCtrl.login);
 app.delete("/api/auth/logout", authCtrl.logout);
 app.post("/api/auth/delete", authCtrl.delete);
+
+//User Endpoints
+app.get('/api/users/:id', userCtrl.getUser)
 
 //Book Endpoints
 app.post('/api/book', bookCtrl.createBook)
