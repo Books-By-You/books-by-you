@@ -68,23 +68,37 @@ module.exports = {
       });
 
       if(foundBook){
-        let foundChapter = foundBook.chapters.findIndex((chapter) => {
-          chapter.id === chapter_id
-          return;
+        let chapterIndex = foundBook.chapters.findIndex((chapter) => {
+          console.log(chapter._id)
+          console.log(chapter_id)
+          return chapter._id == chapter_id
+          
         })
+
+        console.log(chapterIndex)
+
         let chapterToUpdate = {
-          title: foundBook.chapters[foundChapter].title,
-          number: foundBook.chapters[foundChapter].number,
-          description: foundBook.chapters[foundChapter].description
+          _id: foundBook.chapters[chapterIndex]._id,
+          title: title || foundBook.chapters[chapterIndex].title,
+          number: number || foundBook.chapters[chapterIndex].number,
+          content: content || foundBook.chapters[chapterIndex].content
         }
+
+        foundBook.chapters.splice(chapterIndex, 1, chapterToUpdate)
+
+        
+        console.log(foundBook.chapters)
+
 
         const updatedChapter = await Book.updateOne(
           { _id: id },
           {
-            title: title || foundBook.chapter.title,
-            content: content || foundBook.chapter.content,
-            number: number || foundBook.chapter.number,
-            chapter: chapter[{},{}],
+            title: foundBook.title,
+            authorID: foundBook.authorID,
+            description: foundBook.description,
+            coverImage: foundBook.CoverImage,
+            tags: foundBook.tags,
+            chapters: foundBook.chapters,
             isPublished: false,
           }
         );
@@ -95,6 +109,6 @@ module.exports = {
           res.status(400).send("Chapter not updated");
         }
       }
-  }
+  },
 
 };
