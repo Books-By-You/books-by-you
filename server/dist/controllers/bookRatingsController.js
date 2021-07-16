@@ -43,7 +43,7 @@ module.exports = {
             return res.sendStatus(404);
         }
         if (foundBook.ratingCount || foundBook.ratingAggregate) {
-            return res.status(400).send('Rating already exists');
+            return res.status(409).send('Rating already exists');
         }
         foundBook.ratingCount = 1;
         foundBook.ratingAggregate = rating;
@@ -60,6 +60,12 @@ module.exports = {
             console.log(error);
             return res.status(400).send('Failed to complete changes.');
         });
+    }),
+    updateBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        // Need to store individual user rating in order to update rating
+    }),
+    deleteBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        // Need to store individual user rating in order to update rating
     }),
 };
 //# sourceMappingURL=bookRatingsController.js.map

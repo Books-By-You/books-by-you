@@ -41,7 +41,7 @@ module.exports = {
     }
 
     if (foundBook.ratingCount || foundBook.ratingAggregate) {
-      return res.status(400).send('Rating already exists');
+      return res.status(409).send('Rating already exists');
     }
 
     foundBook.ratingCount = 1;
@@ -60,5 +60,11 @@ module.exports = {
         console.log(error);
         return res.status(400).send('Failed to complete changes.');
       });
+  },
+  updateBookRating: async (req: Request, res: Response) => {
+    // Need to store individual user rating in order to update rating
+  },
+  deleteBookRating: async (req: Request, res: Response) => {
+    // Need to store individual user rating in order to update rating
   },
 };
