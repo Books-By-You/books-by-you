@@ -42,10 +42,59 @@ module.exports = {
       );
       res.sendStatus(200);
       console.log(addedChapter);
-      return;
+      return; 
     }
     else{
       res.status(400).send("Unable to add Chapter")
     }
   },
+  updateChapter: async (req, res) => {
+    const { id } = req.params; 
+    const { content, number, title, chapter_id } = req.body;
+
+    let foundBook = await Book.findOne({ _id: id })
+      .then((book) =>{
+        if(book){
+          return book;
+        }
+          else{
+            return null;
+          }
+        }
+      )
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+
+      if(foundBook){
+        let foundChapter = foundBook.chapters.findIndex((chapter) => {
+          chapter.id === chapter_id
+          return;
+        })
+        let chapterToUpdate = {
+          title: foundBook.chapters[foundChapter].title,
+          number: foundBook.chapters[foundChapter].number,
+          description: foundBook.chapters[foundChapter].description
+        }
+
+        const updatedChapter = await Book.updateOne(
+          { _id: id },
+          {
+            title: title || foundBook.chapter.title,
+            content: content || foundBook.chapter.content,
+            number: number || foundBook.chapter.number,
+            chapter: chapter[{},{}],
+            isPublished: false,
+          }
+        );
+        
+        if (updatedChapter) {
+          res.sendStatus(200);
+        } else {
+          res.status(400).send("Chapter not updated");
+        }
+      }
+  }
+
 };
