@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { connect } from "react-redux";
 import { Props } from "../auth/authInterface";
 import axios, { AxiosResponse } from "axios";
@@ -17,7 +17,7 @@ const BookView: React.FC<Props> = (props) => {
     title: "",
     tags: [],
     rating: 0,
-    authorId: "",
+    authorID: "",
     description: "",
     coverImage: "",
     chapters: [],
@@ -35,20 +35,25 @@ const BookView: React.FC<Props> = (props) => {
         setDisplay(<MappedChapters chapters={res.data.chapters} />);
       })
       .catch((err) => err);
-    axios
-      .get("/api/bookreviews")
-      .then((res) => {
-        setReviews(res.data);
-      })
-      .catch((err) => err);
-    axios.get(`/api/user/book.authorId`).then((res) => {
-      setAuthor(res.data);
-    });
+    // axios
+    //   .get("/api/bookreviews")
+    //   .then((res) => {
+    //     setReviews(res.data);
+    //   })
+    // .catch((err) => err);
   }
 
   useLayoutEffect(() => {
     getBookInfo();
   }, []);
+
+  useEffect(() => {
+    if (book.authorID) {
+      axios.get(`/api/users/${book.authorID}`).then((res) => {
+        setAuthor(res.data.username);
+      });
+    } else console.log("no authorID");
+  }, [book]);
 
   let mappedReviews = reviews.map((e: any, i: any) => (
     <ReviewCard
@@ -80,7 +85,7 @@ const BookView: React.FC<Props> = (props) => {
             ></img>
             <section className="info">
               <p className="font-lg">{`${book.title}`}</p>
-              <p className="font-md">{`${book.authorId}`}</p>
+              <p className="font-md">{`${author}`}</p>
               <p className="font-md">{`${book.tags}`}</p>
               <p className="font-md description">{`${book.description}`}</p>
               <Link to="/login">
