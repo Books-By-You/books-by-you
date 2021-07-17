@@ -2,7 +2,7 @@ export interface InitialStateInt {
   loading: boolean;
   errorMessage: string;
   username: string;
-  userId: number;
+  userId: string;
   profileImage: string;
   firstName: string;
   lastName: string;

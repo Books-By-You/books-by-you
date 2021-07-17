@@ -1,8 +1,19 @@
-import React from 'react';
-import './Button.scss';
+import React from "react";
+import "./Button.scss";
 
-const Button: React.FC = () => {
-  return <div></div>;
+interface Props {
+  styleName: string;
+  label: string;
+  handleClick: () => void;
+}
+
+const Button: React.FC<Props> = ({ styleName, label, handleClick }) => {
+  const className = `button ${styleName}`;
+  return (
+    <button type="button" className={className} onClick={handleClick}>
+      {label}
+    </button>
+  );
 };
 
 export default Button;

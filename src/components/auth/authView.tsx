@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { login, register } from "../../redux/reducers/userReducer";
-import { Props } from "./authInterface";
-import { Redirect } from "react-router-dom";
-import "./authView.scss";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login, register } from '../../redux/reducers/userReducer';
+import { Props } from './authInterface';
+import { Redirect } from 'react-router-dom';
+import './authView.scss';
 
 const AuthView: React.FC<Props> = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [name1, setName1] = useState("");
-  const [name2, setName2] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [name1, setName1] = useState('');
+  const [name2, setName2] = useState('');
+  const [error, setError] = useState('');
   const [styles, setStyles] = useState({
-    signUpStyle: " background-shift",
-    inpHiddenSignUp: " hidden",
-    descHiddenSignUp: "desc-style",
-    loginStyle: "",
-    inpHiddenLogin: "",
-    descHiddenLogin: "hidden",
+    signUpStyle: ' background-shift',
+    inpHiddenSignUp: ' hidden',
+    descHiddenSignUp: 'desc-style',
+    loginStyle: '',
+    inpHiddenLogin: '',
+    descHiddenLogin: 'hidden',
   });
 
   function passwordCheck() {
     if (confirmPassword !== password) {
-      setError("Passwords do not match!");
+      setError('Passwords do not match!');
     } else {
       props.register({
         email: email,
@@ -37,52 +37,52 @@ const AuthView: React.FC<Props> = (props) => {
   }
   function signUpSwapper() {
     setStyles({
-      signUpStyle: " background-shift",
-      inpHiddenSignUp: " hidden",
-      descHiddenSignUp: "desc-style",
-      loginStyle: "",
-      inpHiddenLogin: "",
-      descHiddenLogin: "hidden",
+      signUpStyle: ' background-shift',
+      inpHiddenSignUp: ' hidden',
+      descHiddenSignUp: 'desc-style',
+      loginStyle: '',
+      inpHiddenLogin: '',
+      descHiddenLogin: 'hidden',
     });
-    console.log("hit sign-up swap");
+    console.log('hit sign-up swap');
   }
   function loginSwapper() {
-    console.log("hit login swap");
+    console.log('hit login swap');
     setStyles({
-      signUpStyle: "",
-      inpHiddenSignUp: " ",
-      descHiddenSignUp: "hidden",
-      loginStyle: " background-shift",
-      inpHiddenLogin: " hidden",
-      descHiddenLogin: "desc-style",
+      signUpStyle: '',
+      inpHiddenSignUp: ' ',
+      descHiddenSignUp: 'hidden',
+      loginStyle: ' background-shift',
+      inpHiddenLogin: ' hidden',
+      descHiddenLogin: 'desc-style',
     });
   }
   if (props.userReducer.username) {
-    return <Redirect to={`/profile/:${props.userReducer.userId}`} />;
+    return <Redirect to={`/profile/${props.userReducer.userId}`} />;
   }
-  let passColorSwitch = props.errorMessage ? "inp-red" : "inp-blck",
-    passwordCheckerColor = error ? "inp-red" : "inp-blck";
+  let passColorSwitch = props.errorMessage ? 'inp-red' : 'inp-blck',
+    passwordCheckerColor = error ? 'inp-red' : 'inp-blck';
   return (
-    <div className="auth-container">
+    <div className='auth-container'>
       <section
         onClick={signUpSwapper}
         className={`login-container${styles.loginStyle}`}
       >
-        <h1 id="sign-in">Sign In</h1>
+        <h1 id='sign-in'>Sign In</h1>
         <h1 className={styles.descHiddenLogin}>
           Already have an acount? Login here!
         </h1>
         <input
           className={`inp-blck${styles.inpHiddenLogin}`}
-          placeholder="Username"
+          placeholder='Username'
           onChange={(e) => {
             setUsername(e.target.value);
           }}
         />
         <input
           className={passColorSwitch + styles.inpHiddenLogin}
-          placeholder="Password"
-          type="password"
+          placeholder='Password'
+          type='password'
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -113,42 +113,42 @@ const AuthView: React.FC<Props> = (props) => {
         <h1 className={styles.descHiddenSignUp}>Join our community!</h1>
         <input
           className={`inp-blck${styles.inpHiddenSignUp}`}
-          placeholder="Email"
+          placeholder='Email'
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
         <input
           className={passwordCheckerColor + styles.inpHiddenSignUp}
-          placeholder="Password"
+          placeholder='Password'
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
         <input
           className={passwordCheckerColor + styles.inpHiddenSignUp}
-          placeholder="Confirm Password"
+          placeholder='Confirm Password'
           onChange={(e) => {
             setConfirmPassword(e.target.value);
           }}
         />
         <input
           className={`inp-blck${styles.inpHiddenSignUp}`}
-          placeholder="Username"
+          placeholder='Username'
           onChange={(e) => {
             setUsername(e.target.value);
           }}
         />
         <input
           className={`inp-blck${styles.inpHiddenSignUp}`}
-          placeholder="First Name"
+          placeholder='First Name'
           onChange={(e) => {
             setName1(e.target.value);
           }}
         />
         <input
           className={`inp-blck${styles.inpHiddenSignUp}`}
-          placeholder="Last Name"
+          placeholder='Last Name'
           onChange={(e) => {
             setName2(e.target.value);
           }}
@@ -161,7 +161,7 @@ const AuthView: React.FC<Props> = (props) => {
             Create account
           </button>
         </section>
-        <h1 id="error" className={styles.inpHiddenSignUp}>
+        <h1 id='error' className={styles.inpHiddenSignUp}>
           {error}
         </h1>
       </section>
