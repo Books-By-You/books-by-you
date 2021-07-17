@@ -67,8 +67,6 @@ module.exports = {
 
     if (foundBook) {
       let chapterIndex = foundBook.chapters.findIndex((chapter) => {
-        console.log(chapter._id);
-        console.log(chapter_id);
         return chapter._id == chapter_id;
       });
 
@@ -84,8 +82,6 @@ module.exports = {
       };
 
       foundBook.chapters.splice(chapterIndex, 1, chapterToUpdate);
-
-      console.log(foundBook.chapters);
 
       const updatedChapter = await Book.updateOne(
         { _id: id },
@@ -128,7 +124,7 @@ module.exports = {
       let chapterIndex = foundBook.chapters.findIndex((chapter) => {
         return chapter._id == chapter_id;
       });
-      console.log(chapterIndex);
+
       if (chapterIndex === -1) {
         res.status(400).send("Chapter not found");
       }
@@ -166,8 +162,6 @@ module.exports = {
       if (chapterIndex === -1) {
         res.status(400).send("Chapter not found");
       }
-
-      console.log(chapterIndex);
 
       foundBook.chapters.splice(chapterIndex, 1);
 

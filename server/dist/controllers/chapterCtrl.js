@@ -24,7 +24,6 @@ module.exports = {
             content: content,
             number: number,
         };
-        // let savedChapter = await chapter.save();
         console.log("Hitting add chapter");
         let foundBook = yield Book.findOne({ _id: id })
             .then((book) => {
@@ -77,11 +76,12 @@ module.exports = {
         });
         if (foundBook) {
             let chapterIndex = foundBook.chapters.findIndex((chapter) => {
-                console.log(chapter._id);
-                console.log(chapter_id);
                 return chapter._id == chapter_id;
             });
             console.log(chapterIndex);
+            if (chapterIndex === -1) {
+                res.status(400).send("Chapter not found");
+            }
             let chapterToUpdate = {
                 _id: foundBook.chapters[chapterIndex]._id,
                 title: title || foundBook.chapters[chapterIndex].title,
@@ -89,7 +89,6 @@ module.exports = {
                 content: content || foundBook.chapters[chapterIndex].content,
             };
             foundBook.chapters.splice(chapterIndex, 1, chapterToUpdate);
-            console.log(foundBook.chapters);
             const updatedChapter = yield Book.updateOne({ _id: id }, {
                 title: foundBook.title,
                 authorID: foundBook.authorID,
@@ -105,6 +104,9 @@ module.exports = {
             else {
                 res.status(400).send("Chapter not updated");
             }
+        }
+        else {
+            res.status(400).send("Book not found");
         }
     }),
     getChapter: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -127,7 +129,6 @@ module.exports = {
             let chapterIndex = foundBook.chapters.findIndex((chapter) => {
                 return chapter._id == chapter_id;
             });
-            console.log(chapterIndex);
             if (chapterIndex === -1) {
                 res.status(400).send("Chapter not found");
             }
@@ -166,7 +167,6 @@ module.exports = {
             if (chapterIndex === -1) {
                 res.status(400).send("Chapter not found");
             }
-            console.log(chapterIndex);
             foundBook.chapters.splice(chapterIndex, 1);
             const deletedChapter = yield Book.updateOne({ _id: id }, {
                 title: foundBook.title,
