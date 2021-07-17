@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config({ path: '../.env' });
-const User2 = require('../db/models/userSchema');
+require("dotenv").config({ path: "../.env" });
+const User2 = require("../db/models/userSchema");
 module.exports = {
     addToBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        const { userID } = req.body;
-        let foundUser = yield User2.findOne({ _id: userID })
-            .then(user => {
+        const { userId } = req.body;
+        let foundUser = yield User2.findOne({ _id: userId })
+            .then((user) => {
             if (user) {
                 return user;
             }
@@ -24,7 +24,7 @@ module.exports = {
                 return null;
             }
         })
-            .catch(err => {
+            .catch((err) => {
             console.log(err);
             return null;
         });
@@ -45,7 +45,7 @@ module.exports = {
     getBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         let foundUser = yield User2.findOne({ _id: id })
-            .then(user => {
+            .then((user) => {
             if (user) {
                 return user;
             }
@@ -53,7 +53,7 @@ module.exports = {
                 return null;
             }
         })
-            .catch(err => {
+            .catch((err) => {
             console.log(err);
             return null;
         });
@@ -68,7 +68,7 @@ module.exports = {
         const { id } = req.params;
         const { userID } = req.body;
         let foundUser = yield User2.findOne({ _id: userID })
-            .then(user => {
+            .then((user) => {
             if (user) {
                 return user;
             }
@@ -76,7 +76,7 @@ module.exports = {
                 return null;
             }
         })
-            .catch(err => {
+            .catch((err) => {
             console.log(err);
             return null;
         });
@@ -104,6 +104,6 @@ module.exports = {
         else {
             res.sendStatus(400);
         }
-    })
+    }),
 };
 //# sourceMappingURL=bookshelfCtrl.js.map
