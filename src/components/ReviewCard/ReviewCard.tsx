@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ReviewCard.scss";
 interface Props {
   width: string;
   title: string;
@@ -8,12 +9,14 @@ interface Props {
 }
 const ReviewCard: React.FC<Props> = (props) => {
   return (
-    <div style={{ width: `${props.width}` }}>
-      <img />
-      <section>
-        <b>{props.title}</b>
-        <h1>{`By ${props.author}`}</h1>
-        <small>{props.date}</small>
+    <div className="review-container" style={{ width: `${props.width}` }}>
+      <section className="review-body">
+        <article>
+          <img />
+          <b className="review-item">{props.title}</b>
+          <h1 className="review-item">{`By-${props.author}`}</h1>
+          <small className="review-item">{props.date}</small>
+        </article>
         <p>{props.content}</p>
       </section>
     </div>

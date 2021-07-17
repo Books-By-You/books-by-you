@@ -5,13 +5,22 @@ import axios, { AxiosResponse } from "axios";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import MappedChapters from "./MappedChapters";
 import Button from "../Button/Button";
+import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
 import "./BookView.scss";
 
 const BookView: React.FC<Props> = (props) => {
   const [bookId, setBookId] = useState(props.match.params.id);
   const [isLoading, setLoading] = useState(false);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    {
+      title: "hello test",
+      author: "tes123",
+      content:
+        " scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more rec",
+      date: "12/12",
+    },
+  ]);
   const [book, setBook] = useState({
     _id: "",
     title: "",
@@ -57,7 +66,7 @@ const BookView: React.FC<Props> = (props) => {
 
   let mappedReviews = reviews.map((e: any, i: any) => (
     <ReviewCard
-      width={"100px"}
+      width={"1100px"}
       title={e.title}
       author={e.author}
       content={e.content}
