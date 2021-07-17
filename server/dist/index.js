@@ -10,6 +10,7 @@ const authCtrl = require("./controllers/authCtrl");
 const bookshelfCtrl = require("./controllers/bookshelfCtrl");
 const bookCtrl = require("./controllers/bookCtrl");
 const userCtrl = require("./controllers/userCtrl");
+const chapterCtrl = require("./controllers/chapterCtrl");
 const mongoose = require("mongoose");
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
@@ -47,10 +48,15 @@ app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf);
 app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf);
 app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 //Chapter Endpoints
-// app.post('/api/chapter', chapterCtrl.addChapter)
-// app.put('/api/chapter', chapterCtrl.updateChapter)
+app.post('/api/chapter', chapterCtrl.addChapter);
+app.put('/api/chapter/:id', chapterCtrl.updateChapter);
+<<<<<<< HEAD
+app.post('/api/chapter/:id', chapterCtrl.getChapter);
+app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
+=======
 // app.get('/api/chapter/:id', chapterCtrl.getChapter)
 // app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
+>>>>>>> 85c06e6958510204928999b68c4eaa894033c4a4
 //Book Reviews Endpoints
 // app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
 // app.post('/api/bookreview', bookReviewCtrl.addBookReview)
