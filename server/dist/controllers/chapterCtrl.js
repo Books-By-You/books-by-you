@@ -76,34 +76,19 @@ module.exports = {
         });
         if (foundBook) {
             let chapterIndex = foundBook.chapters.findIndex((chapter) => {
-<<<<<<< HEAD
                 return chapter._id == chapter_id;
             });
             console.log(chapterIndex);
             if (chapterIndex === -1) {
                 res.status(400).send("Chapter not found");
             }
-=======
-                console.log(chapter._id);
-                console.log(chapter_id);
-                return chapter._id == chapter_id;
-            });
-            console.log(chapterIndex);
->>>>>>> 85c06e6958510204928999b68c4eaa894033c4a4
             let chapterToUpdate = {
                 _id: foundBook.chapters[chapterIndex]._id,
                 title: title || foundBook.chapters[chapterIndex].title,
                 number: number || foundBook.chapters[chapterIndex].number,
-<<<<<<< HEAD
                 content: content || foundBook.chapters[chapterIndex].content,
             };
             foundBook.chapters.splice(chapterIndex, 1, chapterToUpdate);
-=======
-                content: content || foundBook.chapters[chapterIndex].content
-            };
-            foundBook.chapters.splice(chapterIndex, 1, chapterToUpdate);
-            console.log(foundBook.chapters);
->>>>>>> 85c06e6958510204928999b68c4eaa894033c4a4
             const updatedChapter = yield Book.updateOne({ _id: id }, {
                 title: foundBook.title,
                 authorID: foundBook.authorID,
@@ -120,7 +105,6 @@ module.exports = {
                 res.status(400).send("Chapter not updated");
             }
         }
-<<<<<<< HEAD
         else {
             res.status(400).send("Book not found");
         }
@@ -204,8 +188,5 @@ module.exports = {
             res.status(400).send("Book not found");
         }
     }),
-=======
-    })
->>>>>>> 85c06e6958510204928999b68c4eaa894033c4a4
 };
 //# sourceMappingURL=chapterCtrl.js.map
