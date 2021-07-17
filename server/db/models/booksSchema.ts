@@ -22,8 +22,7 @@ const booksSchema = bookMongoose.Schema(
     ratings: {
       type: [
         {
-          bookID: String,
-          userID: String,
+          userId: String,
           rating: Number,
         },
       ],

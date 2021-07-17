@@ -5,29 +5,32 @@ const Book = require('../db/models/booksSchema');
 
 module.exports = {
   getBookRatings: async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id: bookId } = req.params;
 
-    const bookRatings = await Book.findOne({ _id: id })
+    const bookRatings = await Book.findOne({ _id: bookId })
       .then((response) => {
-        const { ratingCount, ratingAggregate } = response;
-        const average = ratingAggregate / ratingCount;
-        return average;
+        return response.ratings;
       })
       .catch((error) => {
         console.log(error);
         return res.sendStatus(404);
       });
 
-    if (bookRatings) {
-      return res.status(200).send({ rating: bookRatings });
+    if (bookRatings.length === 0) {
+      return res.status(400).send('No rating found');
     }
-    return res.status(400).send('No rating found');
+
+    const ratingsTotal = bookRatings.reduce((total, bookRating) => {
+      return total + bookRating.rating;
+    }, 0);
+    const averageRating = ratingsTotal / bookRatings.length;
+    return res.status(200).send({ rating: averageRating });
   },
   addBookRating: async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { rating } = req.body;
+    const { id: bookId } = req.params;
+    const { userId, rating } = req.body;
 
-    const foundBook = await Book.findOne({ _id: id })
+    const foundBook = await Book.findOne({ _id: bookId })
       .then((response) => {
         return response;
       })
@@ -36,16 +39,18 @@ module.exports = {
         return res.sendStatus(404);
       });
 
-    if (!foundBook) {
-      return res.sendStatus(404);
-    }
+    const userReview = foundBook.ratings.filter((book) => {
+      return book.userId === userId;
+    });
 
-    if (foundBook.ratingCount || foundBook.ratingAggregate) {
+    if (userReview[0]?.rating) {
       return res.status(409).send('Rating already exists');
     }
 
-    foundBook.ratingCount = 1;
-    foundBook.ratingAggregate = rating;
+    foundBook.ratings.push({
+      userId,
+      rating,
+    });
 
     await foundBook
       .save()
