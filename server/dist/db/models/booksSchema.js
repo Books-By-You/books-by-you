@@ -8,6 +8,7 @@ const booksSchema = bookMongoose.Schema({
     tags: { type: [String], default: [] },
     chapters: { type: [{
                 _id: bookMongoose.Schema.Types.ObjectId,
+                title: String,
                 content: String,
                 number: Number,
             }], default: [] },
