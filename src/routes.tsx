@@ -11,13 +11,13 @@ import ChapterNew from './components/chapterPublishing';
 
 export default (
   <Switch>
-    <Route exact path='/' component={Home} />
-    <Route exact path='/login' component={Auth} />
-    <Route exact path='/reading' component={Reading} />
-    <Route exact path='/book/:id' component={Book} />
-    <Route exact path='/profile/:id' component={Profile} />
-    <Route exact path='/search' component={Search} />
-    <Route exact path='/publishing' component={Publishing} />
-    <Route exact path='/new-chapter' component={ChapterNew} />
+    <Route exact path="/" component={Home} />
+    <Route exact path="/login" component={Auth} />
+    <Route exact path="/reading" component={Reading} />
+    <Route exact path="/book/:id" component={Book} />
+    <Route exact path="/profile/:id" component={Profile} />
+    <Route exact path="/search" component={Search} />
+    <Route exact path="/publishing" component={Publishing} />
+    <Route exact path="/new-chapter" component={ChapterNew} />
   </Switch>
 );
