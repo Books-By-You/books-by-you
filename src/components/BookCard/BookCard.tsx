@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Rating from '../Rating/Rating';
 import './BookCard.scss';
 
 interface Book {
@@ -19,7 +20,7 @@ const BookCard: React.FC<Book> = (props) => {
       {description ? (
         <>
           <img src={image_url} alt={title} />
-          <div className='rating'>{rating}</div>
+          <Rating value={rating} />
           <Link to={`/book/${bookId}`}>
             <p className='title'>{title}</p>
           </Link>
@@ -28,7 +29,7 @@ const BookCard: React.FC<Book> = (props) => {
       ) : (
         <>
           <img src={image_url} alt={title} />
-          <div className='rating'>{rating}</div>
+          <Rating value={rating} />
           <Link to={`/book/${bookId}`}>
             <p className='title'>{title}</p>
           </Link>
