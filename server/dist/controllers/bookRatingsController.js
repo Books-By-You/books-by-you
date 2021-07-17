@@ -96,11 +96,19 @@ module.exports = {
     }),
     deleteBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id: bookId } = req.params;
-        const result = yield Book.deleteOne({ _id: bookId });
-        if (result.deletedCount === 0) {
-            return res.status(400).send('Book does not exist');
+        const { userId } = req.body;
+        // const foundBook = await Book.findById(bookId)
+        //   .then((response) => {
+        //     return response;
+        //   })
+        //   .catch((error) => {
+        //     return res.status(404).send('Book not found');
+        //   });
+        const result = yield Book.update({ _id: bookId }, { $pull: { ratings: { userId: userId } } });
+        if (result.nModified === 0) {
+            return res.status(400).send('Could not complete your request.');
         }
-        return res.status(200).send(`Deleted book`);
+        return res.status(200).send(`Deleted rating.`);
     }),
 };
 //# sourceMappingURL=bookRatingsController.js.map

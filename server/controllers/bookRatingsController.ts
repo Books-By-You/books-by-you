@@ -102,11 +102,15 @@ module.exports = {
   },
   deleteBookRating: async (req: Request, res: Response) => {
     const { id: bookId } = req.params;
+    const { userId } = req.body;
 
-    const result = await Book.deleteOne({ _id: bookId });
-    if (result.deletedCount === 0) {
-      return res.status(400).send('Book does not exist');
+    const result = await Book.update(
+      { _id: bookId },
+      { $pull: { ratings: { userId: userId } } }
+    );
+    if (result.nModified === 0) {
+      return res.status(400).send('Could not complete your request.');
     }
-    return res.status(200).send(`Deleted book`);
+    return res.status(200).send(`Deleted rating.`);
   },
 };
