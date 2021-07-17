@@ -32,7 +32,6 @@ export function register(newUserObj: UserObj) {
 export function logout() {
   return {
     type: LOGOUT,
-    payload: 'logged out',
   };
 }
 
@@ -77,7 +76,14 @@ export default function reducer(state = initialState, action: ActionType) {
       return { ...state, loading: false, errorMessage: 'User already exists' };
 
     case LOGOUT:
-      return { ...state, ...initialState };
+      return {
+        ...state,
+        username: '',
+        userId: '',
+        profileImage: '',
+        firstName: '',
+        lastName: '',
+      };
     default:
       return state;
   }
