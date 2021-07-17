@@ -49,9 +49,9 @@ app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf);
 app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 //Chapter Endpoints
 app.post('/api/chapter', chapterCtrl.addChapter);
-// app.put('/api/chapter', chapterCtrl.updateChapter)
-// app.get('/api/chapter/:id', chapterCtrl.getChapter)
-// app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
+app.put('/api/chapter/:id', chapterCtrl.updateChapter);
+app.post('/api/chapter/:id', chapterCtrl.getChapter);
+app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
 //Book Reviews Endpoints
 // app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
 // app.post('/api/bookreview', bookReviewCtrl.addBookReview)

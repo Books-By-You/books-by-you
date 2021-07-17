@@ -59,8 +59,8 @@ app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf)
 //Chapter Endpoints
  app.post('/api/chapter', chapterCtrl.addChapter)
  app.put('/api/chapter/:id', chapterCtrl.updateChapter)
-// app.get('/api/chapter/:id', chapterCtrl.getChapter)
-// app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
+ app.post('/api/chapter/:id', chapterCtrl.getChapter)
+ app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
 
 //Book Reviews Endpoints
 // app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
