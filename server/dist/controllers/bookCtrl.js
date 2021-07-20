@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv").config({ path: "../.env" });
+require('dotenv').config({ path: '../.env' });
 const mongoose_1 = __importDefault(require("mongoose"));
-const Book = require("../db/models/booksSchema");
+const Book = require('../db/models/booksSchema');
 module.exports = {
     createBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { title, authorID, description, coverImage } = req.body;
@@ -31,7 +31,7 @@ module.exports = {
             res.status(201).send(savedBook);
             return;
         }
-        res.status(400).send("unable to save book");
+        res.status(400).send('unable to save book');
     }),
     getBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
@@ -53,7 +53,7 @@ module.exports = {
             return;
         }
         else {
-            res.status(400).send("Unable to find Book!");
+            res.status(400).send('Unable to find Book!');
         }
     }),
     getChapterCount: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -86,7 +86,7 @@ module.exports = {
                 return;
             }
             else {
-                res.status(400).send("Unable to find Book!");
+                res.status(400).send('Unable to find Book!');
             }
         });
     }),
@@ -111,7 +111,7 @@ module.exports = {
                 title: foundBook.title,
                 authorID: foundBook.authorID,
                 coverImage: foundBook.coverImage,
-                description: foundBook.description
+                description: foundBook.description,
             };
             const updatedBook = yield Book.updateOne({ _id: id }, {
                 title: title || bookToUpdate.title,
@@ -124,7 +124,7 @@ module.exports = {
                 res.sendStatus(200);
             }
             else {
-                res.status(400).send("Book not updated");
+                res.status(400).send('Book not updated');
             }
         }
     }),
@@ -134,7 +134,7 @@ module.exports = {
             res.status(201).send(getBooks);
             return;
         }
-        res.status(400).send("unable to get books");
+        res.status(400).send('unable to get books');
     }),
 };
 //# sourceMappingURL=bookCtrl.js.map
