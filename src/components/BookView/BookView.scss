@@ -1,16 +1,87 @@
 #cover-image-size {
   width: 300px;
   height: 450px;
+  margin: 50px;
 }
-#book-info-container {
+#book-info {
   display: flex;
   flex-direction: row;
+}
+#book-err {
+  margin-top: 350px;
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 0, 0);
+  font-family: Quicksand;
+  font-size: 50px;
+  font-weight: 700;
+}
+#chapter-map {
+  display: flex;
+  flex-direction: column;
+}
+#chapter-link {
+  margin: 10px;
+  position: relative;
+  left: 20px;
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+#button-s-container {
+  display: flex;
+}
+
+.font-sm {
+  font-size: 15px;
+}
+.font-md {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.font-lg {
+  font-size: 55px;
+  margin-bottom: 25px;
+}
+.info {
+  margin-top: 50px;
+  padding-right: 20px;
+}
+.data-container {
+  margin: 30px;
+  border-top: 10px black;
+}
+
+.swap-button {
+  font-size: 30px;
+  font-family: Quicksand;
+  font-weight: 525;
+  text-decoration: none;
+  color: black;
+  margin: 30px 30px 10px 60px;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .book-container {
   margin: auto;
   margin-top: 50px;
+  padding-bottom: 20px;
   width: 1200px;
   background-color: white;
   box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.25);
+}
+.description {
+  letter-spacing: 0.5px;
+  line-height: normal;
 }

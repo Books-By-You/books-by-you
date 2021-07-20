@@ -1,21 +1,38 @@
-const bookMongoose = require('mongoose')
+const bookMongoose = require('mongoose');
 
-const booksSchema = bookMongoose.Schema({ 
-    _id: bookMongoose.Schema.Types.ObjectId, 
-    title: String, 
-    authorID: bookMongoose.Schema.Types.ObjectId, 
-    description: String, 
-    coverImage: String, 
-    tags: {type: [String], default: []}, 
-    chapters:  {type: [{
-      _id: bookMongoose.Schema.Types.ObjectId,
-      content: String,
-      number: Number,
-    }],  default: []},
-    isPublished: Boolean
+const booksSchema = bookMongoose.Schema(
+  {
+    _id: bookMongoose.Schema.Types.ObjectId,
+    title: String,
+    authorID: bookMongoose.Schema.Types.ObjectId,
+    description: String,
+    coverImage: String,
+    tags: { type: [String], default: [] },
+    chapters: {
+      type: [
+        {
+          _id: bookMongoose.Schema.Types.ObjectId,
+          title: String,
+          content: String,
+          number: Number,
+        },
+      ],
+      default: [],
+    },
+    ratings: {
+      type: [
+        {
+          userId: String,
+          rating: Number,
+        },
+      ],
+      default: [],
+    },
+    isPublished: Boolean,
   },
   {
-    collection: "Books"
-  })
+    collection: 'Books',
+  }
+);
 
-  module.exports = bookMongoose.model('Book', booksSchema)
+module.exports = bookMongoose.model('Book', booksSchema);

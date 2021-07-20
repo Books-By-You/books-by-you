@@ -1,6 +1,6 @@
-require("dotenv").config({ path: "../.env" });
-import mongoose from "mongoose";
-const Book = require("../db/models/booksSchema");
+require('dotenv').config({ path: '../.env' });
+import mongoose from 'mongoose';
+const Book = require('../db/models/booksSchema');
 
 module.exports = {
   createBook: async (req, res) => {
@@ -18,7 +18,7 @@ module.exports = {
       res.status(201).send(savedBook);
       return;
     }
-    res.status(400).send("unable to save book");
+    res.status(400).send('unable to save book');
   },
   getBook: async (req, res) => {
     const { id } = req.params;
@@ -38,7 +38,7 @@ module.exports = {
       res.status(200).send(foundBook);
       return;
     } else {
-      res.status(400).send("Unable to find Book!");
+      res.status(400).send('Unable to find Book!');
     }
   },
   getChapterCount: async (req, res) => {
@@ -70,7 +70,7 @@ module.exports = {
         res.sendStatus(200);
         return;
       } else {
-        res.status(400).send("Unable to find Book!");
+        res.status(400).send('Unable to find Book!');
       }
     });
   },
@@ -92,35 +92,31 @@ module.exports = {
         return null;
       });
 
+    if (foundBook) {
+      let bookToUpdate = {
+        title: foundBook.title,
+        authorID: foundBook.authorID,
+        coverImage: foundBook.coverImage,
+        description: foundBook.description,
+      };
 
-      if(foundBook){
-        let bookToUpdate = {
-          title: foundBook.title,
-          authorID: foundBook.authorID,
-          coverImage: foundBook.coverImage,
-          description: foundBook.description
+      const updatedBook = await Book.updateOne(
+        { _id: id },
+        {
+          title: title || bookToUpdate.title,
+          authorID: authorID || bookToUpdate.authorID,
+          description: description || bookToUpdate.description,
+          coverImage: coverImage || bookToUpdate.coverImage,
+          isPublished: false,
         }
+      );
 
-        const updatedBook = await Book.updateOne(
-          { _id: id },
-          {
-            title: title || bookToUpdate.title,
-            authorID: authorID || bookToUpdate.authorID,
-            description: description || bookToUpdate.description,
-            coverImage: coverImage || bookToUpdate.coverImage,
-            isPublished: false,
-          }
-        );
-        
-        if (updatedBook) {
-          res.sendStatus(200);
-        } else {
-          res.status(400).send("Book not updated");
-        }
+      if (updatedBook) {
+        res.sendStatus(200);
+      } else {
+        res.status(400).send('Book not updated');
       }
-      
-
-    
+    }
   },
 
   getAllBooks: async (req, res) => {
@@ -129,6 +125,6 @@ module.exports = {
       res.status(201).send(getBooks);
       return;
     }
-    res.status(400).send("unable to get books");
+    res.status(400).send('unable to get books');
   },
 };
