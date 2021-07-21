@@ -2,16 +2,58 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./publishingView.scss";
 import Button from "../Button/Button";
+import axios from "axios";
 
 const PublishingView: React.FC = () => {
+  const [fileInputState,setFileInputState] = useState("");
+  const [selectedFile,setSelectedFile] = useState("")
+  const [previewSource,setPreviewSource] = useState<any>("")
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+  };
+  const handleFileInputChange = (e:any) => {
+    const file = e.target.files[0];
+    previewFile(file);
+    
+  }
+  const previewFile = (file:any) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = ()=>{
+      setPreviewSource(reader.result);
+    }
+  }
+  const handleSubmitFile = (e:any) => {
+    e.preventDefault();
+    if(!previewSource) return;
+    uploadImage(previewSource);
+  }
+  const uploadImage = async(base64EncodedImage:any) => {
+    console.log(base64EncodedImage);
+    // try{
+    //   axios.get("/api/upload").then((res) => {
+    //     return {res.data:base64EncodedImage}
+    //   })    }catch(error){}
+      try{
+        await fetch('api/upload',{
+          method:'POST',
+          body:JSON.stringify({data: base64EncodedImage}),
+          headers: {'Content-type' : 'application/json'}
+        })
+      }catch(error){}
+
+  }
   return (
     <div className="main-container">
       Publishing view
-      <div className="image-container">
-        <section className="cover-image">Cover Image</section>
-        <input className="button-comp" type ="file"/> 
-       
-      </div>
+      <form onSubmit={handleSubmitFile}className="image-container">
+        {/* {previewSource && (<img src={previewSource} alt="chosen book" style={{height:'300px'}}/>)} */}
+        <section className="cover-image">Cover Image {previewSource && (<img src={previewSource} alt="chosen book" style={{height:'350px',width:'450px'}}/>)}</section>
+        
+        <input className="button-comp" type ="file" name="image" onChange={handleFileInputChange} value={fileInputState} /> 
+        <button className="btn" type="submit">Upload</button>
+      </form>
+
       <div className="input-box">
         <input className="input1" placeholder="title input"></input>
         <div className="dropdown1">
@@ -27,7 +69,7 @@ const PublishingView: React.FC = () => {
       <div className="add-buttons">
       <button className="button-comp2"> Cancel </button>
       
-      <button className="button-comp2"> Publish </button>
+      <button className="button-comp3"> Publish </button>
       </div>
     </div>
   );
