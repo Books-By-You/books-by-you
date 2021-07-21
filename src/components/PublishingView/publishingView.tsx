@@ -9,21 +9,24 @@ const PublishingView: React.FC = () => {
       Publishing view
       <div className="image-container">
         <section className="cover-image">Cover Image</section>
-        <button className="button-comp"> upload
-       </button>
+        <input className="button-comp" type ="file"/> 
+       
       </div>
       <div className="input-box">
         <input className="input1" placeholder="title input"></input>
+        <div className="dropdown1">
         <button className="input2">Filter</button>
-              <div className="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+              <div className="dropdown-content1">
+                <a href="#">Sci-Fi</a>
+                <a href="#">Romance</a>
+                <a href="#">Thriller</a>
               </div>
+              </div>
+        <input className="input3" placeholder="Add description"></input>
       </div>
       <div className="add-buttons">
-      <button className="button-comp2"> cancel </button>
-      <button className="button-comp2"> Add Chapter </button>
+      <button className="button-comp2"> Cancel </button>
+      
       <button className="button-comp2"> Publish </button>
       </div>
     </div>
