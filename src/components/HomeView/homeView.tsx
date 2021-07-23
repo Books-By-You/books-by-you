@@ -3,7 +3,9 @@ import { Props } from "../auth/authInterface";
 import { Carousel } from "react-responsive-carousel";
 import BookCard from "../BookCard/BookCard";
 import {SliderData} from "../searchView/SliderData"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 import "./HomeView.scss"
+import axios from "axios";
 
 
 // 3 or 4 carousels. Map over different genres to show popular books in that genre
@@ -12,38 +14,30 @@ import "./HomeView.scss"
 // endpoint to send back popular titles w/ tag if no tag just hit endpoint for popular titles
 
 const HomeView: React.FC<Props> = (props) => {
-  const [carouselBooks,setCarouselBooks] = useState([])
+  const [carouselBooks, setCarouselBooks] = useState([])
 
-  let fantasyBooks = [{title:"test",image_url:"test",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/31l44Ez9RvS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41AduwQaJaL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41NssxNlPlS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3}];
-  let fictionBooks = [{title:"test",image_url:"test",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/31l44Ez9RvS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41AduwQaJaL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41NssxNlPlS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3}];
-  let romanceBooks = [{title:"test",image_url:"test",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/31l44Ez9RvS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/6158nPSznqL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41AduwQaJaL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/41NssxNlPlS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3},{title:"test",image_url:"https://images-na.ssl-images-amazon.com/images/I/51eeAWItwbL._SX281_BO1,204,203,200_.jpg",rating:5,bookId:3},
-  {title:"test",image_url:"test",rating:5,bookId:3}];
+  axios.get('/api/books').then(res => {
+    console.log(res.data)
+    setCarouselBooks(res.data)
+  })
+
+  let fantasyBooks = carouselBooks.map((e: any, i: any) => {
+    return e.tags.includes("comedy")
+  })
+
+
+  let fictionBooks = carouselBooks.map((e: any, i: any) => {
+    return e.tags.includes("fiction")
+  })
+
+
+  let romanceBooks = carouselBooks.map((e: any, i: any) => {
+    return e.tags.includes("romance")
+  })
 
   function bookMap(e:any,i:any){
     return <BookCard title={e.title} image_url={e.image_url} rating={e.rating} bookId={e.bookId}></BookCard>}
+    console.log(fantasyBooks)
   let mappedFantasyBooks = fantasyBooks.map(bookMap)
   let mappedFictionBooks = fictionBooks.map(bookMap)
   let mappedRomanceBooks = romanceBooks.map(bookMap)
@@ -61,10 +55,10 @@ const HomeView: React.FC<Props> = (props) => {
   let romancePartThree = mappedRomanceBooks.slice(10,15)
 
   return (
-    <div>
+    <div id="home-view">
       <section className="carousel-body-container">
-      <Carousel autoPlay={true} infiniteLoop={true}
-      width="1000px">
+      <Carousel  className="welcome-carousel" interval={8000} autoPlay={true} infiniteLoop={true}
+      >
         <div className="home-carousel-1">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
           standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled 
           it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
@@ -90,7 +84,7 @@ const HomeView: React.FC<Props> = (props) => {
         </div>
       </Carousel>
       <section>
-        <Carousel infiniteLoop={true} width="1000px">
+        <Carousel interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
             {fantasyPartOne}
           </div>
@@ -103,7 +97,7 @@ const HomeView: React.FC<Props> = (props) => {
         </Carousel>
       </section>
       <section>
-      <Carousel infiniteLoop={true} width="1000px">
+      <Carousel interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
             {fictionPartOne}
           </div>
@@ -117,7 +111,7 @@ const HomeView: React.FC<Props> = (props) => {
 
       </section>
       <section>
-      <Carousel infiniteLoop={true} width="1000px">
+      <Carousel interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
             {romancePartOne}
           </div>
