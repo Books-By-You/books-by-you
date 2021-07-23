@@ -97,13 +97,6 @@ module.exports = {
     deleteBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id: bookId } = req.params;
         const { userId } = req.body;
-        // const foundBook = await Book.findById(bookId)
-        //   .then((response) => {
-        //     return response;
-        //   })
-        //   .catch((error) => {
-        //     return res.status(404).send('Book not found');
-        //   });
         const result = yield Book.update({ _id: bookId }, { $pull: { ratings: { userId: userId } } });
         if (result.nModified === 0) {
             return res.status(400).send('Could not complete your request.');
