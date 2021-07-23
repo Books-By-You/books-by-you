@@ -4,13 +4,15 @@ const Book = require('../db/models/booksSchema');
 
 module.exports = {
   createBook: async (req, res) => {
-    const { title, authorID, description, coverImage } = req.body;
+    const { title, authorID, description, coverImage, tag } = req.body;
+
     const book = new Book({
       _id: new mongoose.Types.ObjectId(),
       title: title,
       authorID: authorID,
       description: description,
       coverImage: coverImage,
+      tags: tag,
       isPublished: false,
     });
     let savedBook = await book.save();
@@ -31,8 +33,7 @@ module.exports = {
         }
       })
       .catch((err) => {
-        console.log(err);
-        return null;
+        return err;
       });
     if (foundBook) {
       res.status(200).send(foundBook);
@@ -77,7 +78,7 @@ module.exports = {
 
   updateBook: async (req, res) => {
     const { id } = req.params;
-    const { title, authorID, description, coverImage } = req.body;
+    const { title, authorID, description, coverImage, tag } = req.body;
 
     let foundBook = await Book.findOne({ _id: id })
       .then((book) => {
@@ -93,11 +94,13 @@ module.exports = {
       });
 
     if (foundBook) {
+       
       let bookToUpdate = {
         title: foundBook.title,
         authorID: foundBook.authorID,
         coverImage: foundBook.coverImage,
         description: foundBook.description,
+        tags: foundBook.tags
       };
 
       const updatedBook = await Book.updateOne(
@@ -107,6 +110,7 @@ module.exports = {
           authorID: authorID || bookToUpdate.authorID,
           description: description || bookToUpdate.description,
           coverImage: coverImage || bookToUpdate.coverImage,
+          tags: tag || bookToUpdate.tags,
           isPublished: false,
         }
       );
