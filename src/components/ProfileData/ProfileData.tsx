@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import BookCard from '../BookCard/BookCard';
-import { connect } from 'react-redux';
-import './ProfileData.scss';
-import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
+import BookCard from '../BookCard/BookCard';
+import axios from 'axios';
+import './ProfileData.scss';
 
 interface Book {
   _id: string;
   title: string;
-  authorId: string;
-  description: string;
-  coverImage: string;
-  tags: string[];
-  chapters: string[];
+  authorId?: string;
+  description?: string;
+  coverImage?: string;
+  tags?: string[];
+  chapters?: string[];
   ratings: [];
-  isPublished: boolean;
+  isPublished?: boolean;
 }
 
 // interface User {
@@ -32,33 +32,26 @@ const ProfileData: React.FC = () => {
   const defaultBooks: Book[] = [];
   const [books, setBooks]: [Book[], (books: Book[]) => void] =
     useState(defaultBooks);
-  const [bookshelfErrorMessage, setBookshelfErrorMessage] = useState('');
-  const userId = location.pathname.split('/')[2];
+  const [bookshelfErrorMessage, setBookshelfErrorMessage] = useState(
+    'This user has no books to display.'
+  );
+  const userIdFromPath = location.pathname.split('/')[2];
 
   useEffect(() => {
     axios
-      .get(`/api/bookshelf/${userId}`)
+      .get(`/api/books`)
       .then((response) => {
         setBooks(response.data);
       })
       .catch((err) => {
         console.log(err);
-        setBookshelfErrorMessage('There are no books to display.');
+        setBookshelfErrorMessage('Unable to find books for this user.');
       });
-  }, [userId]);
+  }, [userIdFromPath]);
 
-  const booksList = books.map((book) => {
-    return (
-      <span key={book._id}>
-        <BookCard
-          title={book.title}
-          description={book.description}
-          image_url={book.coverImage}
-          ratings={book.ratings}
-        />
-      </span>
-    );
-  });
+  const filteredBooksById = books.filter(
+    (book) => book.authorId === userIdFromPath
+  );
 
   return (
     <div className='profile-data-container'>
@@ -66,7 +59,20 @@ const ProfileData: React.FC = () => {
         <h3>Library</h3>
         <h3>Reviews</h3>
       </div>
-      {books.length > 0 ? booksList : <div>{bookshelfErrorMessage}</div>}
+      {books.length > 0 ? (
+        filteredBooksById.map((book: any) => (
+          <span key={book._id}>
+            <BookCard
+              title={book.title}
+              description={book.description}
+              image_url={book.coverImage}
+              ratings={book.ratings}
+            />
+          </span>
+        ))
+      ) : (
+        <div>{bookshelfErrorMessage}</div>
+      )}
     </div>
   );
 };
