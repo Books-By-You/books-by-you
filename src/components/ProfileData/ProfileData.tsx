@@ -16,24 +16,46 @@ interface Book {
   isPublished: boolean;
 }
 
-const ProfileData: React.FC = () => {
+interface User {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  profileImage: string;
+}
+
+const ProfileData: React.FC<{ user: User }> = ({ user }) => {
   const defaultBooks: Book[] = [];
   const [books, setBooks]: [Book[], (books: Book[]) => void] =
     useState(defaultBooks);
+  const [bookshelfErrorMessage, setBookshelfErrorMessage] = useState('');
 
-  const getBooks = async () => {
-    let booksArr: Book[] = await axios
-      .get('/api/books')
+  // const getBooks = async () => {
+  //   let booksArr: Book[] = await axios
+  //     .get('/api/books')
+  //     .then((response) => {
+  //       return response.data;
+  //     })
+  //     .catch((err) => console.log(err));
+  //   setBooks(booksArr);
+  // };
+
+  const getBookshelfByUser = async () => {
+    await axios
+      .get(`/api/bookshelf/${user.userId}`)
       .then((response) => {
-        return response.data;
+        setBooks(response.data);
       })
-      .catch((err) => console.log(err));
-    setBooks(booksArr);
+      .catch((err) => {
+        console.log(err);
+        setBookshelfErrorMessage('There are no books in your library.');
+      });
   };
 
   useEffect(() => {
-    getBooks();
-  }, [books]);
+    getBookshelfByUser();
+  }, []);
 
   const booksList = books.map((book) => {
     return (
@@ -51,18 +73,18 @@ const ProfileData: React.FC = () => {
   return (
     <div className='profile-data-container'>
       <div className='profile-data-header'>
-        <h3>Titles</h3>
-        <h3>Reviews</h3>
         <h3>Library</h3>
+        <h3>Reviews</h3>
+        {/* <h3>Bookshelf</h3> */}
       </div>
-      {books.length > 0 && booksList}
+      {books.length > 0 ? booksList : <div>{bookshelfErrorMessage}</div>}
     </div>
   );
 };
 
 const mapStateToProps = (reduxState: any) => {
   return {
-    books: reduxState.booksReducer,
+    user: reduxState.userReducer,
   };
 };
 

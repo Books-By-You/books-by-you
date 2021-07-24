@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import './UserDetails.scss';
 
@@ -16,17 +15,20 @@ interface User {
 const UserDetails: React.FC<{ user: User }> = ({ user }) => {
   const location = useLocation();
 
-  console.log(user);
+  const addDefaultSrc = (e: any) => {
+    e.target.src =
+      'https://techpowerusa.com/wp-content/uploads/2017/06/default-user.png';
+  };
 
   return (
     <div className='user-details-container'>
-      {user.profileImage ? (
-        <img src={user.profileImage} alt={`pic of ${user.firstName}`} />
-      ) : (
-        <FaUserCircle />
-      )}
+      <img
+        onError={addDefaultSrc}
+        src={user.profileImage}
+        alt={`pic of ${user.firstName}`}
+      />
       <h3>{user.firstName}</h3>
-      {user.userId !== location.pathname.split('/')[2] && (
+      {user.userId && user.userId !== location.pathname.split('/')[2] && (
         <button>Subscribe</button>
       )}
     </div>
