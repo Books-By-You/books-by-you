@@ -3,6 +3,7 @@ import BookCard from '../BookCard/BookCard';
 import { connect } from 'react-redux';
 import './ProfileData.scss';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 interface Book {
   _id: string;
@@ -16,46 +17,35 @@ interface Book {
   isPublished: boolean;
 }
 
-interface User {
-  userId: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  profileImage: string;
-}
+// interface User {
+//   userId: string;
+//   firstName: string;
+//   lastName: string;
+//   username: string;
+//   email: string;
+//   profileImage: string;
+// }
 
-const ProfileData: React.FC<{ user: User }> = ({ user }) => {
+// const ProfileData: React.FC<{ user: User }> = ({ user }) => {
+const ProfileData: React.FC = () => {
+  const location = useLocation();
   const defaultBooks: Book[] = [];
   const [books, setBooks]: [Book[], (books: Book[]) => void] =
     useState(defaultBooks);
   const [bookshelfErrorMessage, setBookshelfErrorMessage] = useState('');
+  const userId = location.pathname.split('/')[2];
 
-  // const getBooks = async () => {
-  //   let booksArr: Book[] = await axios
-  //     .get('/api/books')
-  //     .then((response) => {
-  //       return response.data;
-  //     })
-  //     .catch((err) => console.log(err));
-  //   setBooks(booksArr);
-  // };
-
-  const getBookshelfByUser = async () => {
-    await axios
-      .get(`/api/bookshelf/${user.userId}`)
+  useEffect(() => {
+    axios
+      .get(`/api/bookshelf/${userId}`)
       .then((response) => {
         setBooks(response.data);
       })
       .catch((err) => {
         console.log(err);
-        setBookshelfErrorMessage('There are no books in your library.');
+        setBookshelfErrorMessage('There are no books to display.');
       });
-  };
-
-  useEffect(() => {
-    getBookshelfByUser();
-  }, []);
+  }, [userId]);
 
   const booksList = books.map((book) => {
     return (
@@ -75,7 +65,6 @@ const ProfileData: React.FC<{ user: User }> = ({ user }) => {
       <div className='profile-data-header'>
         <h3>Library</h3>
         <h3>Reviews</h3>
-        {/* <h3>Bookshelf</h3> */}
       </div>
       {books.length > 0 ? booksList : <div>{bookshelfErrorMessage}</div>}
     </div>
