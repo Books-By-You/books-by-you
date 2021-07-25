@@ -8,7 +8,7 @@ import './ProfileData.scss';
 interface Book {
   _id: string;
   title: string;
-  authorId?: string;
+  authorID?: string;
   description?: string;
   coverImage?: string;
   tags?: string[];
@@ -49,27 +49,30 @@ const ProfileData: React.FC = () => {
       });
   }, [userIdFromPath]);
 
-  const filteredBooksById = books.filter(
-    (book) => book.authorId === userIdFromPath
-  );
+  const filteredBooksById = books
+    .filter((book) => {
+      return book.authorID === userIdFromPath;
+    })
+    .map((book: any) => (
+      <span key={book._id}>
+        <BookCard
+          title={book.title}
+          description={book.description}
+          image_url={book.coverImage}
+          ratings={book.ratings}
+        />
+      </span>
+    ));
 
   return (
     <div className='profile-data-container'>
       <div className='profile-data-header'>
-        <h3>Library</h3>
+        <h3>Titles</h3>
+        <h3>Bookshelf</h3>
         <h3>Reviews</h3>
       </div>
-      {books.length > 0 ? (
-        filteredBooksById.map((book: any) => (
-          <span key={book._id}>
-            <BookCard
-              title={book.title}
-              description={book.description}
-              image_url={book.coverImage}
-              ratings={book.ratings}
-            />
-          </span>
-        ))
+      {filteredBooksById.length > 0 ? (
+        filteredBooksById
       ) : (
         <div>{bookshelfErrorMessage}</div>
       )}
