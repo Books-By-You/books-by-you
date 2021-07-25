@@ -8,23 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config({ path: "../.env" });
-const express_1 = __importDefault(require("express"));
-const app = express_1.default();
-app.use(express_1.default.json({ limit: '50mb' }));
-app.use(express_1.default.urlencoded({ limit: '50mb', extended: true }));
+//const {cloudinary} = require('./utils/cloudinary')
 module.exports = {
     addImage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const fileStr = req.body.data;
+        let { data } = req.body;
+        if (data) {
+            res.sendStatus(200);
         }
-        catch (error) {
-            console.log(error);
-        }
+        else
+            res.send("this is not working at all");
+        // const uploadedResponse = await cloudinary.uploader.
+        // upload(data, {
+        //     upload_preset:'urkrcvju'
+        // })
     })
 };
 //# sourceMappingURL=cloudinaryUpload.js.map

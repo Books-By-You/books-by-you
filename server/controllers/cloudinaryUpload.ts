@@ -1,15 +1,15 @@
 require("dotenv").config({ path: "../.env" });
 import e from "express";
-const app = e();
-app.use(e.json({ limit: '50mb'}))
-app.use(e.urlencoded({ limit: '50mb', extended:true}));
+//const {cloudinary} = require('./utils/cloudinary')
 
 module.exports = {
     addImage: async (req, res) => {
-        try{
-            const fileStr = req.body.data
-        } catch (error) {
-            console.log(error)
-        }
+        let {data}=req.body
+        if(data){res.sendStatus(200)}
+        else res.send("this is not working at all")
+        // const uploadedResponse = await cloudinary.uploader.
+        // upload(data, {
+        //     upload_preset:'urkrcvju'
+        // })
     }
 }

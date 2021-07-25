@@ -56,7 +56,7 @@
 // //Bookshelf Endpoints
 // app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf)
 // app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf)
-// app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf) 
+// app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf)
 
 // //Chapter Endpoints
 //  app.post('/api/chapter', chapterCtrl.addChapter)
@@ -103,25 +103,25 @@
 // // app.post('/api/followauthor', followAuthorCtrl.followAuthor)
 // // app.post('/api/followauthor', followAuthorCtrl.unfollowAuthor)
 
-
 import express from "express";
 require("dotenv").config({ path: "../.env" });
 const session = require("express-session");
 const authCtrl = require("./controllers/authCtrl");
 const bookshelfCtrl = require("./controllers/bookshelfCtrl");
-const bookCtrl = require("./controllers/bookCtrl")
-const userCtrl = require("./controllers/userCtrl")
-const chapterCtrl = require("./controllers/chapterCtrl")
+const bookCtrl = require("./controllers/bookCtrl");
+const userCtrl = require("./controllers/userCtrl");
+const chapterCtrl = require("./controllers/chapterCtrl");
 const cloudinaryUpload = require("./controllers/cloudinaryUpload")
+
 const mongoose = require("mongoose");
 const { SERVER_PORT, SESSION_SECRET } = process.env;
-
 
 const app = express();
 const mongoController = require("./db/mongoController");
 
 app.use(express.json());
-
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(
   session({
     resave: false,
@@ -149,29 +149,31 @@ app.delete("/api/auth/logout", authCtrl.logout);
 app.post("/api/auth/delete", authCtrl.delete);
 
 //User Endpoints
-app.get('/api/users/:id', userCtrl.getUser)
+app.get("/api/users/:id", userCtrl.getUser);
 
 //Book Endpoints
-app.post('/api/book', bookCtrl.createBook)
-app.put ('/api/book/:id', bookCtrl.updateBook)
-app.get('/api/books', bookCtrl.getAllBooks)
-app.get('/api/book/:id', bookCtrl.getBook)
-app.get('/api/chaptercount/:id', bookCtrl.getChapterCount)
-app.delete('/api/book/:id', bookCtrl.deleteBook)
+app.post("/api/book", bookCtrl.createBook);
+app.put("/api/book/:id", bookCtrl.updateBook);
+app.get("/api/books", bookCtrl.getAllBooks);
+app.get("/api/book/:id", bookCtrl.getBook);
+app.get("/api/chaptercount/:id", bookCtrl.getChapterCount);
+app.delete("/api/book/:id", bookCtrl.deleteBook);
 
 //Bookshelf Endpoints
-app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf)
-app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf)
-app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf) 
+app.post("/api/bookshelf/:id", bookshelfCtrl.addToBookshelf);
+app.get("/api/bookshelf/:id", bookshelfCtrl.getBookshelf);
+app.post("/api/bookshelf/remove/:id", bookshelfCtrl.removeFromBookshelf);
 
 //Chapter Endpoints
- app.post('/api/chapter', chapterCtrl.addChapter)
- app.put('/api/chapter/:id', chapterCtrl.updateChapter)
- app.post('/api/chapter/:id', chapterCtrl.getChapter)
- app.delete('/api/chapter/:id', chapterCtrl.deleteChapter)
+app.post("/api/chapter", chapterCtrl.addChapter);
+app.put("/api/chapter/:id", chapterCtrl.updateChapter);
+app.post("/api/chapter/:id", chapterCtrl.getChapter);
+app.delete("/api/chapter/:id", chapterCtrl.deleteChapter);
 
- //Cloudinary Upload Endpoint
- app.post('/api/upload',cloudinaryUpload.addImage)
+//Cloudinary Endpoint
+app.post("/api/upload", cloudinaryUpload.addImage);
+
+
 
 //Book Reviews Endpoints
 // app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
