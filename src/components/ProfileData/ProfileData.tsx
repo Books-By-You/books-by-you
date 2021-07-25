@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
 import BookCard from '../BookCard/BookCard';
 import axios from 'axios';
 import './ProfileData.scss';
@@ -17,16 +16,6 @@ interface Book {
   isPublished?: boolean;
 }
 
-// interface User {
-//   userId: string;
-//   firstName: string;
-//   lastName: string;
-//   username: string;
-//   email: string;
-//   profileImage: string;
-// }
-
-// const ProfileData: React.FC<{ user: User }> = ({ user }) => {
 const ProfileData: React.FC = () => {
   const location = useLocation();
   const defaultBooks: Book[] = [];
@@ -37,17 +26,21 @@ const ProfileData: React.FC = () => {
   );
   const userIdFromPath = location.pathname.split('/')[2];
 
-  useEffect(() => {
-    axios
-      .get(`/api/books`)
-      .then((response) => {
-        setBooks(response.data);
+  const getBooks = useCallback(async () => {
+    await axios
+      .get<Book[]>(`/api/books`)
+      .then(({ data }) => {
+        setBooks(data);
       })
       .catch((err) => {
         console.log(err);
         setBookshelfErrorMessage('Unable to find books for this user.');
       });
-  }, [userIdFromPath]);
+  }, []);
+
+  useEffect(() => {
+    getBooks();
+  }, [getBooks]);
 
   const filteredBooksById = books
     .filter((book) => {
@@ -80,10 +73,4 @@ const ProfileData: React.FC = () => {
   );
 };
 
-const mapStateToProps = (reduxState: any) => {
-  return {
-    user: reduxState.userReducer,
-  };
-};
-
-export default connect(mapStateToProps)(ProfileData);
+export default ProfileData;
