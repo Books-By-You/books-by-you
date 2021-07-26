@@ -42,6 +42,7 @@ app.post('/api/book', bookCtrl.createBook);
 app.put('/api/book/:id', bookCtrl.updateBook);
 app.get('/api/books', bookCtrl.getAllBooks);
 app.get('/api/book/:id', bookCtrl.getBook);
+app.get('/api/booksbyauthor/:id', bookCtrl.getBooksByAuthorId);
 app.get('/api/chaptercount/:id', bookCtrl.getChapterCount);
 app.delete('/api/book/:id', bookCtrl.deleteBook);
 //Bookshelf Endpoints

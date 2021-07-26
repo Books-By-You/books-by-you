@@ -55,7 +55,7 @@ const UserDetails: React.FC<{ userLoggedIn: User }> = ({ userLoggedIn }) => {
   );
 };
 
-const mapStateToProps = (reduxState: any) => {
+const mapStateToProps = (reduxState: any): { userLoggedIn: User } => {
   return {
     userLoggedIn: reduxState.userReducer,
   };
