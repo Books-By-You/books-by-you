@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import axios from 'axios';
 import BookCard from '../BookCard/BookCard';
+import Loading from '../Loading/Loading';
 import './Titles.scss';
 
 interface Book {
@@ -25,9 +26,11 @@ const Titles: React.FC = () => {
     'This user has no books to display.'
   );
   const userIdFromPath = location.pathname.split('/')[2];
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
+    setLoading(true);
 
     const getBooks = async () => {
       try {
@@ -36,12 +39,13 @@ const Titles: React.FC = () => {
             cancelToken: source.token,
           })
           .then(({ data }) => {
-            console.log('data received');
+            setLoading(false);
             setBooks(data);
           });
       } catch (error) {
         if (axios.isCancel(error)) {
         } else {
+          setLoading(false);
           setBookshelfErrorMessage('Unable to find books.');
           throw error;
         }
@@ -51,7 +55,6 @@ const Titles: React.FC = () => {
     getBooks();
 
     return () => {
-      console.log('request cancelled');
       source.cancel();
     };
   }, [userIdFromPath]);
@@ -67,7 +70,17 @@ const Titles: React.FC = () => {
     </span>
   ));
 
-  return <>{bookList.length > 0 ? bookList : <>{bookshelfErrorMessage}</>}</>;
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : bookList.length > 0 ? (
+        bookList
+      ) : (
+        <>{bookshelfErrorMessage}</>
+      )}
+    </>
+  );
 };
 
 export default Titles;
