@@ -43,26 +43,6 @@ module.exports = {
             res.sendStatus(400);
         }
     }),
-    // getBookshelf: async (req, res) => {
-    //   const { id } = req.params;
-    //   let foundUser = await User2.findOne({ _id: id })
-    //     .then((user) => {
-    //       if (user) {
-    //         return user;
-    //       } else {
-    //         return null;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       return null;
-    //     });
-    //   if (foundUser) {
-    //     res.status(200).send(foundUser.books);
-    //   } else {
-    //     res.sendStatus(400);
-    //   }
-    // },
     getBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         let foundUser = yield User2.findOne({ _id: id })
@@ -79,11 +59,7 @@ module.exports = {
             return null;
         });
         if (foundUser) {
-            let getBooks = foundUser.books.map((bookId) => __awaiter(void 0, void 0, void 0, function* () {
-                return yield Book.findOne({ _id: bookId }).then((book) => Promise.resolve(book));
-            }));
-            console.log(getBooks);
-            res.status(200).send(getBooks);
+            res.status(200).send(foundUser.books);
         }
         else {
             res.sendStatus(400);
@@ -125,6 +101,35 @@ module.exports = {
             else {
                 res.sendStatus(400);
             }
+        }
+        else {
+            res.sendStatus(400);
+        }
+    }),
+    getBooksFromBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { id } = req.params;
+        let foundUser = yield User2.findOne({ _id: id })
+            .then((user) => {
+            if (user) {
+                return user;
+            }
+            else {
+                return null;
+            }
+        })
+            .catch((err) => {
+            console.log(err);
+            return null;
+        });
+        if (foundUser) {
+            const promises = foundUser.books.map((bookId) => {
+                return Book.findById(bookId).then((book) => {
+                    return book;
+                });
+            });
+            Promise.all(promises).then((book) => {
+                res.status(200).send(book);
+            });
         }
         else {
             res.sendStatus(400);

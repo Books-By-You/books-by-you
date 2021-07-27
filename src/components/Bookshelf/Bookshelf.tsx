@@ -23,57 +23,62 @@ const Bookshelf: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [bookshelf, setBookshelf]: [Book[], (bookshelf: Book[]) => void] =
     useState(defaultBooks);
-  const [booksList, setBooksList] = useState<any>([]);
   const [bookshelfErrorMessage, setBookshelfErrorMessage] = useState(
     'This user has no books to display.'
   );
   const userIdFromPath = location.pathname.split('/')[2];
 
   useEffect(() => {
-    console.log('first useEffect');
-    let books: Book[] = [];
-    axios
-      .get(`/api/bookshelf/${userIdFromPath}`)
-      .then(({ data }) => {
-        return data;
-      })
-      .then((bookIds) => {
-        bookIds.forEach((bookId: any) => {
-          axios.get(`/api/book/${bookId}`).then(({ data }) => {
-            books.push(data);
+    const source = axios.CancelToken.source();
+    setLoading(true);
+
+    const getBooks = async () => {
+      try {
+        await axios
+          .get(`/api/bookshelfbooks/${userIdFromPath}`, {
+            cancelToken: source.token,
+          })
+          .then(({ data }) => {
+            setLoading(false);
+            setBookshelf(data);
           });
-        });
-      })
-      .then(() => {
-        setBookshelf(books);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setBookshelfErrorMessage('Unable to find books.');
-      });
+      } catch (error) {
+        if (axios.isCancel(error)) {
+        } else {
+          setLoading(false);
+          setBookshelfErrorMessage('Unable to find books.');
+          throw error;
+        }
+      }
+    };
 
-    if (booksList.length > 0) {
-      const booksArr = bookshelf.map((book: Book) => (
-        <span key={book._id}>
-          <BookCard
-            title={book.title}
-            description={book.description}
-            image_url={book.coverImage}
-            ratings={book.ratings}
-          />
-        </span>
-      ));
-      setBooksList(booksArr);
-      setLoading(false);
-    }
-  }, [booksList, bookshelf, userIdFromPath]);
+    getBooks();
 
-  // useEffect(() => {
-  //   console.log('second useEffect', booksList);
+    return () => {
+      source.cancel();
+    };
+  }, [userIdFromPath]);
 
-  // }, [booksList, bookshelf]);
+  const bookList = bookshelf.map((book: Book) => (
+    <span key={book._id}>
+      <BookCard
+        title={book.title}
+        description={book.description}
+        image_url={book.coverImage}
+        ratings={book.ratings}
+      />
+    </span>
+  ));
 
-  return <>{loading ? <Loading /> : <>{booksList && booksList}</>}</>;
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>{bookList.length > 0 ? bookList : bookshelfErrorMessage}</>
+      )}
+    </>
+  );
 };
 
 export default Bookshelf;

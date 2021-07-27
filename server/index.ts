@@ -56,6 +56,7 @@ app.delete('/api/book/:id', bookCtrl.deleteBook);
 //Bookshelf Endpoints
 app.post('/api/bookshelf/:id', bookshelfCtrl.addToBookshelf);
 app.get('/api/bookshelf/:id', bookshelfCtrl.getBookshelf);
+app.get('/api/bookshelfbooks/:id', bookshelfCtrl.getBooksFromBookshelf);
 app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 
 //Chapter Endpoints
