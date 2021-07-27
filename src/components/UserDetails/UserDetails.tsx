@@ -44,9 +44,9 @@ const UserDetails: React.FC<{ userLoggedIn: User }> = ({ userLoggedIn }) => {
             alt={`pic of ${user.firstName}`}
           />
           <h3>{user.firstName}</h3>
-          {user.userId && user.userId !== location.pathname.split('/')[2] && (
+          {/* {user.userId && user.userId !== location.pathname.split('/')[2] && (
             <button>Subscribe</button>
-          )}
+          )} */}
         </>
       ) : (
         <div>User not found</div>
