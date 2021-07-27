@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv").config({ path: "../.env" });
-const User2 = require("../db/models/userSchema");
+require('dotenv').config({ path: '../.env' });
+const User2 = require('../db/models/userSchema');
+const Book = require('../db/models/booksSchema');
 module.exports = {
     addToBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
@@ -42,6 +43,26 @@ module.exports = {
             res.sendStatus(400);
         }
     }),
+    // getBookshelf: async (req, res) => {
+    //   const { id } = req.params;
+    //   let foundUser = await User2.findOne({ _id: id })
+    //     .then((user) => {
+    //       if (user) {
+    //         return user;
+    //       } else {
+    //         return null;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       return null;
+    //     });
+    //   if (foundUser) {
+    //     res.status(200).send(foundUser.books);
+    //   } else {
+    //     res.sendStatus(400);
+    //   }
+    // },
     getBookshelf: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         let foundUser = yield User2.findOne({ _id: id })
@@ -58,7 +79,11 @@ module.exports = {
             return null;
         });
         if (foundUser) {
-            res.status(200).send(foundUser.books);
+            let getBooks = foundUser.books.map((bookId) => __awaiter(void 0, void 0, void 0, function* () {
+                return yield Book.findOne({ _id: bookId }).then((book) => Promise.resolve(book));
+            }));
+            console.log(getBooks);
+            res.status(200).send(getBooks);
         }
         else {
             res.sendStatus(400);
