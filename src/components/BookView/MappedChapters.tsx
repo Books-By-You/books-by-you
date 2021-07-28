@@ -3,15 +3,18 @@ import React, { useState, useLayoutEffect } from "react";
 import "../BookView/BookView.scss";
 interface Props {
   chapters: any;
+  owner: boolean;
 }
 const MappedChapters: React.FC<Props> = (props) => {
   const [chapters, setChapters] = useState([]);
   function chapterLoop() {
     console.log(props.chapters);
     let mappedArr: any = props.chapters.map((element: any, i: number) => (
-      <a href={`/reading/:${element.number + 1}`} key={i + 1} id="chapter-link">
-        {"Chapter " + (element.number + 1)}
-      </a>
+      <section>
+        <a href={`/reading/:${element.number}`} key={i + 1} id="chapter-link">
+          {"Chapter " + element.number}
+        </a>
+      </section>
     ));
     setChapters(mappedArr);
   }
