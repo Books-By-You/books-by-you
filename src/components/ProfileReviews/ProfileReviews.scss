@@ -1,0 +1,11 @@
+.profile-reviews-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+
+  .review-card {
+    margin: 20px 0;
+  }
+}
