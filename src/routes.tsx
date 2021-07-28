@@ -1,13 +1,13 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Home from "./components/homeView";
-import Auth from "./components/auth/authView";
-import Reading from "./components/ReadingView/readingView";
-import Book from "./components/BookView/bookView";
-import Profile from "./components/ProfileView/ProfileView";
-import Search from "./components/searchView/searchView";
-import Publishing from "./components/publishingView";
-import ChapterNew from "./components/chapterPublishing";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Home from './components/homeView';
+import Auth from './components/auth/authView';
+import Reading from './components/ReadingView/readingView';
+import Book from './components/BookView/bookView';
+import Profile from './components/ProfileView/ProfileView';
+import Search from './components/searchView/searchView';
+import Publishing from './components/PublishingView/publishingView';
+import ChapterNew from './components/chapterPublishing';
 
 export default (
   <Switch>
