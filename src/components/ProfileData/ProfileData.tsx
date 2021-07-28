@@ -1,8 +1,8 @@
-import React from 'react';
-import BookCard from '../BookCard/BookCard';
-import { SliderData } from '../searchView/SliderData';
-import { connect } from 'react-redux';
-import './ProfileData.scss';
+import React from "react";
+import BookCard from "../BookCard/BookCard";
+import { SliderData } from "../searchView/SliderData";
+import { connect } from "react-redux";
+import "./ProfileData.scss";
 
 interface Book {
   bookId: string;
@@ -21,13 +21,13 @@ const ProfileData: React.FC<{ books: Book }> = ({ books }) => {
       title={book.title}
       description={book.description}
       image_url={book.image}
-      rating={book.rating}
+      ratings={book.rating}
     />
   ));
 
   return (
-    <div className='profile-data-container'>
-      <div className='profile-data-header'>
+    <div className="profile-data-container">
+      <div className="profile-data-header">
         <h3>Titles</h3>
         <h3>Reviews</h3>
         <h3>Library</h3>

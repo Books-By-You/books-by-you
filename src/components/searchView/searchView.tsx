@@ -12,6 +12,7 @@ import axios from "axios";
 const SearchView: React.FC = () => {
   //need 15 "objects to fill array from back end"
   const [slidesArray, setSlidesArray] = useState([SliderData]);
+  const [bookLists, setBookLists] = useState([]);
   const [category, setCategory] = useState("Filter");
   const [search, setSearch] = useState("");
   const [books,setBooks] = useState([]);
@@ -45,27 +46,30 @@ const SearchView: React.FC = () => {
         });
         
       
-
-
-
-
-  function arrayMapper(slide: any, index: any) {
+  function arrayMapper(book: any, index: any) {
     return (
       <BookCard
-        title={slide.title}
-        image_url={slide.image}
-        rating={slide.rating}
-        bookId={slide.bookId}
-        description={slide.description}
+        title={book.title}
+        image_url={book.coverImage}
+        ratings={book.ratings}
+        bookId={book._id}
+        description={book.description}
       />
     );
   }
+
+  useEffect(() => {
+    axios.get("/api/books").then((res) => {
+      console.log({ res });
+      setBookLists(res.data);
+    });
+  }, []);
 
   function arraySplitter() {
     //write a function that takes in an array of 15 objects [{},{},{}] then aplit them into 3 other arrays with 5 opobjects each
   }
 
-  const listBooks = SliderData.map(arrayMapper);
+  const listBooks = bookLists.map(arrayMapper);
   const listBooks2 = SliderData2.map(arrayMapper);
   return (
     <div className="searchView">
