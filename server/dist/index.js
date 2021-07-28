@@ -90,6 +90,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // // app.post('/api/followauthor', followAuthorCtrl.followAuthor)
 // // app.post('/api/followauthor', followAuthorCtrl.unfollowAuthor)
 const express_1 = __importDefault(require("express"));
+<<<<<<< HEAD
 require("dotenv").config({ path: "../.env" });
 const session = require("express-session");
 const authCtrl = require("./controllers/authCtrl");
@@ -99,6 +100,18 @@ const userCtrl = require("./controllers/userCtrl");
 const chapterCtrl = require("./controllers/chapterCtrl");
 const cloudinaryUpload = require("./controllers/cloudinaryUpload");
 const mongoose = require("mongoose");
+=======
+require('dotenv').config({ path: '../.env' });
+const session = require('express-session');
+const authCtrl = require('./controllers/authCtrl');
+const bookshelfCtrl = require('./controllers/bookshelfCtrl');
+const bookCtrl = require('./controllers/bookCtrl');
+const userCtrl = require('./controllers/userCtrl');
+const chapterCtrl = require('./controllers/chapterCtrl');
+const bookRatingsCtrl = require('./controllers/bookRatingsController');
+const bookReviewCtrl = require('./controllers/bookReviewCtrl');
+const mongoose = require('mongoose');
+>>>>>>> 0e91600cfe8191f6e98f495fbc0dbc420b004fce
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
 const mongoController = require("./db/mongoController");
@@ -144,10 +157,11 @@ app.delete("/api/chapter/:id", chapterCtrl.deleteChapter);
 //Cloudinary Endpoint
 app.post("/api/upload", cloudinaryUpload.addImage);
 //Book Reviews Endpoints
-// app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
-// app.post('/api/bookreview', bookReviewCtrl.addBookReview)
-// app.put ('/api/bookreview', bookReviewCtrl.updateBookReview)
-// app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
+app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews); // gets book reviews for given book
+app.get('/api/bookreviewbyuser/:id', bookReviewCtrl.getBookReviewsForUser); // gets book reviews for given user
+app.post('/api/bookreview', bookReviewCtrl.addBookReview);
+app.put('/api/bookreview/:id', bookReviewCtrl.updateBookReview);
+app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview);
 //Chapter Reveiws Endpoints
 // app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)
 // app.post('/api/chapterreview', chapterReviewCtrl.addChapterReview)
