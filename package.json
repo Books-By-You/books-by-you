@@ -4,10 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.2",
-<<<<<<< HEAD
-=======
     "@material-ui/lab": "^4.0.0-alpha.60",
->>>>>>> f894de5610f997c0742cd125b1d4cd7f6892bf3a
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -27,10 +24,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
-<<<<<<< HEAD
-=======
     "react-modal": "^3.14.3",
->>>>>>> f894de5610f997c0742cd125b1d4cd7f6892bf3a
     "react-redux": "^7.2.4",
     "react-responsive-carousel": "^3.2.18",
     "react-router-dom": "^5.2.0",

@@ -30,7 +30,6 @@ module.exports = {
     getBookReviewsForUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         const bookReviews = yield BookReview.find({ userID: id }).exec();
-        console.log(bookReviews);
         if (bookReviews.length > 0) {
             res.status(200).send(bookReviews);
             return;
