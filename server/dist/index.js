@@ -38,6 +38,7 @@ app.delete('/api/auth/logout', authCtrl.logout);
 app.post('/api/auth/delete', authCtrl.delete);
 //User Endpoints
 app.get('/api/users/:id', userCtrl.getUser);
+app.put('/api/users/:id', userCtrl.updateUser);
 //Book Endpoints
 app.post('/api/book', bookCtrl.createBook);
 app.put('/api/book/:id', bookCtrl.updateBook);

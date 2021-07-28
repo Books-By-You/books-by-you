@@ -45,7 +45,7 @@ const UserDetails: React.FC<{ userLoggedIn: User; openSettings: () => void }> =
               src={user.profileImage}
               alt={`pic of ${user.firstName}`}
             />
-            <h3>{user.firstName}</h3>
+            <h3>{user.username}</h3>
             {user.userId && user.userId === location.pathname.split('/')[2] && (
               <Button
                 label='Settings'

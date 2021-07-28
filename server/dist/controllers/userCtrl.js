@@ -47,15 +47,44 @@ module.exports = {
             return user;
         })
             .catch((err) => {
-            res.sendStatus(404);
+            return res.status(404).send('User not found');
         });
-        if (password) {
+        if (foundUser === null) {
+            return res.sendStatus(404);
         }
-        const updatedUser = {
-            profileImage: profileImage || foundUser.profileImage,
-            username: username || foundUser.username,
-            password: password || foundUser.password,
-        };
+        if (password) {
+            const salt = bcrypt.genSaltSync(5);
+            const hash = bcrypt.hashSync(password, salt);
+            foundUser.profileImage = profileImage || foundUser.profileImage;
+            foundUser.username = username || foundUser.username;
+            foundUser.passwordHash = hash;
+            yield foundUser
+                .save()
+                .then((savedDoc) => {
+                if (savedDoc === foundUser) {
+                    return res
+                        .status(200)
+                        .send(`${foundUser.username} has been updated.`);
+                }
+            })
+                .catch((error) => {
+                return res.status(400).send('Failed to complete changes.');
+            });
+        }
+        foundUser.profileImage = profileImage || foundUser.profileImage;
+        foundUser.username = username || foundUser.username;
+        yield foundUser
+            .save()
+            .then((savedDoc) => {
+            if (savedDoc === foundUser) {
+                return res
+                    .status(200)
+                    .send(`${foundUser.username} has been updated.`);
+            }
+        })
+            .catch((error) => {
+            return res.status(400).send('Failed to complete changes.');
+        });
     }),
 };
 //# sourceMappingURL=userCtrl.js.map

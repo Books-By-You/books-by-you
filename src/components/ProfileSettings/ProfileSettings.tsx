@@ -8,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import './ProfileSettings.scss';
 
 interface User {
   userId: string;
@@ -22,6 +23,8 @@ const ProfileSettings: React.FC<{
   open: boolean;
   user: User;
 }> = ({ handleClose, open, user }) => {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
   const [passMatch, setPassMatch] = useState<boolean>();
   const [userInfo, setUserInfo] = useState({
     profileImage: user.profileImage,
@@ -30,9 +33,17 @@ const ProfileSettings: React.FC<{
     confirmPassword: '',
   });
 
-  // onSubmit = () => {
-  //   axios.put(`/api/user/${}`)
-  // }
+  const onSubmit = async () => {
+    setLoading(true);
+    const response = await axios
+      .put(`/api/users/${user.userId}`, userInfo)
+      .then((res) => res.data);
+    setMessage(response);
+    setLoading(false);
+    setTimeout(() => {
+      handleClose();
+    }, 1000);
+  };
 
   useEffect(() => {
     userInfo.password === userInfo.confirmPassword
@@ -56,8 +67,8 @@ const ProfileSettings: React.FC<{
             autoFocus
             value={userInfo.profileImage}
             margin='dense'
-            id='name'
-            label='Profile Image'
+            id='profileImage'
+            label='Profile Image URL'
             type='profileImage'
             onChange={({ target }) =>
               setUserInfo((state) => ({ ...state, profileImage: target.value }))
@@ -67,7 +78,7 @@ const ProfileSettings: React.FC<{
           <TextField
             value={userInfo.username}
             margin='dense'
-            id='name'
+            id='username'
             label='Username'
             type='username'
             onChange={({ target }) =>
@@ -78,7 +89,7 @@ const ProfileSettings: React.FC<{
           <TextField
             value={userInfo.password}
             margin='dense'
-            id='name'
+            id='password'
             label='Password'
             type='password'
             onChange={({ target }) =>
@@ -89,7 +100,7 @@ const ProfileSettings: React.FC<{
           <TextField
             value={userInfo.confirmPassword}
             margin='dense'
-            id='name'
+            id='confirmPassword'
             label='Confirm Password'
             type='password'
             onChange={({ target }) =>
@@ -103,10 +114,11 @@ const ProfileSettings: React.FC<{
         </DialogContent>
         <DialogActions>
           {passMatch && <p style={{ color: 'red' }}>Password does not match</p>}
+          {loading ? <p>Loading...</p> : message && <p>{message}</p>}
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClose} color='primary' disabled={passMatch}>
+          <Button onClick={onSubmit} color='primary' disabled={passMatch}>
             Update
           </Button>
         </DialogActions>
