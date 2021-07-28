@@ -42,9 +42,9 @@ const ProfileSettings: React.FC<{
     confirmPassword: '',
   });
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
+  const onSubmit = async () => {
     updateUser(userInfo);
+    handleClose();
   };
 
   useEffect(() => {
