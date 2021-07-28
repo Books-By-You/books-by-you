@@ -9,13 +9,15 @@ const chapterCtrl = require('./controllers/chapterCtrl');
 const bookRatingsCtrl = require('./controllers/bookRatingsController');
 const bookReviewCtrl = require('./controllers/bookReviewCtrl');
 const mongoose = require('mongoose');
+const cloudinaryUpload = require('./controllers/cloudinaryUpload');
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 
 const app = express();
 const mongoController = require('./db/mongoController');
 
-app.use(express.json());
-
+// app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(
   session({
     resave: false,
@@ -67,12 +69,21 @@ app.put('/api/chapter/:id', chapterCtrl.updateChapter);
 app.post('/api/chapter/:id', chapterCtrl.getChapter);
 app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
 
+//Cloudinary Endpoint
+app.post('/api/upload', cloudinaryUpload.addImage);
+
 //Book Reviews Endpoints
 app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews); // gets book reviews for given book
 app.get('/api/bookreviewbyuser/:id', bookReviewCtrl.getBookReviewsForUser); // gets book reviews for given user
 app.post('/api/bookreview', bookReviewCtrl.addBookReview);
 app.put('/api/bookreview/:id', bookReviewCtrl.updateBookReview);
 app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview);
+
+//Book Ratings Endpoints
+app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings);
+app.post('/api/bookrating/:id', bookRatingsCtrl.addBookRating);
+app.put('/api/bookrating/:id', bookRatingsCtrl.updateBookRating);
+app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating);
 
 //Chapter Reveiws Endpoints
 // app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)
@@ -81,10 +92,10 @@ app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview);
 // app.delete('/api/chapterreview/:id', chapterReviewCtrl.deleteChapterReview)
 
 //Book Ratings Endpoints
-app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings);
-app.post('/api/bookrating/:id', bookRatingsCtrl.addBookRating);
-app.put('/api/bookrating/:id', bookRatingsCtrl.updateBookRating);
-app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating);
+// app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings)
+// app.post('/api/bookrating', bookRatingsCtrl.addBookRating)
+// app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating)
+// app.put('/api/bookrating', bookRatingsCtrl.updateBookRating)
 
 //Chapter Ratings Endpoints
 // app.get('/api/chapterrating/:id', chapterRatingsCtrl.getChapterRatings)
