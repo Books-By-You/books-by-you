@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const BookReview = require('../db/models/bookReviewSchema');
+const BookReview = require("../db/models/bookReviewSchema");
 const mongoose_1 = __importDefault(require("mongoose"));
 module.exports = {
     getBookReviews: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,7 +22,10 @@ module.exports = {
             res.status(200).send(bookReviews);
             return;
         }
-        res.status(400).send('Unable to find reviews for this book.');
+        else {
+            return res.status(200).send([]);
+        }
+        res.status(400).send("Unable to find reviews for this book.");
     }),
     getBookReviewsForUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
@@ -32,7 +35,10 @@ module.exports = {
             res.status(200).send(bookReviews);
             return;
         }
-        res.status(400).send('Unable to find reviews for this user.');
+        else {
+            return res.status(200).send([]);
+        }
+        res.status(400).send("Unable to find reviews for this user.");
     }),
     addBookReview: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { userID, review, bookID } = req.body;
@@ -48,7 +54,7 @@ module.exports = {
             res.status(201).send(savedReview);
             return;
         }
-        res.status(400).send('unable to save review');
+        res.status(400).send("unable to save review");
     }),
     updateBookReview: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
@@ -74,11 +80,11 @@ module.exports = {
                 res.sendStatus(200);
             }
             else {
-                res.status(400).send('Book review not updated');
+                res.status(400).send("Book review not updated");
             }
         }
         else {
-            res.status(400).send('Book review not updated');
+            res.status(400).send("Book review not updated");
         }
     }),
     deleteBookReview: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -89,7 +95,7 @@ module.exports = {
                 return;
             }
             else {
-                res.status(400).send('Unable to find book review!');
+                res.status(400).send("Unable to find book review!");
             }
         });
     }),

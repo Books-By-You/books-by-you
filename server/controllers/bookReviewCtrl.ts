@@ -1,5 +1,5 @@
-const BookReview = require('../db/models/bookReviewSchema');
-import mongoose from 'mongoose';
+const BookReview = require("../db/models/bookReviewSchema");
+import mongoose from "mongoose";
 
 module.exports = {
   getBookReviews: async (req, res) => {
@@ -8,18 +8,21 @@ module.exports = {
     if (bookReviews.length > 0) {
       res.status(200).send(bookReviews);
       return;
+    } else {
+      return res.status(200).send([]);
     }
-    res.status(400).send('Unable to find reviews for this book.');
+    res.status(400).send("Unable to find reviews for this book.");
   },
   getBookReviewsForUser: async (req, res) => {
     const { id } = req.params;
     const bookReviews = await BookReview.find({ userID: id }).exec();
-    console.log(bookReviews);
     if (bookReviews.length > 0) {
       res.status(200).send(bookReviews);
       return;
+    } else {
+      return res.status(200).send([]);
     }
-    res.status(400).send('Unable to find reviews for this user.');
+    res.status(400).send("Unable to find reviews for this user.");
   },
   addBookReview: async (req, res) => {
     const { userID, review, bookID } = req.body;
@@ -37,7 +40,7 @@ module.exports = {
       res.status(201).send(savedReview);
       return;
     }
-    res.status(400).send('unable to save review');
+    res.status(400).send("unable to save review");
   },
   updateBookReview: async (req, res) => {
     const { id } = req.params;
@@ -67,10 +70,10 @@ module.exports = {
       if (updatedReview) {
         res.sendStatus(200);
       } else {
-        res.status(400).send('Book review not updated');
+        res.status(400).send("Book review not updated");
       }
     } else {
-      res.status(400).send('Book review not updated');
+      res.status(400).send("Book review not updated");
     }
   },
   deleteBookReview: async (req, res) => {
@@ -81,7 +84,7 @@ module.exports = {
           res.sendStatus(200);
           return;
         } else {
-          res.status(400).send('Unable to find book review!');
+          res.status(400).send("Unable to find book review!");
         }
       }
     );

@@ -6,21 +6,15 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 import MappedChapters from "./MappedChapters";
 import Button from "../Button/Button";
 import Rating from "../Rating/Rating";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import OwnerControl from "./ownerControl";
 import "./BookView.scss";
 
 const BookView: React.FC<Props> = (props) => {
   const [bookId, setBookId] = useState(props.match.params.id);
-  const [isLoading, setLoading] = useState(false);
-  const [reviews, setReviews] = useState([
-    {
-      title: "hello test",
-      author: "tes123",
-      content:
-        " scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more rec",
-      date: "12/12",
-    },
-  ]);
+  const [isLoading, setLoading] = useState(true);
+  const [owner, setOwner] = useState(false);
+  const [reviews, setReviews] = useState([]);
   const [book, setBook] = useState({
     _id: "",
     title: "",
@@ -33,56 +27,66 @@ const BookView: React.FC<Props> = (props) => {
   });
   const [author, setAuthor] = useState("");
   const [display, setDisplay] = useState(<div></div>);
+  let location = useLocation();
+  let { userReducer } = props;
 
   function getBookInfo() {
+    let bookId = location.pathname.split("/")[2];
     axios
-      .get(`/api/book/60ce3492ff5a72a52d196d2c`)
+      .get(`/api/book/${bookId}`)
       .then((res) => {
-        console.log(res.data);
         setBook(res.data);
         setLoading(false);
-        setDisplay(<MappedChapters chapters={res.data.chapters} />);
+        setDisplay(
+          <MappedChapters owner={owner} chapters={res.data.chapters} />
+        );
       })
       .catch((err) => err);
-    // axios
-    //   .get("/api/bookreviews")
-    //   .then((res) => {
-    //     setReviews(res.data);
-    //   })
-    // .catch((err) => err);
+    axios.get(`/api/bookreview/${bookId}`).then((res) => {
+      if (res.data) {
+        console.log(res.data);
+      } else {
+        return "no reviews";
+      }
+      setReviews(res.data);
+    });
   }
 
+  let ownerCheck = () => {
+    if (book.authorID === props.userReducer.userId) {
+      setOwner(true);
+    } else console.log("no");
+  };
   useLayoutEffect(() => {
     getBookInfo();
   }, []);
-
   useEffect(() => {
     if (book.authorID) {
       axios.get(`/api/users/${book.authorID}`).then((res) => {
         setAuthor(res.data.username);
       });
+      ownerCheck();
     } else console.log("no authorID");
   }, [book]);
 
   let mappedReviews = reviews.map((e: any, i: any) => (
     <ReviewCard
       width={"1100px"}
-      title={e.title}
-      author={e.author}
+      _id={e._id}
+      author={e.userID}
       content={e.content}
       date={e.date}
+      user={props.userReducer.userId}
     />
   ));
-
   function componentSwap(num: number) {
     if (num === 1) {
       console.log("hit display 1");
-      setDisplay(<MappedChapters chapters={book.chapters} />);
+      setDisplay(<MappedChapters owner={owner} chapters={book.chapters} />);
     } else setDisplay(<div>{mappedReviews}</div>);
   }
 
   function loadCheck() {
-    console.log(book.chapters);
     if (!isLoading) {
       return (
         <div className="book-container">
@@ -97,18 +101,12 @@ const BookView: React.FC<Props> = (props) => {
               <p className="font-md">{`${author}`}</p>
               <p className="font-md">{`${book.tags}`}</p>
               <p className="font-md description">{`${book.description}`}</p>
-              <Link to="/login">
-                <Button
-                  styleName={"add-book-shelf"}
-                  label={"Add to Bookshelf"}
-                  handleClick={() => {
-                    let { userId } = props.userReducer;
-                    axios.post(`/api/bookshelf/${book._id}`, {
-                      userId: userId,
-                    });
-                  }}
-                />
-              </Link>
+              <OwnerControl
+                userReducer={userReducer}
+                owner={owner}
+                userId={props.userReducer.userId}
+                bookId={book._id}
+              />
             </section>
           </section>
           <section id="button-s-container">

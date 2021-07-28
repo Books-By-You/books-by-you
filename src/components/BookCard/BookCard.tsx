@@ -37,16 +37,16 @@ const BookCard: React.FC<Book> = (props) => {
           <img src={image_url} alt={title} />
           <Rating value={bookRating} />
           <Link to={`/book/${bookId}`}>
-            <p className='title'>{title}</p>
+            <p className="title">{title}</p>
           </Link>
-          <p className='description'>{description}</p>
+          <p className="description">{description}</p>
         </>
       ) : (
         <>
           <img src={image_url} alt={title} />
           <Rating value={bookRating} />
           <Link to={`/book/${bookId}`}>
-            <p className='title'>{title}</p>
+            <p className="title">{title}</p>
           </Link>
         </>
       )}
