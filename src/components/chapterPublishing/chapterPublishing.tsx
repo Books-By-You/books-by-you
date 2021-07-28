@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import "./publishingView.scss";
+import "./chapterPublishing.scss";
 import Button from "../Button/Button";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -35,7 +35,6 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     const file = e.target.files[0];
     previewFile(file);
   };
-
   const handleChange = (e: any) => {
     console.log(e.target.value);
     setCategory(e.target.value);
@@ -43,7 +42,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
   const previewFile = (file: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
+    reader.onloadend = () => { 
       setPreviewSource(reader.result);
     };
   };
@@ -63,88 +62,41 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     const createdBook = await axios
       .post("/api/book", newBook)
       .then((response) => response.data);
-    // history.push(`/book/${createdBook._id}`);
-    history.push(`/new-chapter`);
+    history.push(`/book/${createdBook._id}`);
   };
 
-  const resetInputField = () => {
-    setFileInputState("");
-    setSelectedFile("");
-    setPreviewSource("");
-    setInputs({ ...inputs, title: " ", description: " " });
-    setCategory("Filter");
-  };
-
-  
   return (
     <div className="main-container">
-      Publishing view
-      <form onSubmit={() => {}} className="image-container">
-        <section className="cover-image">
-          Cover Image{" "}
-          {previewSource && (
-            <img
-              src={previewSource}
-              alt="chosen book"
-              style={{ height: "350px", width: "450px" }}
-            />
-          )}
-        </section>
-
-        <input
-          className="button-comp"
-          type="file"
-          name="image"
-          onChange={handleFileInputChange}
-          value={fileInputState}
-        />
-        
-      </form>
+      <span className="chap-title">Let your Imagination Run Wild!</span>
+      
       <div className="input-box">
+        <span className="chap-title2">Enter Chapter Title</span>
         <input
           name="title"
-          className="input1"
-          placeholder="title input"
+          className="chap-input1"
+          placeholder="title "
           onChange={({ target }) =>
             setInputs((state) => ({ ...state, title: target.value }))
           }
           value={inputs.title}
-        ></input>
+        />
 
-        <form onSubmit={handleSubmit}>
-          <label>
-            <select className="filter" value={category} onChange={handleChange}>
-              <option value="Filter" selected disabled hidden>
-                Filter
-              </option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Science Fiction">Science Fiction</option>
-              <option value="Romance">Romance</option>
-              <option value="Non Fiction">Non Fiction</option>
-            </select>
-          </label>
-          <br />
-          <br />
-          <label></label>
-        </form>
-
+       
+<span className="chap-title2">Chapter Content</span>
         <input
           name="description"
-          className="input3"
-          placeholder="Add description"
+          className="chap-input2"
+          placeholder="Chapter Content"
           onChange={({ target }) =>
             setInputs((state) => ({ ...state, description: target.value }))
           }
           value={inputs.description}
         ></input>
       </div>
-      <div className="add-buttons">
-        <button className="button-comp2" onClick={resetInputField}>
-          {" "}
-          Cancel{" "}
-        </button>
+      <div className="chap-add-buttons">
+        <button className="chap-button-comp2"> Cancel </button>
 
-        <button className="button-comp3" onClick={handleFormSubmit}>
+        <button className="chap-button-comp3" onClick={handleFormSubmit}>
           {" "}
           Publish{" "}
         </button>
@@ -152,7 +104,6 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     </div>
   );
 };
-
 const mapStateToProps = (reduxState: any) => {
   return {
     user: reduxState.userReducer,
@@ -160,3 +111,4 @@ const mapStateToProps = (reduxState: any) => {
 };
 
 export default connect(mapStateToProps)(PublishingView);
+

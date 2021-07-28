@@ -7,7 +7,7 @@ import Book from './components/BookView/bookView';
 import Profile from './components/ProfileView/ProfileView';
 import Search from './components/searchView/searchView';
 import Publishing from './components/PublishingView/publishingView';
-import ChapterNew from './components/chapterPublishing';
+import ChapterNew from './components/chapterPublishing/chapterPublishing';
 
 export default (
   <Switch>
