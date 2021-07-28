@@ -7,6 +7,7 @@ const bookCtrl = require('./controllers/bookCtrl');
 const userCtrl = require('./controllers/userCtrl');
 const chapterCtrl = require('./controllers/chapterCtrl');
 const bookRatingsCtrl = require('./controllers/bookRatingsController');
+const bookReviewCtrl = require('./controllers/bookReviewCtrl')
 const mongoose = require('mongoose');
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 
@@ -66,10 +67,11 @@ app.post('/api/chapter/:id', chapterCtrl.getChapter);
 app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
 
 //Book Reviews Endpoints
-// app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews)
-// app.post('/api/bookreview', bookReviewCtrl.addBookReview)
-// app.put ('/api/bookreview', bookReviewCtrl.updateBookReview)
-// app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
+app.get('/api/bookreview/:id', bookReviewCtrl.getBookReviews) // gets book reviews for given book
+app.get('/api/bookreviewbyuser/:id', bookReviewCtrl.getBookReviewsForUser) // gets book reviews for given user
+app.post('/api/bookreview', bookReviewCtrl.addBookReview)
+app.put ('/api/bookreview/:id', bookReviewCtrl.updateBookReview)
+app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
 
 //Chapter Reveiws Endpoints
 // app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)

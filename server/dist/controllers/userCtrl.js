@@ -49,6 +49,8 @@ module.exports = {
             .catch((err) => {
             res.sendStatus(404);
         });
+        if (password) {
+        }
         const updatedUser = {
             profileImage: profileImage || foundUser.profileImage,
             username: username || foundUser.username,
