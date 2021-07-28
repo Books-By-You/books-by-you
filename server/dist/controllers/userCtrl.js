@@ -62,9 +62,7 @@ module.exports = {
                 .save()
                 .then((savedDoc) => {
                 if (savedDoc === foundUser) {
-                    return res
-                        .status(200)
-                        .send(`${foundUser.username} has been updated.`);
+                    return res.status(200).send(foundUser);
                 }
             })
                 .catch((error) => {
@@ -77,9 +75,7 @@ module.exports = {
             .save()
             .then((savedDoc) => {
             if (savedDoc === foundUser) {
-                return res
-                    .status(200)
-                    .send(`${foundUser.username} has been updated.`);
+                return res.status(200).send(foundUser);
             }
         })
             .catch((error) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { updateUser } from '../../redux/reducers/userReducer';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,27 +23,28 @@ const ProfileSettings: React.FC<{
   handleClose: () => void;
   open: boolean;
   user: User;
-}> = ({ handleClose, open, user }) => {
+  updateUser: (userInfo: {
+    _id: string;
+    profileImage: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+  }) => void;
+}> = ({ handleClose, open, user, updateUser }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [passMatch, setPassMatch] = useState<boolean>();
   const [userInfo, setUserInfo] = useState({
+    _id: user.userId,
     profileImage: user.profileImage,
     username: user.username,
     password: '',
     confirmPassword: '',
   });
 
-  const onSubmit = async () => {
-    setLoading(true);
-    const response = await axios
-      .put(`/api/users/${user.userId}`, userInfo)
-      .then((res) => res.data);
-    setMessage(response);
-    setLoading(false);
-    setTimeout(() => {
-      handleClose();
-    }, 1000);
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    updateUser(userInfo);
   };
 
   useEffect(() => {
@@ -133,4 +135,8 @@ const mapStateToProps = (reduxState: any) => {
   };
 };
 
-export default connect(mapStateToProps)(ProfileSettings);
+const mapDispatchToProps = {
+  updateUser: updateUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileSettings);
