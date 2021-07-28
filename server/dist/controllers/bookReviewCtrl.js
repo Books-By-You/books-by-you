@@ -27,6 +27,7 @@ module.exports = {
     getBookReviewsForUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
         const bookReviews = yield BookReview.find({ userID: id }).exec();
+        console.log(bookReviews);
         if (bookReviews.length > 0) {
             res.status(200).send(bookReviews);
             return;
@@ -40,7 +41,7 @@ module.exports = {
             bookID: bookID,
             content: review,
             userID: userID,
-            date: new Date()
+            date: new Date(),
         });
         let savedReview = yield newBookReview.save();
         if (savedReview) {
@@ -67,7 +68,7 @@ module.exports = {
         });
         if (foundReview) {
             const updatedReview = yield BookReview.updateOne({ _id: id }, {
-                content: review
+                content: review,
             });
             if (updatedReview) {
                 res.sendStatus(200);
@@ -91,6 +92,6 @@ module.exports = {
                 res.status(400).send('Unable to find book review!');
             }
         });
-    })
+    }),
 };
 //# sourceMappingURL=bookReviewCtrl.js.map
