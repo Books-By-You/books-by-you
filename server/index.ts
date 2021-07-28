@@ -78,6 +78,12 @@ app.post('/api/bookreview', bookReviewCtrl.addBookReview)
 app.put ('/api/bookreview/:id', bookReviewCtrl.updateBookReview)
 app.delete('/api/bookreview/:id', bookReviewCtrl.deleteBookReview)
 
+//Book Ratings Endpoints
+app.get('/api/bookrating/:id', bookRatingsCtrl.getBookRatings);
+app.post('/api/bookrating/:id', bookRatingsCtrl.addBookRating);
+app.put('/api/bookrating/:id', bookRatingsCtrl.updateBookRating);
+app.delete('/api/bookrating/:id', bookRatingsCtrl.deleteBookRating);
+
 //Chapter Reveiws Endpoints
 // app.get('/api/chapterreview/:id', chapterReviewCtrl.getChapterReviews)
 // app.post('/api/chapterreview', chapterReviewCtrl.addChapterReview)
