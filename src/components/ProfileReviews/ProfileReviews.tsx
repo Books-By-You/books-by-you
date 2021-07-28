@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import Loading from '../Loading/Loading';
 import axios from 'axios';
 import './ProfileReviews.scss';
+import ReviewCard from '../ReviewCard/ReviewCard';
 
 interface Reviews {
   _id: string;
@@ -52,7 +53,31 @@ const ProfileReviews: React.FC = () => {
     };
   }, [userIdFromPath]);
 
-  return <>{loading ? <Loading /> : <>{reviewErrorMessage}</>}</>;
+  const reviewsList = reviews.map((review) => {
+    return (
+      <div className='review-card'>
+        <ReviewCard
+          width='400'
+          _id={review._id}
+          author={userIdFromPath}
+          user={review.userID}
+          content={review.content}
+          date={review.date}
+        />
+      </div>
+    );
+  });
+
+  console.log(reviewsList);
+  return (
+    <div className='profile-reviews-container'>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>{reviewsList.length > 0 ? reviewsList : reviewErrorMessage}</>
+      )}
+    </div>
+  );
 };
 
 export default ProfileReviews;
