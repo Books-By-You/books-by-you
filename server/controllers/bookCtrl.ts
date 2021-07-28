@@ -5,7 +5,8 @@ const Book = require('../db/models/booksSchema');
 module.exports = {
   createBook: async (req, res) => {
     const { title, authorID, description, coverImage, tag } = req.body;
-
+    console.log("getting here")
+    console.log(req.body)
     const book = new Book({
       _id: new mongoose.Types.ObjectId(),
       title: title,
@@ -24,17 +25,21 @@ module.exports = {
   },
   getBook: async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     let foundBook = await Book.findOne({ _id: id })
       .then((book) => {
         if (book) {
+          console.log('here 1')
           return book;
         } else {
+          console.log('here 2')
           return null;
         }
       })
       .catch((err) => {
         return err;
       });
+    console.log(foundBook)
     if (foundBook) {
       res.status(200).send(foundBook);
       return;

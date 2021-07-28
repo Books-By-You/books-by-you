@@ -50,6 +50,8 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
+
+
   // const handleSubmitFile = (e: any) => {
   //   e.preventDefault();
   //   if (!previewSource) return;
@@ -69,14 +71,17 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
   //  };
   
 
+
+
   const handleFormSubmit = async (e: any) => {
     e.preventDefault()
     const newBook = {
       ...inputs,
-      tags: [category],
-      userId: user.userId,
+      tag: [category],
+      authorID: user.userId,
       coverImage: previewSource
     }
+    console.log(newBook)
     const createdBook = await axios.post('/api/book', newBook).then(response => response.data)
     history.push(`/book/${createdBook._id}`)
   }
@@ -103,7 +108,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
           onChange={handleFileInputChange}
           value={fileInputState}
         />
-        <button className="btn" type="submit">
+        <button className="btn" type="submit" >
           Upload
         </button>
       </form>
@@ -116,10 +121,10 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
               <option value="Filter" selected disabled hidden>
                 Filter
               </option>
-              <option value="Thriller">Thriller</option>
-              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Science Fiction">Science Fiction</option>
               <option value="Romance">Romance</option>
-              <option value="History">History</option>
+              <option value="Non Fiction">Non Fiction</option>
             </select>
           </label>
           <br />
