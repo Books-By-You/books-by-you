@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 import search1 from "./search.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -15,14 +15,14 @@ const SearchView: React.FC = () => {
   const [bookLists, setBookLists] = useState([]);
   const [category, setCategory] = useState("Filter");
   const [search, setSearch] = useState("");
-  const [books,setBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    axios.get("/api/books").then((res) => {
-      const books = res.data;
-      setBooks(books);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/api/books").then((res) => {
+  //     const books = res.data;
+  //     setBooks(books);
+  //   });
+  // }, []);
 
   const handleChange = (e: any) => {
     console.log(e.target.value);
@@ -33,19 +33,15 @@ const SearchView: React.FC = () => {
     e.preventDefault();
   };
 
-  axios.get("/api/books").then((res) => {
-    const books = res.data;
-    setBooks(books );
-  }); 
+  // axios.get("/api/books").then((res) => {
+  //   const books = res.data;
+  //   setBooks(books );
+  // });
+  //     axios.get(`/api/book/${search}`).then((res) => {
+  //       const books = res.data;
+  //       return books
+  //       });
 
-
- 
-      axios.get(`/api/book/${search}`).then((res) => {
-        const books = res.data;
-        return books
-        });
-        
-      
   function arrayMapper(book: any, index: any) {
     return (
       <BookCard
@@ -58,7 +54,7 @@ const SearchView: React.FC = () => {
     );
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios.get("/api/books").then((res) => {
       console.log({ res });
       setBookLists(res.data);
@@ -71,6 +67,7 @@ const SearchView: React.FC = () => {
 
   const listBooks = bookLists.map(arrayMapper);
   const listBooks2 = SliderData2.map(arrayMapper);
+
   return (
     <div className="searchView">
       <div className="carousel-container">
@@ -81,7 +78,6 @@ const SearchView: React.FC = () => {
           <div className="book-carousel-1">{listBooks2}</div>
         </Carousel>
         <div className="heading">
-          {" "}
           <h1> Our Popular Books!</h1>
         </div>
       </div>
@@ -90,7 +86,7 @@ const SearchView: React.FC = () => {
         <div className="search">
           <div className="search_field">
             <span className="input-icon">
-              <button className="searchbutton" >
+              <button className="searchbutton">
                 <img className="searchicon" src={search1} alt="search" />
               </button>
               <input
@@ -130,7 +126,6 @@ const SearchView: React.FC = () => {
           {/* <div className="search-result"> {listBooks}</div> */}
           <div className="search-result"> {listBooks}</div>
 
-
           {/* <div>{ books.map((books)  => {
           return (
             <div>
@@ -139,9 +134,6 @@ const SearchView: React.FC = () => {
             </div>
           );
         })}</div> */}
-
-
-
         </div>
       </div>
     </div>
