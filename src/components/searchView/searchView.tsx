@@ -19,7 +19,7 @@ const SearchView: React.FC = () => {
       <BookCard
         title={book.title}
         image_url={book.coverImage}
-        rating={book.rating}
+        ratings={book.ratings}
         bookId={book._id}
         description={book.description}
       />
@@ -28,6 +28,7 @@ const SearchView: React.FC = () => {
 
   useEffect(() => {
     axios.get("/api/books").then((res) => {
+      console.log({ res });
       setBookLists(res.data);
     });
   }, []);

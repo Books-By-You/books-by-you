@@ -14,15 +14,7 @@ const BookView: React.FC<Props> = (props) => {
   const [bookId, setBookId] = useState(props.match.params.id);
   const [isLoading, setLoading] = useState(true);
   const [owner, setOwner] = useState(false);
-  const [reviews, setReviews] = useState([
-    {
-      _id: "",
-      userID: "60e0b11a0a55191558d7d9a8",
-      content:
-        " scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more rec",
-      reviewDate: "12/12",
-    },
-  ]);
+  const [reviews, setReviews] = useState([]);
   const [book, setBook] = useState({
     _id: "",
     title: "",
@@ -43,7 +35,6 @@ const BookView: React.FC<Props> = (props) => {
     axios
       .get(`/api/book/${bookId}`)
       .then((res) => {
-        console.log(res.data);
         setBook(res.data);
         setLoading(false);
         setDisplay(
@@ -51,7 +42,16 @@ const BookView: React.FC<Props> = (props) => {
         );
       })
       .catch((err) => err);
+    axios.get(`/api/bookreview/${bookId}`).then((res) => {
+      if (res.data) {
+        console.log(res.data);
+      } else {
+        return "no reviews";
+      }
+      setReviews(res.data);
+    });
   }
+
   let ownerCheck = () => {
     if (book.authorID === props.userReducer.userId) {
       setOwner(true);
