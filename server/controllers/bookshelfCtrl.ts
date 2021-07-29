@@ -1,7 +1,8 @@
-require("dotenv").config({ path: "../.env" });
-import mongoose from "mongoose";
-import { combineReducers } from "redux";
-const User2 = require("../db/models/userSchema");
+require('dotenv').config({ path: '../.env' });
+import mongoose from 'mongoose';
+import { combineReducers } from 'redux';
+const User2 = require('../db/models/userSchema');
+const Book = require('../db/models/booksSchema');
 
 module.exports = {
   addToBookshelf: async (req, res) => {
@@ -87,6 +88,34 @@ module.exports = {
       } else {
         res.sendStatus(400);
       }
+    } else {
+      res.sendStatus(400);
+    }
+  },
+  getBooksFromBookshelf: async (req, res) => {
+    const { id } = req.params;
+    let foundUser = await User2.findOne({ _id: id })
+      .then((user) => {
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return null;
+      });
+
+    if (foundUser) {
+      const promises = foundUser.books.map((bookId) => {
+        return Book.findById(bookId).then((book) => {
+          return book;
+        });
+      });
+      Promise.all(promises).then((book) => {
+        res.status(200).send(book);
+      });
     } else {
       res.sendStatus(400);
     }

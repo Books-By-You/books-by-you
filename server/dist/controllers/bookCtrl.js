@@ -118,7 +118,7 @@ module.exports = {
                 authorID: foundBook.authorID,
                 coverImage: foundBook.coverImage,
                 description: foundBook.description,
-                tags: foundBook.tags
+                tags: foundBook.tags,
             };
             const updatedBook = yield Book.updateOne({ _id: id }, {
                 title: title || bookToUpdate.title,
@@ -143,6 +143,14 @@ module.exports = {
             return;
         }
         res.status(400).send('unable to get books');
+    }),
+    getBooksByAuthorId: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { id: authorId } = req.params;
+        let getBooks = yield Book.find({ authorID: authorId });
+        if (getBooks.length > 0) {
+            return res.status(200).send(getBooks);
+        }
+        return res.status(404).send('No books found.');
     }),
 };
 //# sourceMappingURL=bookCtrl.js.map

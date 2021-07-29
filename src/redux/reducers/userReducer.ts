@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { InitialStateInt, UserObj, ActionType } from './userReducerInterface';
+import {
+  InitialStateInt,
+  UserObj,
+  ActionType,
+  User,
+} from './userReducerInterface';
 
 const initialState: InitialStateInt = {
   loading: false,
@@ -14,6 +19,7 @@ const initialState: InitialStateInt = {
 const LOGOUT = 'logout';
 const LOGIN = 'login';
 const REGISTER = 'register';
+const UPDATE_USER = 'update_user';
 
 export function login(userObj: UserObj) {
   return {
@@ -32,6 +38,13 @@ export function register(newUserObj: UserObj) {
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function updateUser(updatedUserObj: User) {
+  return {
+    type: UPDATE_USER,
+    payload: axios.put(`/api/users/${updatedUserObj._id}`, updatedUserObj),
   };
 }
 
@@ -83,6 +96,27 @@ export default function reducer(state = initialState, action: ActionType) {
         profileImage: '',
         firstName: '',
         lastName: '',
+      };
+    case UPDATE_USER + '_FULFILLED':
+      console.log(state);
+      return {
+        ...state,
+        username: action.payload.data.username,
+        userId: action.payload.data._id,
+        profileImage: action.payload.data.profileImage,
+        firstName: action.payload.data.firstName,
+        lastName: action.payload.data.lastName,
+        loading: false,
+      };
+
+    case UPDATE_USER + '_PENDING':
+      return { ...state, loading: true };
+
+    case UPDATE_USER + '_REJECTED':
+      return {
+        ...state,
+        loading: false,
+        errorMessage: 'Unable to complete changes',
       };
     default:
       return state;

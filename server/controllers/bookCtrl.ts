@@ -99,13 +99,12 @@ module.exports = {
       });
 
     if (foundBook) {
-       
       let bookToUpdate = {
         title: foundBook.title,
         authorID: foundBook.authorID,
         coverImage: foundBook.coverImage,
         description: foundBook.description,
-        tags: foundBook.tags
+        tags: foundBook.tags,
       };
 
       const updatedBook = await Book.updateOne(
@@ -135,5 +134,14 @@ module.exports = {
       return;
     }
     res.status(400).send('unable to get books');
+  },
+  getBooksByAuthorId: async (req, res) => {
+    const { id: authorId } = req.params;
+
+    let getBooks = await Book.find({ authorID: authorId });
+    if (getBooks.length > 0) {
+      return res.status(200).send(getBooks);
+    }
+    return res.status(404).send('No books found.');
   },
 };
