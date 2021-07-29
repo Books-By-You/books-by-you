@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect } from 'react';
-import ReactDOM from 'react-dom';
 import search1 from './search.png';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
@@ -12,9 +11,11 @@ import axios from 'axios';
 const SearchView: React.FC = () => {
   //need 15 "objects to fill array from back end"
   const [slidesArray, setSlidesArray] = useState([SliderData]);
-  const [bookLists, setBookLists] = useState([]);
+  const [filter, setFilter] = useState(false);
+  const [bookLists, setBookLists] = useState<any>([]);
+  const [filteredBookList, setFilteredBookList] = useState([]);
   const [category, setCategory] = useState('Filter');
-  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
   const [books, setBooks] = useState([]);
 
   // useEffect(() => {
@@ -27,6 +28,16 @@ const SearchView: React.FC = () => {
   const handleChange = (e: any) => {
     console.log(e.target.value);
     setCategory(e.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchInput && bookLists) {
+      const filteredBooks = bookLists.filter((book: any) =>
+        book.title.includes(searchInput)
+      );
+      setFilter(true);
+      setFilteredBookList(filteredBooks);
+    }
   };
 
   const handleSubmit = (e: any) => {
@@ -67,6 +78,8 @@ const SearchView: React.FC = () => {
 
   const listBooks = bookLists.map(arrayMapper);
   const listBooks2 = SliderData2.map(arrayMapper);
+  const filteredBooks = filteredBookList.map(arrayMapper);
+  console.log('filtered', filteredBooks);
 
   return (
     <div className='searchView'>
@@ -86,10 +99,12 @@ const SearchView: React.FC = () => {
         <div className='search'>
           <div className='search_field'>
             <span className='input-icon'>
-              <button className='searchbutton'>
+              <button className='searchbutton' onClick={handleSearchSubmit}>
                 <img className='searchicon' src={search1} alt='search' />
               </button>
               <input
+                onChange={({ target }) => setSearchInput(target.value)}
+                value={searchInput}
                 className='search_input'
                 type='text'
                 placeholder='search'
@@ -124,7 +139,9 @@ const SearchView: React.FC = () => {
         </div>
         <div className='search-result-container'>
           {/* <div className="search-result"> {listBooks}</div> */}
-          <div className='search-result'> {listBooks}</div>
+          <div className='search-result'>
+            {filter ? filteredBooks : listBooks}
+          </div>
 
           {/* <div>{ books.map((books)  => {
           return (
