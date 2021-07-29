@@ -6,7 +6,7 @@ import Reading from './components/ReadingView/readingView';
 import Book from './components/BookView/bookView';
 import Profile from './components/ProfileView/ProfileView';
 import Search from './components/searchView/searchView';
-import Publishing from './components/publishingView';
+import Publishing from './components/PublishingView/publishingView';
 import ChapterNew from './components/chapterPublishing';
 
 export default (

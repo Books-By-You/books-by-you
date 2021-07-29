@@ -1,46 +1,49 @@
-import React from 'react';
-import BookCard from '../BookCard/BookCard';
-import { SliderData } from '../searchView/SliderData';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import Titles from '../Titles/Titles';
+import Bookshelf from '../Bookshelf/Bookshelf';
+import ProfileReviews from '../ProfileReviews/ProfileReviews';
+import Button from '../Button/Button';
 import './ProfileData.scss';
 
-interface Book {
-  bookId: string;
-  title: string;
-  authorId: string;
-  description: string;
-  coverImage: string;
-  tags: string[];
-  chapters: string[];
-  isPublished: boolean;
-}
+const ProfileData: React.FC = () => {
+  const [view, setView] = useState('');
 
-const ProfileData: React.FC<{ books: Book }> = ({ books }) => {
-  const bookList = SliderData.map((book) => (
-    <BookCard
-      title={book.title}
-      description={book.description}
-      image_url={book.image}
-      rating={book.rating}
-    />
-  ));
+  const handleClick = (e: any) => {
+    setView(e.target.innerText);
+  };
 
   return (
     <div className='profile-data-container'>
       <div className='profile-data-header'>
-        <h3>Titles</h3>
-        <h3>Reviews</h3>
-        <h3>Library</h3>
+        <Button
+          styleName={''}
+          label={'Titles'}
+          handleClick={(e: any) => handleClick(e)}
+        />
+        <Button
+          styleName={''}
+          label={'Bookshelf'}
+          handleClick={(e: any) => handleClick(e)}
+        />
+        <Button
+          styleName={''}
+          label={'Reviews'}
+          handleClick={(e: any) => handleClick(e)}
+        />
       </div>
-      {bookList}
+      <div>
+        {view === 'Titles ' ? (
+          <Titles />
+        ) : view === 'Bookshelf' ? (
+          <Bookshelf />
+        ) : view === 'Reviews' ? (
+          <ProfileReviews />
+        ) : (
+          <Titles />
+        )}
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = (reduxState: any) => {
-  return {
-    books: reduxState.booksReducer,
-  };
-};
-
-export default connect(mapStateToProps)(ProfileData);
+export default ProfileData;

@@ -16,3 +16,24 @@
   font-size: 20px;
   font-weight: 700;
 }
+.review-input {
+  margin-top: 20px;
+  width: 850px;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  font-size: 18px;
+}
+
+.review-editor-container {
+  margin: 20px;
+}
+
+.review-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 20px;
+  margin-right: 22px;
+}

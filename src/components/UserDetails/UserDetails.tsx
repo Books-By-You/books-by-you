@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import Button from '../Button/Button';
 import './UserDetails.scss';
 
 interface User {
@@ -13,29 +14,56 @@ interface User {
   profileImage: string;
 }
 
-const UserDetails: React.FC<{ user: User }> = ({ user }) => {
-  const location = useLocation();
+const UserDetails: React.FC<{ userLoggedIn: User; openSettings: () => void }> =
+  ({ userLoggedIn, openSettings }) => {
+    const location = useLocation();
+    const [user, setUser] = useState<User>();
+    const userIdFromPath = location.pathname.split('/')[2];
 
-  console.log(user);
+    useLayoutEffect(() => {
+      if (userLoggedIn) {
+        setUser(userLoggedIn);
+      } else {
+        axios
+          .get(`/api/users/${userIdFromPath}`)
+          .then(({ data }) => setUser(data))
+          .catch((err) => console.log(err));
+      }
+    }, [userIdFromPath, userLoggedIn]);
 
-  return (
-    <div className='user-details-container'>
-      {user.profileImage ? (
-        <img src={user.profileImage} alt={`pic of ${user.firstName}`} />
-      ) : (
-        <FaUserCircle />
-      )}
-      <h3>{user.firstName}</h3>
-      {user.userId !== location.pathname.split('/')[2] && (
-        <button>Subscribe</button>
-      )}
-    </div>
-  );
-};
+    const addDefaultSrc = (e: any) => {
+      e.target.src =
+        'https://techpowerusa.com/wp-content/uploads/2017/06/default-user.png';
+    };
 
-const mapStateToProps = (reduxState: any) => {
+    return (
+      <div className='user-details-container'>
+        {user ? (
+          <>
+            <img
+              onError={addDefaultSrc}
+              src={user.profileImage}
+              alt={`pic of ${user.firstName}`}
+            />
+            <h3>{user.username}</h3>
+            {user.userId && user.userId === location.pathname.split('/')[2] && (
+              <Button
+                label='Settings'
+                styleName=''
+                handleClick={openSettings}
+              />
+            )}
+          </>
+        ) : (
+          <div>User not found</div>
+        )}
+      </div>
+    );
+  };
+
+const mapStateToProps = (reduxState: any): { userLoggedIn: User } => {
   return {
-    user: reduxState.userReducer,
+    userLoggedIn: reduxState.userReducer,
   };
 };
 
