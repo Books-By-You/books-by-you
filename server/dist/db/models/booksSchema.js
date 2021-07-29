@@ -6,15 +6,29 @@ const booksSchema = bookMongoose.Schema({
     description: String,
     coverImage: String,
     tags: { type: [String], default: [] },
-    chapters: { type: [{
+    chapters: {
+        type: [
+            {
                 _id: bookMongoose.Schema.Types.ObjectId,
                 title: String,
                 content: String,
                 number: Number,
-            }], default: [] },
-    isPublished: Boolean
+            },
+        ],
+        default: [],
+    },
+    ratings: {
+        type: [
+            {
+                userId: String,
+                rating: Number,
+            },
+        ],
+        default: [],
+    },
+    isPublished: Boolean,
 }, {
-    collection: "Books"
+    collection: 'Books',
 });
 module.exports = bookMongoose.model('Book', booksSchema);
 //# sourceMappingURL=booksSchema.js.map

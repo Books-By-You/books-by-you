@@ -12,18 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv").config({ path: "../.env" });
+require('dotenv').config({ path: '../.env' });
 const mongoose_1 = __importDefault(require("mongoose"));
-const Book = require("../db/models/booksSchema");
+const Book = require('../db/models/booksSchema');
 module.exports = {
     createBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { title, authorID, description, coverImage } = req.body;
+        const { title, authorID, description, coverImage, tag } = req.body;
         const book = new Book({
             _id: new mongoose_1.default.Types.ObjectId(),
             title: title,
             authorID: authorID,
             description: description,
             coverImage: coverImage,
+            tags: tag,
             isPublished: false,
         });
         let savedBook = yield book.save();
@@ -31,7 +32,7 @@ module.exports = {
             res.status(201).send(savedBook);
             return;
         }
-        res.status(400).send("unable to save book");
+        res.status(400).send('unable to save book');
     }),
     getBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
@@ -45,15 +46,14 @@ module.exports = {
             }
         })
             .catch((err) => {
-            console.log(err);
-            return null;
+            return err;
         });
         if (foundBook) {
             res.status(200).send(foundBook);
             return;
         }
         else {
-            res.status(400).send("Unable to find Book!");
+            res.status(400).send('Unable to find Book!');
         }
     }),
     getChapterCount: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -86,13 +86,13 @@ module.exports = {
                 return;
             }
             else {
-                res.status(400).send("Unable to find Book!");
+                res.status(400).send('Unable to find Book!');
             }
         });
     }),
     updateBook: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        const { title, authorID, description, coverImage } = req.body;
+        const { title, authorID, description, coverImage, tag } = req.body;
         let foundBook = yield Book.findOne({ _id: id })
             .then((book) => {
             if (book) {
@@ -111,20 +111,22 @@ module.exports = {
                 title: foundBook.title,
                 authorID: foundBook.authorID,
                 coverImage: foundBook.coverImage,
-                description: foundBook.description
+                description: foundBook.description,
+                tags: foundBook.tags
             };
             const updatedBook = yield Book.updateOne({ _id: id }, {
                 title: title || bookToUpdate.title,
                 authorID: authorID || bookToUpdate.authorID,
                 description: description || bookToUpdate.description,
                 coverImage: coverImage || bookToUpdate.coverImage,
+                tags: tag || bookToUpdate.tags,
                 isPublished: false,
             });
             if (updatedBook) {
                 res.sendStatus(200);
             }
             else {
-                res.status(400).send("Book not updated");
+                res.status(400).send('Book not updated');
             }
         }
     }),
@@ -134,7 +136,7 @@ module.exports = {
             res.status(201).send(getBooks);
             return;
         }
-        res.status(400).send("unable to get books");
+        res.status(400).send('unable to get books');
     }),
 };
 //# sourceMappingURL=bookCtrl.js.map
