@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Props } from "../auth/authInterface";
 import { Carousel } from "react-responsive-carousel";
 import BookCard from "../BookCard/BookCard";
 import {SliderData} from "../searchView/SliderData"
+import {Link} from "react-router-dom"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import "./HomeView.scss"
 import axios from "axios";
@@ -16,75 +17,84 @@ import axios from "axios";
 const HomeView: React.FC<Props> = (props) => {
   const [carouselBooks, setCarouselBooks] = useState([])
 
-  axios.get('/api/books').then(res => {
-    console.log(res.data)
-    setCarouselBooks(res.data)
+
+  useEffect(() => {
+    axios.get('/api/books').then(res => {
+      console.log(res.data)
+      setCarouselBooks(res.data)
+    })
+  }, [])
+  
+
+  let fantasyBooks = carouselBooks.filter((e: any, i: any) => {
+    return e.tags.includes("Fantasy")
   })
 
-  let fantasyBooks = carouselBooks.map((e: any, i: any) => {
-    return e.tags.includes("comedy")
+
+  let scienceFictionBooks = carouselBooks.filter((e: any, i: any) => {
+    return e.tags.includes("Science Fiction")
   })
 
 
-  let fictionBooks = carouselBooks.map((e: any, i: any) => {
-    return e.tags.includes("fiction")
-  })
-
-
-  let romanceBooks = carouselBooks.map((e: any, i: any) => {
-    return e.tags.includes("romance")
+  let nonFictionBooks = carouselBooks.filter((e: any, i: any) => {
+    return e.tags.includes("Non-Fiction")
   })
 
   function bookMap(e:any,i:any){
-    return <BookCard title={e.title} image_url={e.image_url} rating={e.rating} bookId={e.bookId}></BookCard>}
+    return <BookCard key={e._id} title={e.title} image_url={e.coverImage} rating={e.ratings.reduce((acc: number, currentValue: any) => {
+      return acc + currentValue.rating
+    }, 0) } bookId={e._id}>
+    </BookCard>}
+
     console.log(fantasyBooks)
+
   let mappedFantasyBooks = fantasyBooks.map(bookMap)
-  let mappedFictionBooks = fictionBooks.map(bookMap)
-  let mappedRomanceBooks = romanceBooks.map(bookMap)
+  let mappedScienceFictionBooks = scienceFictionBooks.map(bookMap)
+  let mappedNonFictionBooks = nonFictionBooks.map(bookMap)
   
-  let fantasyPartOne = mappedFantasyBooks.slice(0,5)
+   let fantasyPartOne = mappedFantasyBooks.slice(0,5)
   let fantasyPartTwo = mappedFantasyBooks.slice(5,10)
   let fantasyPartThree = mappedFantasyBooks.slice(10,15)
 
-  let fictionPartOne = mappedFictionBooks.slice(0,5)
-  let fictionPartTwo = mappedFictionBooks.slice(5,10)
-  let fictionPartThree = mappedFictionBooks.slice(10,15)
+  let scienceFictionPartOne = mappedScienceFictionBooks.slice(0,5)
+  let scienceFictionPartTwo = mappedScienceFictionBooks.slice(5,10)
+  let scienceFictionPartThree = mappedScienceFictionBooks.slice(10,15)
 
-  let romancePartOne = mappedRomanceBooks.slice(0,5)
-  let romancePartTwo = mappedRomanceBooks.slice(5,10)
-  let romancePartThree = mappedRomanceBooks.slice(10,15)
+  let nonFictionPartOne = mappedNonFictionBooks.slice(0,5)
+  let nonFictionPartTwo = mappedNonFictionBooks.slice(5,10)
+  let nonFictionPartThree = mappedNonFictionBooks.slice(10,15)
 
   return (
     <div id="home-view">
       <section className="carousel-body-container">
-      <Carousel  className="welcome-carousel" interval={8000} autoPlay={true} infiniteLoop={true}
+      <Carousel  className="welcome-carousel" interval={8000} autoPlay={false} infiniteLoop={true}
       >
-        <div className="home-carousel-1">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
+        <div className="home-carousel">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
           standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled 
           it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
           typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
           containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including 
           versions of Lorem Ipsum.
         </div>
-        <div className="home-carousel-2"> 
+        <div className="home-carousel"> 
           <h1>Get Started Reading</h1>
           <li>
-            <a href="/login">
+            <Link to ="/login">
               Login
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/search">
+            <Link to ="/search">
               Search
-            </a>
+            </Link>
           </li>
         </div>
-        <div className="home-carousel-3">
+        <div className="home-carousel">
           <h1>Recommended Books!</h1>
         </div>
       </Carousel>
       <section>
-        <Carousel interval={8000} infiniteLoop={true} width="1000px">
+        <Carousel className="fantasy-carousel" interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
             {fantasyPartOne}
           </div>
@@ -99,13 +109,13 @@ const HomeView: React.FC<Props> = (props) => {
       <section>
       <Carousel interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
-            {fictionPartOne}
+           {scienceFictionPartOne}
           </div>
            <div className="book-map">
-            {fictionPartTwo}
+            {scienceFictionPartTwo}
            </div>
            <div className="book-map">
-             {fictionPartThree}
+             {scienceFictionPartThree}
            </div>
         </Carousel>
 
@@ -113,13 +123,13 @@ const HomeView: React.FC<Props> = (props) => {
       <section>
       <Carousel interval={8000} infiniteLoop={true} width="1000px">
           <div className="book-map">
-            {romancePartOne}
+           {nonFictionPartOne}
           </div>
            <div className="book-map">
-            {romancePartTwo}
+            {nonFictionPartTwo}
            </div>
            <div className="book-map">
-             {romancePartThree}
+             {nonFictionPartThree}
            </div>
         </Carousel>
       </section>

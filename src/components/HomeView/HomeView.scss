@@ -1,4 +1,41 @@
 
+#home-view{
+    display: flex;
+    background-color: #F0F0F0;
+}
+
+.home-carousel{
+    height: 150px;
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+}
+
+.fantasy-carousel{
+    
+}
+
+.carousel-body-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.book-map{
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+    padding : 5px;
+    background-color: white;
+    vertical-align: top;
+}
+
+.book-narrow{
+   height: 100px;
+}
 
 // #home-view{
 // height: 1600px;
@@ -21,13 +58,14 @@
 //     border: 1px orange solid;
 //     width: 70vw;
 //     display: flex;
-//     flex-direction: column;
+//     flex-direction: row;
 //     align-items: center;
 //     justify-content: space-around;
 // }
 
-.welcom-carousel{
-    border: 1px blue solid;
-    background-color: white;
-    height: 500px;
-}
+// .welcome-carousel{
+//     border: 1px blue solid;
+//     background-color: white;
+//     height: 200px;
+// }
+
