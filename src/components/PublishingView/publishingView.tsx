@@ -28,16 +28,16 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     description: "",
   });
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
-  };
+  // const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   console.log(event);
+  // };
   const handleFileInputChange = (e: any) => {
     const file = e.target.files[0];
     previewFile(file);
   };
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCategory(e.target.value);
   };
   const previewFile = (file: any) => {
@@ -59,12 +59,12 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
       authorID: user.userId,
       coverImage: previewSource,
     };
-    console.log(newBook);
+    // console.log(newBook);
     const createdBook = await axios
       .post("/api/book", newBook)
       .then((response) => response.data);
     // history.push(`/book/${createdBook._id}`);
-    history.push(`/new-chapter`);
+    history.push(`/book/${createdBook._id}/new-chapter`);
   };
 
   const resetInputField = () => {

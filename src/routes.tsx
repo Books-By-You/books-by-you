@@ -18,6 +18,6 @@ export default (
     <Route exact path="/profile/:id" component={Profile} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/publishing" component={Publishing} />
-    <Route exact path="/new-chapter" component={ChapterNew} />
+    <Route exact path="/book/:id/new-chapter" component={ChapterNew} />
   </Switch>
 );

@@ -17,14 +17,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Book = require("../db/models/booksSchema");
 module.exports = {
     addChapter: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { content, number, title, id } = req.body;
-        const chapter = {
-            _id: new mongoose_1.default.Types.ObjectId(),
-            title: title,
-            content: content,
-            number: number,
-        };
-        console.log("Hitting add chapter");
+        const { content, title, id } = req.body;
+        console.log("Hitting add chapter", { id });
         let foundBook = yield Book.findOne({ _id: id })
             .then((book) => {
             if (book) {
@@ -39,26 +33,41 @@ module.exports = {
             return null;
         });
         if (foundBook) {
+            const chapterNumber = (foundBook.chapters.length + 1) || 1;
+            const chapter = {
+                _id: new mongoose_1.default.Types.ObjectId(),
+                title: title,
+                content: content,
+                number: chapterNumber,
+            };
+            if (!chapter || !title || !content || !chapter.number) {
+                return res.sendStatus(400);
+            }
             foundBook.chapters.push(chapter);
-            let addedChapter = yield Book.updateOne({
-                _id: id,
-            }, {
-                title: foundBook.title,
-                authorID: foundBook.authorID,
-                description: foundBook.description,
-                coverImage: foundBook.coverImage,
-                isPublished: false,
-                chapters: foundBook.chapters,
-            });
-            res.sendStatus(200);
-            console.log(addedChapter);
-            return;
+            try {
+                let addedChapter = yield Book.updateOne({
+                    _id: id,
+                }, {
+                    title: foundBook.title,
+                    authorID: foundBook.authorID,
+                    description: foundBook.description,
+                    coverImage: foundBook.coverImage,
+                    isPublished: false,
+                    chapters: foundBook.chapters,
+                });
+                return res.status(200).send(foundBook);
+            }
+            catch (err) {
+                console.log("Hit Book.updateOne() err case", err);
+                return res.sendStatus(500);
+            }
         }
         else {
-            res.status(400).send("Unable to add Chapter");
+            return res.status(400).send("Unable to add Chapter");
         }
     }),
     updateChapter: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Hitting update chapter");
         const { id } = req.params;
         const { content, number, title, chapter_id } = req.body;
         let foundBook = yield Book.findOne({ _id: id })
@@ -110,6 +119,7 @@ module.exports = {
         }
     }),
     getChapter: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Hitting getChapter");
         const { id } = req.params;
         const { chapter_id } = req.body;
         let foundBook = yield Book.findOne({ _id: id })
@@ -145,6 +155,7 @@ module.exports = {
         }
     }),
     deleteChapter: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("Hitting deleteChapter");
         const { id } = req.params;
         const { chapter_id } = req.body;
         let foundBook = yield Book.findOne({ _id: id })

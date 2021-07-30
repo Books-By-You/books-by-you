@@ -14,7 +14,7 @@ const chapterCtrl = require('./controllers/chapterCtrl');
 const bookRatingsCtrl = require('./controllers/bookRatingsController');
 const bookReviewCtrl = require('./controllers/bookReviewCtrl');
 const mongoose = require('mongoose');
-const cloudinaryUpload = require("./controllers/cloudinaryUpload");
+const cloudinaryUpload = require('./controllers/cloudinaryUpload');
 const { SERVER_PORT, SESSION_SECRET } = process.env;
 const app = express_1.default();
 const mongoController = require('./db/mongoController');
@@ -58,7 +58,7 @@ app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 //Chapter Endpoints
 app.post('/api/chapter', chapterCtrl.addChapter);
 app.put('/api/chapter/:id', chapterCtrl.updateChapter);
-app.post('/api/chapter/:id', chapterCtrl.getChapter);
+app.get('/api/chapter/:id', chapterCtrl.getChapter);
 app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
 //Cloudinary Endpoint
 app.post('/api/upload', cloudinaryUpload.addImage);
