@@ -1,5 +1,5 @@
 .logout {
-  font-family: 'Quicksand';
+  font-family: "Quicksand";
   font-weight: 600;
   padding: 0 50px 0 0;
   font-size: 20px;
@@ -12,11 +12,71 @@
   }
 }
 
+// .search-button {
+//   margin: 0 auto;
+//   font-size: 20px;
+//   border-radius: 5px;
+//   background-color: lighten($color: #edcf63, $amount: 10%);
+// }
+
 .search-button {
-  margin: 0 auto;
-  font-size: 20px;
+  background-color: white;
+  height: 44px;
+  width: 300px;
+  position: relative;
+  left: 10px;
   border-radius: 5px;
-  background-color: lighten($color: #edcf63, $amount: 10%);
+  font-size: 20px;
+}
+
+.button-clear {
+  width: 120px;
+  height: 30px;
+  position: relative;
+  left: 120px;
+  top: 40px;
+  display: flex;
+  padding-top: 3px;
+  padding-left: 30px;
+  background-color: #668fff;
+  color: white;
+}
+
+.button-chapter {
+  width: 120px;
+  height: 30px;
+  position: relative;
+  left: -160px;
+  top: 40px;
+  display: flex;
+  background-color: #9bf193;
+  color: rgb(3, 3, 3);
+  padding-top: 3px;
+  padding-left: 30px;
+}
+
+.button-publish {
+  width: 120px;
+  height: 30px;
+  position: relative;
+  left: 920px;
+  top: 120px;
+  display: flex;
+  padding-top: 4px;
+  padding-left: 30px;
+  background-color: #9bf193;
+}
+.chap-clear {
+  width: 120px;
+  height: 30px;
+  position: relative;
+  left: 480px;
+  top: 150px;
+  display: flex;
+  background-color: #668fff;
+  color: white;
+  padding-top: 3px;
+  padding-left: 30px;
 }
 
 .settings {

@@ -28,7 +28,7 @@ $color-nav-bottom: linear-gradient(
   letter-spacing: 5px;
 }
 .search_input {
-  height: 40px;
+  height: 37px;
   width: 262px;
   position: relative;
   top: 74px;
@@ -51,13 +51,13 @@ $color-nav-bottom: linear-gradient(
   left: 0px;
 }
 .searchbutton {
-  height: 46px;
+  height: 43px;
   width: 55px;
   position: relative;
   left: 299px;
-  top: 120px;
+  top: 117px;
   border-radius: 5px 0px 0px 5px;
-  background-color: #edcf63;
+  background-color: #793642;
 }
 .search_field {
   position: relative;
@@ -70,19 +70,20 @@ $color-nav-bottom: linear-gradient(
   align-items: center;
 }
 .filter_button {
-  background-color: #edcf63;
+  //  background-color: #6f2d39;
   height: 44px;
   width: 300px;
   position: relative;
-  left: 639px;
-  top: 96px;
-  // box-shadow: 5px 10px #b6b4b4;
-  box-shadow: 0px 4px 0px #d1b757;
+  left: 609px;
+  top: 102px;
+
   border-radius: 5px;
-  color: white;
+  color: black;
   letter-spacing: 1px;
-  font-weight: bold;
-  font-size: large;
+
+  font-size: small;
+  display: flex;
+  justify-content: center;
 }
 .search_wrap {
   display: flex;
@@ -91,33 +92,6 @@ $color-nav-bottom: linear-gradient(
   align-content: space-between;
   position: relative;
   top: -223px;
-}
-
-.dropbtn {
-  background-color: #4caf50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 140px;
-  left: 640px;
-  background-color: #f9f9f9;
-  min-width: 300px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-
- 
 }
 
 .dropdown-content a {
@@ -140,8 +114,6 @@ $color-nav-bottom: linear-gradient(
 }
 
 .search {
-  // height:60%;
-  // width:100%;
   position: relative;
   top: -40px;
   width: 1000px;
@@ -149,8 +121,7 @@ $color-nav-bottom: linear-gradient(
   padding: 50px;
   position: relative;
   left: 169px;
-  // border: 3px solid rgb(12, 12, 12);
-  //background-color:rgb(236, 178, 178);
+  
 }
 
 .book-carousel-1 {
@@ -195,4 +166,11 @@ $color-nav-bottom: linear-gradient(
 }
 .input-icon {
   width: 100px;
+}
+.filter-tag {
+  position: relative;
+  top: 137px;
+  left: 560px;
+  font-size: large;
+  font-weight: bolder;
 }

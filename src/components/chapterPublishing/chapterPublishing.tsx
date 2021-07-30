@@ -61,7 +61,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
   };
   return (
     <div className="main-container">
-      <span className="chap-title">Let your Imagination Run Wild!</span>
+      <span className="chap-publishing-title">Let your Imagination Run Wild!</span>
 
       <div className="input-box">
         <span className="chap-title2">Enter Chapter Title</span>
@@ -87,12 +87,21 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
         ></input>
       </div>
       <div className="chap-add-buttons">
-      <button className="chap-button-comp2" onClick={resetInputField}>Cancel </button>
-
-        <button className="chap-button-comp3" onClick={handleFormSubmit}>
+      {/* <button className="chap-button-comp2" onClick={resetInputField}>Cancel </button> */}
+      <Button 
+              label="Clear"
+              styleName="chap-clear"
+              handleClick={resetInputField}
+            />
+        {/* <button className="chap-button-comp3" onClick={handleFormSubmit}>
           {" "}
           Publish{" "}
-        </button>
+        </button> */}
+        <Button 
+              label="Publish"
+              styleName="button-publish"
+              handleClick={handleFormSubmit}
+            />
       </div>
     </div>
   );

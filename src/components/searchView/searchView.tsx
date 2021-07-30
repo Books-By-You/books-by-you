@@ -19,13 +19,6 @@ const SearchView: React.FC = () => {
   const [searchInput, setSearchInput] = useState("");
   const [books, setBooks] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get("/api/books").then((res) => {
-  //     const books = res.data;
-  //     setBooks(books);
-  //   });
-  // }, []);
-
   const handleChange = (e: any) => {
     setCategory(e.target.value);
   };
@@ -119,13 +112,14 @@ const SearchView: React.FC = () => {
 
             <form onSubmit={handleSubmit}>
               <label>
+                <h4 className="filter-tag">Filter</h4>
                 <select
                   className="filter_button"
                   value={category}
                   onChange={handleChange}
                 >
                   <option value="Filter" selected disabled hidden>
-                    Filter
+                    Filter by Genre
                   </option>
                   <option value="Thriller">Fantasy</option>
                   <option value="Sci-Fi">Science Fiction</option>
@@ -148,6 +142,7 @@ const SearchView: React.FC = () => {
               styleName="search-button"
               handleClick={clearFilter}
             />
+            
           )}
         </div>
         <div className="search-result-container">
@@ -155,15 +150,6 @@ const SearchView: React.FC = () => {
           <div className="search-result">
             {filter ? filteredBooks : listBooks}
           </div>
-
-          {/* <div>{ books.map((books)  => {
-          return (
-            <div>
-              
-             {books}
-            </div>
-          );
-        })}</div> */}
         </div>
       </div>
     </div>
