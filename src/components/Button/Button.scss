@@ -11,3 +11,10 @@
     text-decoration: underline;
   }
 }
+
+.search-button {
+  margin: 0 auto;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: lighten($color: #edcf63, $amount: 10%);
+}
