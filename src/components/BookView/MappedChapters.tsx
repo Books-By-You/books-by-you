@@ -14,7 +14,7 @@ const MappedChapters: React.FC<Props> = (props) => {
     console.log(props.chapters);
     let mappedArr: any = props.chapters.map((element: any, i: number) => (
       <section>
-        <Link to={`reading/${props.bookID}/${element.number}`}>Chapter {element.number}</Link>
+        <Link to={`reading/${props.bookID}/${element.number}`} id="chapter-link">Chapter {element.number}</Link>
       </section>
     ));
     setChapters(mappedArr);
