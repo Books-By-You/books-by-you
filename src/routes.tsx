@@ -7,7 +7,7 @@ import Book from './components/BookView/bookView';
 import Profile from './components/ProfileView/ProfileView';
 import Search from './components/searchView/searchView';
 import Publishing from './components/PublishingView/publishingView';
-import ChapterNew from './components/chapterPublishing';
+import ChapterNew from './components/chapterPublishing/chapterPublishing';
 
 export default (
   <Switch>
@@ -18,6 +18,6 @@ export default (
     <Route exact path="/profile/:id" component={Profile} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/publishing" component={Publishing} />
-    <Route exact path="/new-chapter" component={ChapterNew} />
+    <Route exact path="/book/:id/new-chapter" component={ChapterNew} />
   </Switch>
 );

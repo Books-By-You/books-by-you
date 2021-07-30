@@ -28,15 +28,16 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     description: "",
   });
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
-  };
+  // const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   console.log(event);
+  // };
   const handleFileInputChange = (e: any) => {
     const file = e.target.files[0];
     previewFile(file);
   };
+
   const handleChange = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setCategory(e.target.value);
   };
   const previewFile = (file: any) => {
@@ -58,13 +59,23 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
       authorID: user.userId,
       coverImage: previewSource,
     };
-    console.log(newBook);
+    // console.log(newBook);
     const createdBook = await axios
       .post("/api/book", newBook)
       .then((response) => response.data);
-    history.push(`/book/${createdBook._id}`);
+    // history.push(`/book/${createdBook._id}`);
+    history.push(`/book/${createdBook._id}/new-chapter`);
   };
 
+  const resetInputField = () => {
+    setFileInputState("");
+    setSelectedFile("");
+    setPreviewSource("");
+    setInputs({ ...inputs, title: " ", description: " " });
+    setCategory("Filter");
+  };
+
+  
   return (
     <div className="main-container">
       Publishing view
@@ -87,9 +98,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
           onChange={handleFileInputChange}
           value={fileInputState}
         />
-        <button className="btn" type="submit">
-          Upload
-        </button>
+        
       </form>
       <div className="input-box">
         <input
@@ -130,16 +139,20 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
         ></input>
       </div>
       <div className="add-buttons">
-        <button className="button-comp2"> Cancel </button>
+        <button className="button-comp2" onClick={resetInputField}>
+          {" "}
+          Cancel{" "}
+        </button>
 
         <button className="button-comp3" onClick={handleFormSubmit}>
           {" "}
-          Create{" "}
+          Publish{" "}
         </button>
       </div>
     </div>
   );
 };
+
 const mapStateToProps = (reduxState: any) => {
   return {
     user: reduxState.userReducer,
