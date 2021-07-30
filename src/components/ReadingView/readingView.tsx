@@ -1,18 +1,46 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import ReactDOM from "react-dom";
+import { Props } from "../auth/authInterface";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import "./readingView.scss";
 
-const ReadingView: React.FC = () => {
+const ReadingView: React.FC<Props> = (props) => {
+  const [bookId] = useState(props.match.params.book);
+  const [chapterNumber] = useState(props.match.params.chapter);
+  const [bookTitle, setBookTitle] = useState("Book Title")
+  const [chapter, setChapter] = useState({
+    title: "",
+    content: ""
+  }); 
+
+  function fetchBook() {
+    axios
+      .get(`/api/book/${bookId}`)
+      .then((res) => {  
+        setChapter(res.data.chapters[chapterNumber - 1])
+        setBookTitle(res.data.title)
+      })
+      .catch((err) => err);
+  }
+
+  useEffect(() => {
+    fetchBook()
+  }, [])
+  
   return (
+    <section className="reading-section">
     <div className="body-cover">
       <div className="book-title">
-        <h1 className="chapter-heading"> Book Name </h1>
-        <h3 className="chapter-text">Chapter 01</h3>
+        <h1 className="chapter-heading"> {bookTitle} </h1>
+        <h3 className="chapter-text">{chapter.title}</h3>
       </div>
 
-      <div className="chapter-carousel">
+      <div className="chapter-content-static">
+          <p>{chapter.content}</p>
+      </div>
+      {/* <div className="chapter-carousel">
         <Carousel
           selectedItem={2}
           autoPlay={false}
@@ -22,19 +50,7 @@ const ReadingView: React.FC = () => {
           <div className="page-slider">
             <h1 className="chapter-text">
               {" "}
-              Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit
-              lectus. Tincidunt arcu non sodales neque sodales ut etiam sit.
-              Diam in arcu cursus euismod quis viverra nibh. Nisl purus in
-              mollis nunc sed id semper risus in. At tellus at urna condimentum
-              mattis pellentesque id nibh. Cursus risus at ultrices mi. Tellus
-              rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Vel
-              fringilla est ullamcorper eget nulla facilisi etiam dignissim
-              diam. Justo eget magna fermentum iaculis. Massa vitae tortor
-              condimentum lacinia quis. Et sollicitudin ac orci phasellus
-              egestas tellus rutrum. In fermentum et sollicitudin ac orci
-              phasellus. Varius quam quisque id diam vel quam elementum
-              pulvinar. Suscipit tellus mauris a diam maecenas. Eu facilisis sed
-              odio morbi quis commodo.
+              {chapter.content}
             </h1>
           </div>
 
@@ -104,8 +120,9 @@ const ReadingView: React.FC = () => {
             </h1>
           </div>
         </Carousel>
-      </div>
+      </div> */}
     </div>
+    </section>
   );
 };
 
