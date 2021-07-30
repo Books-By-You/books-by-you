@@ -14,7 +14,7 @@ import axios from "axios";
 // going to need to grab books by tag - backend query?
 // endpoint to send back popular titles w/ tag if no tag just hit endpoint for popular titles
 
-const HomeView: React.FC<Props> = (props) => {
+const HomeView: React.FC = (props) => {
   const [carouselBooks, setCarouselBooks] = useState([])
 
 
@@ -41,9 +41,7 @@ const HomeView: React.FC<Props> = (props) => {
   })
 
   function bookMap(e:any,i:any){
-    return <BookCard key={e._id} title={e.title} image_url={e.coverImage} rating={e.ratings.reduce((acc: number, currentValue: any) => {
-      return acc + currentValue.rating
-    }, 0) } bookId={e._id}>
+    return <BookCard key={e._id} title={e.title} image_url={e.coverImage} ratings={e.ratings} bookId={e._id}>
     </BookCard>}
 
     console.log(fantasyBooks)
@@ -67,8 +65,7 @@ const HomeView: React.FC<Props> = (props) => {
   return (
     <div id="home-view">
       <section className="carousel-body-container">
-      <Carousel  className="welcome-carousel" interval={8000} autoPlay={false} infiniteLoop={true}
-      >
+      <Carousel  className="welcome-carousel" interval={8000} autoPlay={true} infiniteLoop={true}>
         <div className="home-carousel">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
           standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled 
           it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 
@@ -79,24 +76,27 @@ const HomeView: React.FC<Props> = (props) => {
         <div className="home-carousel"> 
           <h1>Get Started Reading</h1>
           <li>
-            <Link to ="/login">
+            <Link className="home-view-links" to ="/login">
               Login
             </Link>
           </li>
           <li>
-            <Link to ="/search">
+            <Link className="home-view-links" to ="/search">
               Search
             </Link>
           </li>
         </div>
-        <div className="home-carousel">
+        {/* <div className="home-carousel">
           <h1>Recommended Books!</h1>
-        </div>
+        </div> */}
       </Carousel>
       <section>
-        <Carousel className="fantasy-carousel" interval={8000} infiniteLoop={true} width="1000px">
-          <div className="book-map">
-            {fantasyPartOne}
+        <h3 className="genre-tag">Fantasy</h3>
+        <Carousel className="fantasy-carousel" interval={8000} autoPlay={true} infiniteLoop={true} width="1400px">
+          <div>
+            <div className="book-map">
+              {fantasyPartOne}
+            </div>
           </div>
            <div className="book-map">
             {fantasyPartTwo}
@@ -107,7 +107,8 @@ const HomeView: React.FC<Props> = (props) => {
         </Carousel>
       </section>
       <section>
-      <Carousel interval={8000} infiniteLoop={true} width="1000px">
+      <h3 className="genre-tag">Science Fiction</h3>
+      <Carousel interval={8000} infiniteLoop={true} autoPlay={true} width="1400px">
           <div className="book-map">
            {scienceFictionPartOne}
           </div>
@@ -121,7 +122,8 @@ const HomeView: React.FC<Props> = (props) => {
 
       </section>
       <section>
-      <Carousel interval={8000} infiniteLoop={true} width="1000px">
+      <h3 className="genre-tag">Non-Fiction</h3>
+      <Carousel interval={8000} infiniteLoop={true} autoPlay={true} width="1400px">
           <div className="book-map">
            {nonFictionPartOne}
           </div>
