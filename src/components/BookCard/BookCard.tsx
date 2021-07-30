@@ -34,7 +34,7 @@ const BookCard: React.FC<Book> = (props) => {
     <div className={`book ${bookClass}`}>
       {description ? (
         <>
-          <img id= "img" src={image_url} alt={title} />
+          <img src={image_url} alt={title} />
           <Rating value={bookRating} />
           <Link to={`/book/${bookId}`}>
             <p className="title">{title}</p>
