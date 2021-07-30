@@ -46,7 +46,9 @@ const NavBar: React.FC<{ user: User; logout: () => void }> = ({
   return (
     <nav className='navbar'>
       <div className='book-icon'>
-        <BsBook />
+        <Link to='/'>
+          <BsBook />
+        </Link>
       </div>
       <div className='nav-link-container'>
         <div className='nav-links'>
@@ -67,7 +69,13 @@ const NavBar: React.FC<{ user: User; logout: () => void }> = ({
         <div className={`gradient-bottom-border ${bottomBorderSize}`}></div>
       </div>
       <div className='user-profile-icon'>
-        <FaUserCircle />
+        {user.userId ? (
+          <Link to={`/profile/${user.userId}`}>
+            <FaUserCircle />
+          </Link>
+        ) : (
+          <FaUserCircle />
+        )}
       </div>
     </nav>
   );

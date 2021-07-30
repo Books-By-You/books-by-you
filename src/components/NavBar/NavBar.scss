@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
 }
- 
+
 $color-nav-bottom: linear-gradient(
     270deg,
     #702e3a 37.29%,
@@ -21,6 +21,10 @@ $color-nav-bottom: linear-gradient(
 
   .book-icon {
     @extend %icon-placeholder;
+
+    a {
+      color: black;
+    }
   }
 
   .nav-links-container {
@@ -67,5 +71,9 @@ $color-nav-bottom: linear-gradient(
 
   .user-profile-icon {
     @extend %icon-placeholder;
+
+    a {
+      color: black;
+    }
   }
 }
