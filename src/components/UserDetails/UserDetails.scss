@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: space-around;
   height: 80vh;
-  border: 2px solid black;
-  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 5px 6px #ccc;
 
   img {
     height: 200px;
@@ -17,12 +17,21 @@
     font-size: 32px;
   }
 
-  button {
-    font-size: 24px;
-    border-radius: 10px;
+  .user-details-buttons {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
 
-    &:hover {
-      cursor: pointer;
+    button {
+      font-size: 24px;
+      border-radius: 5px;
+      margin: 10px 0;
+      padding: 10px 0;
+      box-shadow: inset 0 -0.6em 0 -0.35em darken(#668fff, 10%);
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

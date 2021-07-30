@@ -62,6 +62,7 @@ const Titles: React.FC = () => {
   const bookList = books.map((book: Book) => (
     <span key={book._id}>
       <BookCard
+        bookId={book._id}
         title={book.title}
         description={book.description}
         image_url={book.coverImage}
