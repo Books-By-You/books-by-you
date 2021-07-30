@@ -1,57 +1,72 @@
+$color-nav-bottom: linear-gradient(
+    270deg,
+    #702e3a 37.29%,
+    rgba(120, 31, 48, 0.0729167) 113.43%,
+    rgba(121, 30, 47, 0) 113.44%
+  ),
+  #21273f;
 
-#home-view{
-    display: flex;
-    background-color: #F0F0F0;
+#home-view {
+  display: flex;
+  background-color: #f0f0f0;
 }
 
-.home-carousel{
-    height: 150px;
-    margin-top: 80px;
-    padding: 20px;
-    background-color: white;
+.home-carousel {
+  height: 150px;
+  margin-top: 80px;
+  padding: 20px;
+  background: $color-nav-bottom;
+  color: white;
 }
 
-.home-carousel h1{
-    font-size: 35px;
-    margin-bottom: 5px;
+.home-carousel h1 {
+  font-size: 35px;
+  margin-bottom: 5px;
 }
 
-.carousel-body-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.carousel-body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-.book-map{
-    height: 400px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 100px;
-    padding : 5px;
-    background-color: white;
-    
+.book-map {
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 100px;
+  padding: 5px;
+  background-color: white;
 }
 
-.book-narrow{
-   height: 150px;
+.book-narrow {
+  height: 150px;
 }
 
-
-.genre-tag{
-    position: relative;
-    top: 90px;
-    font-size: 30px;
+.genre-tag {
+  position: relative;
+  top: 90px;
+  font-size: 30px;
 }
 
-.home-view-links{
-    font-size: 20px;
-    margin-bottom: 10px;
-    padding-top: 10px
+.home-view-links {
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  color: white;
+  &:hover {
+    color: rgb(88, 242, 45);
+  }
 }
-
-
-
+.home-links {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  justify-content: space-around;
+}
