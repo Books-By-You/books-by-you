@@ -5,7 +5,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import ReviewEditor from "../ReviewCard/ReviewEditor";
 import Modal from "react-modal";
-
+Modal.setAppElement("#root");
 const OwnerControl: React.FC<{
   owner: boolean;
   userId: string;
@@ -28,11 +28,24 @@ const OwnerControl: React.FC<{
   function closeModal() {
     setIsOpen(false);
   }
-
+  let myRating = props.ratings.filter((e: any) => {
+    return e.userId === props.userId;
+  });
   function reviewCheck() {
-    let myRating = props.ratings.filter((e: any) => {
-      return e.userId === props.userId;
-    });
+    if (props.userId) {
+      console.log(myRating);
+      if (myRating.length === 0) {
+        return (
+          <Button
+            styleName={""}
+            label={"Write Review"}
+            handleClick={() => {
+              openModal();
+            }}
+          />
+        );
+      }
+    }
   }
 
   return (
@@ -64,25 +77,22 @@ const OwnerControl: React.FC<{
           />
         </div>
       ) : (
-        <Link to="/login">
-          <Button
-            styleName={"add-book-shelf"}
-            label={"Add to Bookshelf"}
-            handleClick={() => {
-              axios.post(`/api/bookshelf/${props.bookId}`, {
-                userId: props.userReducer.userId,
-              });
-            }}
-          />
-        </Link>
+        <section>
+          <Link to="/login">
+            <Button
+              styleName={"add-book-shelf"}
+              label={"Add to Bookshelf"}
+              handleClick={() => {
+                axios.post(`/api/bookshelf/${props.bookId}`, {
+                  userId: props.userReducer.userId,
+                });
+              }}
+            />
+          </Link>
+          {reviewCheck()}
+        </section>
       )}
-      <Button
-        styleName={""}
-        label={"Write Review"}
-        handleClick={() => {
-          openModal();
-        }}
-      />
+
       <Modal
         style={modalStyle}
         isOpen={modalIsOpen}

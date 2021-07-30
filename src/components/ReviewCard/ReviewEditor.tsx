@@ -36,10 +36,10 @@ const ReviewEditor: React.FC<{
     editCheck();
   }, []);
 
-  function sendRateReview() {
+  async function sendRateReview() {
     props.updateReviews();
     if (isEditing === 0) {
-      axios
+      await axios
         .post("/api/bookreview", {
           review: content,
           userID: props.userId,
@@ -48,7 +48,7 @@ const ReviewEditor: React.FC<{
         .then(() => {
           setContent("");
         });
-      axios
+      await axios
         .post(`/api/bookrating/${props.bookId}`, {
           userId: props.userId,
           rating: rating,
@@ -58,12 +58,12 @@ const ReviewEditor: React.FC<{
         });
       props.closeModalFn();
     } else {
-      axios
+      await axios
         .put(`/api/bookreview/${props.edit}`, { review: content })
         .then(() => {
           setContent("");
         });
-      axios
+      await axios
         .put(`/api/bookrating/${props.bookId}`, {
           userId: props.userId,
           rating: rating,
