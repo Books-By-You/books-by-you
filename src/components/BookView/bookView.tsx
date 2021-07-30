@@ -38,7 +38,7 @@ const BookView: React.FC<Props> = (props) => {
         setBook(res.data);
         setLoading(false);
         setDisplay(
-          <MappedChapters owner={owner} chapters={res.data.chapters} />
+          <MappedChapters bookID={bookId} owner={owner} chapters={res.data.chapters} />
         );
       })
       .catch((err) => err);
@@ -82,7 +82,7 @@ const BookView: React.FC<Props> = (props) => {
   function componentSwap(num: number) {
     if (num === 1) {
       console.log("hit display 1");
-      setDisplay(<MappedChapters owner={owner} chapters={book.chapters} />);
+      setDisplay(<MappedChapters bookID={bookId} owner={owner} chapters={book.chapters} />);
     } else setDisplay(<div>{mappedReviews}</div>);
   }
 
