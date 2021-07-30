@@ -58,7 +58,7 @@ app.post('/api/bookshelf/remove/:id', bookshelfCtrl.removeFromBookshelf);
 //Chapter Endpoints
 app.post('/api/chapter', chapterCtrl.addChapter);
 app.put('/api/chapter/:id', chapterCtrl.updateChapter);
-app.post('/api/chapter/:id', chapterCtrl.getChapter);
+app.get('/api/chapter/:id', chapterCtrl.getChapter);
 app.delete('/api/chapter/:id', chapterCtrl.deleteChapter);
 //Cloudinary Endpoint
 app.post('/api/upload', cloudinaryUpload.addImage);
