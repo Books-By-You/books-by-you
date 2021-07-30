@@ -15,6 +15,7 @@ export default (
     <Route exact path="/login" component={Auth} />
     <Route exact path="/reading" component={Reading} />
     <Route exact path="/book/:id" component={Book} />
+    <Route exact path="/book/reading/:book/:chapter" component={Reading} />
     <Route exact path="/profile/:id" component={Profile} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/publishing" component={Publishing} />

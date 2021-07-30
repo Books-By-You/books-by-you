@@ -1,8 +1,28 @@
+.reading-section {
+  display: flex;
+  justify-content: center;
+}
+
 .book-title {
   position: relative;
   top: 0px;
   font-size: xx-large;
   font-weight: bolder;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter-content-static {
+  overflow-y: scroll;
+  width: 90%;
+}
+
+.chapter-content-static p {
+  color: whitesmoke;
+  font-size: 24px;
+  line-height: 40px;
 }
 
 .chapter-carousel {
@@ -23,9 +43,10 @@
   height: 700px;
   width: 1300px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   position: relative;
-  left: 80px;
   top: 30px;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,9 +74,9 @@
   font-weight:normal;
   font-style:normal;
   line-height: 1.4;
+  text-align: center;
 }
 .chapter-heading {
-  position: relative;
-  left: 500px;
   color: white;
+  text-align: center;
 }
