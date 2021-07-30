@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-const Book = require('../db/models/booksSchema');
+const Book = require("../db/models/booksSchema");
 
 module.exports = {
   getBookRatings: async (req: Request, res: Response) => {
@@ -30,7 +30,7 @@ module.exports = {
         return response;
       })
       .catch((error) => {
-        return res.status(404).send('Book not found');
+        return res.status(404).send("Book not found");
       });
 
     const userReview = foundBook?.ratings.filter((book) => {
@@ -42,7 +42,7 @@ module.exports = {
     }
 
     if (userReview[0]?.rating) {
-      return res.status(409).send('Rating already exists');
+      return res.status(409).send("Rating already exists");
     }
 
     foundBook.ratings.push({
@@ -60,7 +60,7 @@ module.exports = {
         }
       })
       .catch((error) => {
-        return res.status(400).send('Failed to complete changes.');
+        return res.status(400).send("Failed to complete changes.");
       });
   },
   updateBookRating: async (req: Request, res: Response) => {
@@ -72,7 +72,7 @@ module.exports = {
         return response;
       })
       .catch((error) => {
-        return res.status(404).send('Book not found');
+        return res.status(404).send("Book not found");
       });
 
     const userReview = foundBook.ratings.filter((book) => {
@@ -82,7 +82,7 @@ module.exports = {
     if (userReview.length === 0) {
       return res.sendStatus(404);
     }
-
+    console.log(userReview);
     userReview[0].rating = rating;
 
     await foundBook
@@ -97,7 +97,7 @@ module.exports = {
         }
       })
       .catch((error) => {
-        return res.status(400).send('Failed to complete changes.');
+        return res.status(400).send("Failed to complete changes.");
       });
   },
   deleteBookRating: async (req: Request, res: Response) => {
@@ -109,7 +109,7 @@ module.exports = {
       { $pull: { ratings: { userId: userId } } }
     );
     if (result.nModified === 0) {
-      return res.status(400).send('Could not complete your request.');
+      return res.status(400).send("Could not complete your request.");
     }
     return res.status(200).send(`Deleted rating.`);
   },
