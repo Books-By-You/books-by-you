@@ -1,6 +1,7 @@
 export interface Props {
   loading: boolean;
-  errorMessage: string;
+  registerErrorMessage: string;
+  loginErrorMessage: string;
   username: string;
   userId: number;
   profileImage: string;

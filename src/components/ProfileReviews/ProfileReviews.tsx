@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
-import Loading from '../Loading/Loading';
-import axios from 'axios';
-import './ProfileReviews.scss';
-import ReviewCard from '../ReviewCard/ReviewCard';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router";
+import Loading from "../Loading/Loading";
+import axios from "axios";
+import "./ProfileReviews.scss";
+import ReviewCard from "../ReviewCard/ReviewCard";
 
 interface Reviews {
   _id: string;
@@ -18,8 +18,8 @@ const ProfileReviews: React.FC = () => {
   const defaultReview: Reviews[] = [];
   const [reviews, setReviews]: [Reviews[], (reviews: Reviews[]) => void] =
     useState(defaultReview);
-  const [reviewErrorMessage, setReviewErrorMessage] = useState('');
-  const userIdFromPath = location.pathname.split('/')[2];
+  const [reviewErrorMessage, setReviewErrorMessage] = useState("");
+  const userIdFromPath = location.pathname.split("/")[2];
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ProfileReviews: React.FC = () => {
         if (axios.isCancel(error)) {
         } else {
           setLoading(false);
-          setReviewErrorMessage('Unable to find reviews for this user.');
+          setReviewErrorMessage("Unable to find reviews for this user.");
           throw error;
         }
       }
@@ -55,14 +55,17 @@ const ProfileReviews: React.FC = () => {
 
   const reviewsList = reviews.map((review) => {
     return (
-      <div className='review-card'>
+      <div className="review-card">
         <ReviewCard
-          width='400'
+          width="400"
           _id={review._id}
           author={userIdFromPath}
           user={review.userID}
           content={review.content}
           date={review.date}
+          updateReviews={() => {
+            return "no";
+          }}
         />
       </div>
     );
@@ -70,7 +73,7 @@ const ProfileReviews: React.FC = () => {
 
   console.log(reviewsList);
   return (
-    <div className='profile-reviews-container'>
+    <div className="profile-reviews-container">
       {loading ? (
         <Loading />
       ) : (

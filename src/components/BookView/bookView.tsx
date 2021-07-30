@@ -19,7 +19,7 @@ const BookView: React.FC<Props> = (props) => {
     _id: "",
     title: "",
     tags: [],
-    rating: 0,
+    ratings: 0,
     authorID: "",
     description: "",
     coverImage: "",
@@ -42,24 +42,48 @@ const BookView: React.FC<Props> = (props) => {
         );
       })
       .catch((err) => err);
-    axios.get(`/api/bookreview/${bookId}`).then((res) => {
-      if (res.data) {
+    axios
+      .get(`/api/bookreview/${bookId}`)
+      .then((res) => {
+        if (res.data) {
+        } else {
+          return "no reviews";
+        }
+        setReviews(res.data);
+      })
+      .catch((error) => {
+        return console.error(error.message);
+      });
+    updateReviews();
+  }
+
+  async function updateReviews() {
+    console.log("hit update reviews");
+    await axios
+      .get(`/api/bookreview/${bookId}`)
+      .then((res) => {
+        if (res.data) {
+        } else {
+          return "no reviews";
+        }
         console.log(res.data);
-      } else {
-        return "no reviews";
-      }
-      setReviews(res.data);
-    });
+        setReviews(res.data);
+      })
+      .catch((error) => {
+        return console.error(error.message);
+      });
   }
 
   let ownerCheck = () => {
     if (book.authorID === props.userReducer.userId) {
       setOwner(true);
-    } else console.log("no");
+    } else setOwner(false);
   };
+
   useLayoutEffect(() => {
     getBookInfo();
   }, []);
+
   useEffect(() => {
     if (book.authorID) {
       axios.get(`/api/users/${book.authorID}`).then((res) => {
@@ -68,22 +92,28 @@ const BookView: React.FC<Props> = (props) => {
       ownerCheck();
     } else console.log("no authorID");
   }, [book]);
+  useEffect(() => {
+    setDisplay(<div>{mappedReviews()}</div>);
+  }, [reviews]);
 
-  let mappedReviews = reviews.map((e: any, i: any) => (
-    <ReviewCard
-      width={"1100px"}
-      _id={e._id}
-      author={e.userID}
-      content={e.content}
-      date={e.date}
-      user={props.userReducer.userId}
-    />
-  ));
+  let mappedReviews = () =>
+    reviews.map((e: any, i: any) => (
+      <ReviewCard
+        width={"1100px"}
+        _id={e._id}
+        author={e.userID}
+        content={e.content}
+        date={e.date}
+        user={props.userReducer.userId}
+        bookId={book._id}
+        ratings={book.ratings}
+        updateReviews={updateReviews}
+      />
+    ));
   function componentSwap(num: number) {
     if (num === 1) {
-      console.log("hit display 1");
       setDisplay(<MappedChapters owner={owner} chapters={book.chapters} />);
-    } else setDisplay(<div>{mappedReviews}</div>);
+    } else setDisplay(<div>{mappedReviews()}</div>);
   }
 
   function loadCheck() {
@@ -102,10 +132,12 @@ const BookView: React.FC<Props> = (props) => {
               <p className="font-md">{`${book.tags}`}</p>
               <p className="font-md description">{`${book.description}`}</p>
               <OwnerControl
+                updateReviews={updateReviews}
                 userReducer={userReducer}
                 owner={owner}
                 userId={props.userReducer.userId}
                 bookId={book._id}
+                ratings={book.ratings}
               />
             </section>
           </section>

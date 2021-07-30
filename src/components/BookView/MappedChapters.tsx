@@ -8,7 +8,6 @@ interface Props {
 const MappedChapters: React.FC<Props> = (props) => {
   const [chapters, setChapters] = useState([]);
   function chapterLoop() {
-    console.log(props.chapters);
     let mappedArr: any = props.chapters.map((element: any, i: number) => (
       <section>
         <a href={`/reading/:${element.number}`} key={i + 1} id="chapter-link">

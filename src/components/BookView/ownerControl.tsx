@@ -11,6 +11,8 @@ const OwnerControl: React.FC<{
   userId: string;
   bookId: string;
   userReducer: any;
+  ratings: any;
+  updateReviews: () => {};
 }> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -26,6 +28,13 @@ const OwnerControl: React.FC<{
   function closeModal() {
     setIsOpen(false);
   }
+
+  function reviewCheck() {
+    let myRating = props.ratings.filter((e: any) => {
+      return e.userId === props.userId;
+    });
+  }
+
   return (
     <section>
       {props.owner ? (
@@ -69,7 +78,7 @@ const OwnerControl: React.FC<{
       )}
       <Button
         styleName={""}
-        label={"Write a Review"}
+        label={"Write Review"}
         handleClick={() => {
           openModal();
         }}
@@ -79,7 +88,14 @@ const OwnerControl: React.FC<{
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
       >
-        <ReviewEditor edit={0} closeModalFn={closeModal}></ReviewEditor>
+        <ReviewEditor
+          updateReviews={props.updateReviews}
+          bookId={props.bookId}
+          userId={props.userId}
+          content={""}
+          edit={0}
+          closeModalFn={closeModal}
+        ></ReviewEditor>
       </Modal>
     </section>
   );

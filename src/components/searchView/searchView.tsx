@@ -1,20 +1,20 @@
-import React, { useState, useLayoutEffect } from 'react';
-import ReactDOM from 'react-dom';
-import search1 from './search.png';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-import { SliderData } from './SliderData';
-import { SliderData2 } from './SliderData2';
-import './searchView.scss';
-import BookCard from '../BookCard/BookCard';
-import axios from 'axios';
+import React, { useState, useLayoutEffect } from "react";
+import ReactDOM from "react-dom";
+import search1 from "./search.png";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import { SliderData } from "./SliderData";
+import { SliderData2 } from "./SliderData2";
+import "./searchView.scss";
+import BookCard from "../BookCard/BookCard";
+import axios from "axios";
 
 const SearchView: React.FC = () => {
   //need 15 "objects to fill array from back end"
   const [slidesArray, setSlidesArray] = useState([SliderData]);
   const [bookLists, setBookLists] = useState([]);
-  const [category, setCategory] = useState('Filter');
-  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState("Filter");
+  const [search, setSearch] = useState("");
   const [books, setBooks] = useState([]);
 
   // useEffect(() => {
@@ -25,7 +25,6 @@ const SearchView: React.FC = () => {
   // }, []);
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
     setCategory(e.target.value);
   };
 
@@ -55,8 +54,7 @@ const SearchView: React.FC = () => {
   }
 
   useLayoutEffect(() => {
-    axios.get('/api/books').then((res) => {
-      console.log({ res });
+    axios.get("/api/books").then((res) => {
       setBookLists(res.data);
     });
   }, []);
@@ -69,47 +67,47 @@ const SearchView: React.FC = () => {
   const listBooks2 = SliderData2.map(arrayMapper);
 
   return (
-    <div className='searchView'>
-      <div className='carousel-container'>
+    <div className="searchView">
+      <div className="carousel-container">
         <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
-          <div className='book-carousel-1'>{listBooks2}</div>
-          <div className='book-carousel-1'>{listBooks2}</div>
-          <div className='book-carousel-1'>{listBooks2}</div>
-          <div className='book-carousel-1'>{listBooks2}</div>
+          <div className="book-carousel-1">{listBooks2}</div>
+          <div className="book-carousel-1">{listBooks2}</div>
+          <div className="book-carousel-1">{listBooks2}</div>
+          <div className="book-carousel-1">{listBooks2}</div>
         </Carousel>
-        <div className='heading'>
+        <div className="heading">
           <h1> Our Popular Books!</h1>
         </div>
       </div>
 
-      <div className='search_wrap'>
-        <div className='search'>
-          <div className='search_field'>
-            <span className='input-icon'>
-              <button className='searchbutton'>
-                <img className='searchicon' src={search1} alt='search' />
+      <div className="search_wrap">
+        <div className="search">
+          <div className="search_field">
+            <span className="input-icon">
+              <button className="searchbutton">
+                <img className="searchicon" src={search1} alt="search" />
               </button>
               <input
-                className='search_input'
-                type='text'
-                placeholder='search'
+                className="search_input"
+                type="text"
+                placeholder="search"
               ></input>
             </span>
 
             <form onSubmit={handleSubmit}>
               <label>
                 <select
-                  className='filter_button'
+                  className="filter_button"
                   value={category}
                   onChange={handleChange}
                 >
-                  <option value='Filter' selected disabled hidden>
+                  <option value="Filter" selected disabled hidden>
                     Filter
                   </option>
-                  <option value='Thriller'>Fantasy</option>
-                  <option value='Sci-Fi'>Science Fiction</option>
-                  <option value='Romance'>Romance</option>
-                  <option value='History'>Non-Fiction</option>
+                  <option value="Thriller">Fantasy</option>
+                  <option value="Sci-Fi">Science Fiction</option>
+                  <option value="Romance">Romance</option>
+                  <option value="History">Non-Fiction</option>
                 </select>
               </label>
               <br />
@@ -117,14 +115,14 @@ const SearchView: React.FC = () => {
               <label></label>
             </form>
 
-            <section className='gradient-line'>
+            <section className="gradient-line">
               <div className={`gradient-bottom-border2`}></div>
             </section>
           </div>
         </div>
-        <div className='search-result-container'>
+        <div className="search-result-container">
           {/* <div className="search-result"> {listBooks}</div> */}
-          <div className='search-result'> {listBooks}</div>
+          <div className="search-result"> {listBooks}</div>
 
           {/* <div>{ books.map((books)  => {
           return (
