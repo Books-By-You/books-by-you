@@ -10,7 +10,11 @@ interface Props {
   content: string;
   date: string;
   user: any;
+  bookId?: string;
+  ratings?: number;
+  updateReviews: () => {};
 }
+
 const ReviewCard: React.FC<Props> = (props) => {
   const [owner, setOwner] = useState(false);
   const [author, setAuthor] = useState("");
@@ -31,6 +35,7 @@ const ReviewCard: React.FC<Props> = (props) => {
     });
   };
   useEffect(() => {
+    getAuthor();
     if (props.user) {
       ownerCheck();
     }
@@ -45,13 +50,23 @@ const ReviewCard: React.FC<Props> = (props) => {
     if (owner) {
       return (
         <div>
-          <button onClick={openModal}>edit</button>
+          <button style={{ marginRight: 10 }} onClick={openModal}>
+            edit
+          </button>
           <Modal
             style={modalStyle}
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
           >
-            <ReviewEditor edit={props._id} closeModalFn={closeModal} />
+            <ReviewEditor
+              updateReviews={props.updateReviews}
+              bookId={props.bookId}
+              userId={props.user}
+              edit={props._id}
+              closeModalFn={closeModal}
+              content={props.content}
+              ratings={props.ratings}
+            />
           </Modal>
         </div>
       );
@@ -63,7 +78,7 @@ const ReviewCard: React.FC<Props> = (props) => {
       <section className="review-body">
         <article>
           <img />
-          <h1 className="review-item">{`By-${author}`}</h1>
+          <h1 className="review-item">{`By- ${author}`}</h1>
           {editButton()}
           <small className="review-item">{props.date}</small>
         </article>

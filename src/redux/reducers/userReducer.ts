@@ -1,37 +1,38 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   InitialStateInt,
   UserObj,
   ActionType,
   User,
-} from './userReducerInterface';
+} from "./userReducerInterface";
 
 const initialState: InitialStateInt = {
   loading: false,
-  errorMessage: '',
-  username: '',
-  userId: '',
-  profileImage: '',
-  firstName: '',
-  lastName: '',
+  registerErrorMessage: "",
+  loginErrorMessage: "",
+  username: "",
+  userId: "",
+  profileImage: "",
+  firstName: "",
+  lastName: "",
 };
 
-const LOGOUT = 'logout';
-const LOGIN = 'login';
-const REGISTER = 'register';
-const UPDATE_USER = 'update_user';
+const LOGOUT = "logout";
+const LOGIN = "login";
+const REGISTER = "register";
+const UPDATE_USER = "update_user";
 
 export function login(userObj: UserObj) {
   return {
     type: LOGIN,
-    payload: axios.post('/api/auth/login', userObj),
+    payload: axios.post("/api/auth/login", userObj),
   };
 }
 
 export function register(newUserObj: UserObj) {
   return {
     type: REGISTER,
-    payload: axios.post('/api/auth/register', newUserObj),
+    payload: axios.post("/api/auth/register", newUserObj),
   };
 }
 
@@ -50,7 +51,7 @@ export function updateUser(updatedUserObj: User) {
 
 export default function reducer(state = initialState, action: ActionType) {
   switch (action.type) {
-    case LOGIN + '_FULFILLED':
+    case LOGIN + "_FULFILLED":
       return {
         ...state,
         username: action.payload.data.username,
@@ -59,22 +60,24 @@ export default function reducer(state = initialState, action: ActionType) {
         firstName: action.payload.data.firstName,
         lastName: action.payload.data.lastName,
         loading: false,
+        loginErrorMessage: "",
+        registerErrorMessage: "",
       };
 
-    case LOGIN + '_PENDING':
+    case LOGIN + "_PENDING":
       return { ...state, loading: true };
 
-    case LOGIN + '_REJECTED':
+    case LOGIN + "_REJECTED":
       return {
         ...state,
         loading: false,
-        errorMessage: 'Incorrect login input.',
+        loginErrorMessage: "Incorrect login input.",
       };
 
-    case REGISTER + '_PENDING':
+    case REGISTER + "_PENDING":
       return { ...state, loading: true };
 
-    case REGISTER + '_FULFILLED':
+    case REGISTER + "_FULFILLED":
       return {
         ...state,
         username: action.payload.data.username,
@@ -83,22 +86,27 @@ export default function reducer(state = initialState, action: ActionType) {
         firstName: action.payload.data.firstName,
         lastName: action.payload.data.lastName,
         loading: false,
+        loginErrorMessage: "",
+        registerErrorMessage: "",
       };
 
-    case REGISTER + '_REJECTED':
-      return { ...state, loading: false, errorMessage: 'User already exists' };
+    case REGISTER + "_REJECTED":
+      return {
+        ...state,
+        loading: false,
+        registerErrorMessage: "User already exists",
+      };
 
     case LOGOUT:
       return {
         ...state,
-        username: '',
-        userId: '',
-        profileImage: '',
-        firstName: '',
-        lastName: '',
+        username: "",
+        userId: "",
+        profileImage: "",
+        firstName: "",
+        lastName: "",
       };
-    case UPDATE_USER + '_FULFILLED':
-      console.log(state);
+    case UPDATE_USER + "_FULFILLED":
       return {
         ...state,
         username: action.payload.data.username,
@@ -109,14 +117,14 @@ export default function reducer(state = initialState, action: ActionType) {
         loading: false,
       };
 
-    case UPDATE_USER + '_PENDING':
+    case UPDATE_USER + "_PENDING":
       return { ...state, loading: true };
 
-    case UPDATE_USER + '_REJECTED':
+    case UPDATE_USER + "_REJECTED":
       return {
         ...state,
         loading: false,
-        errorMessage: 'Unable to complete changes',
+        errorMessage: "Unable to complete changes",
       };
     default:
       return state;

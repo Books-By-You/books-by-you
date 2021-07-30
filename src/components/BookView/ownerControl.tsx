@@ -5,12 +5,14 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import ReviewEditor from "../ReviewCard/ReviewEditor";
 import Modal from "react-modal";
-
+Modal.setAppElement("#root");
 const OwnerControl: React.FC<{
   owner: boolean;
   userId: string;
   bookId: string;
   userReducer: any;
+  ratings: any;
+  updateReviews: () => {};
 }> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -26,6 +28,26 @@ const OwnerControl: React.FC<{
   function closeModal() {
     setIsOpen(false);
   }
+  let myRating = props.ratings.filter((e: any) => {
+    return e.userId === props.userId;
+  });
+  function reviewCheck() {
+    if (props.userId) {
+      console.log(myRating);
+      if (myRating.length === 0) {
+        return (
+          <Button
+            styleName={""}
+            label={"Write Review"}
+            handleClick={() => {
+              openModal();
+            }}
+          />
+        );
+      }
+    }
+  }
+
   return (
     <section>
       {props.owner ? (
@@ -55,31 +77,35 @@ const OwnerControl: React.FC<{
           />
         </div>
       ) : (
-        <Link to="/login">
-          <Button
-            styleName={"add-book-shelf"}
-            label={"Add to Bookshelf"}
-            handleClick={() => {
-              axios.post(`/api/bookshelf/${props.bookId}`, {
-                userId: props.userReducer.userId,
-              });
-            }}
-          />
-        </Link>
+        <section>
+          <Link to="/login">
+            <Button
+              styleName={"add-book-shelf"}
+              label={"Add to Bookshelf"}
+              handleClick={() => {
+                axios.post(`/api/bookshelf/${props.bookId}`, {
+                  userId: props.userReducer.userId,
+                });
+              }}
+            />
+          </Link>
+          {reviewCheck()}
+        </section>
       )}
-      <Button
-        styleName={""}
-        label={"Write a Review"}
-        handleClick={() => {
-          openModal();
-        }}
-      />
+
       <Modal
         style={modalStyle}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
       >
-        <ReviewEditor edit={0} closeModalFn={closeModal}></ReviewEditor>
+        <ReviewEditor
+          updateReviews={props.updateReviews}
+          bookId={props.bookId}
+          userId={props.userId}
+          content={""}
+          edit={0}
+          closeModalFn={closeModal}
+        ></ReviewEditor>
       </Modal>
     </section>
   );

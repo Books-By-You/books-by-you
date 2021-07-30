@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Book = require('../db/models/booksSchema');
+const Book = require("../db/models/booksSchema");
 module.exports = {
     getBookRatings: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { id: bookId } = req.params;
@@ -36,7 +36,7 @@ module.exports = {
             return response;
         })
             .catch((error) => {
-            return res.status(404).send('Book not found');
+            return res.status(404).send("Book not found");
         });
         const userReview = foundBook === null || foundBook === void 0 ? void 0 : foundBook.ratings.filter((book) => {
             return book.userId === userId;
@@ -45,7 +45,7 @@ module.exports = {
             return res.sendStatus(404);
         }
         if ((_a = userReview[0]) === null || _a === void 0 ? void 0 : _a.rating) {
-            return res.status(409).send('Rating already exists');
+            return res.status(409).send("Rating already exists");
         }
         foundBook.ratings.push({
             userId,
@@ -61,7 +61,7 @@ module.exports = {
             }
         })
             .catch((error) => {
-            return res.status(400).send('Failed to complete changes.');
+            return res.status(400).send("Failed to complete changes.");
         });
     }),
     updateBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,7 +72,7 @@ module.exports = {
             return response;
         })
             .catch((error) => {
-            return res.status(404).send('Book not found');
+            return res.status(404).send("Book not found");
         });
         const userReview = foundBook.ratings.filter((book) => {
             return book.userId === userId;
@@ -80,6 +80,7 @@ module.exports = {
         if (userReview.length === 0) {
             return res.sendStatus(404);
         }
+        console.log(userReview);
         userReview[0].rating = rating;
         yield foundBook
             .save()
@@ -91,7 +92,7 @@ module.exports = {
             }
         })
             .catch((error) => {
-            return res.status(400).send('Failed to complete changes.');
+            return res.status(400).send("Failed to complete changes.");
         });
     }),
     deleteBookRating: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -99,7 +100,7 @@ module.exports = {
         const { userId } = req.body;
         const result = yield Book.update({ _id: bookId }, { $pull: { ratings: { userId: userId } } });
         if (result.nModified === 0) {
-            return res.status(400).send('Could not complete your request.');
+            return res.status(400).send("Could not complete your request.");
         }
         return res.status(200).send(`Deleted rating.`);
     }),

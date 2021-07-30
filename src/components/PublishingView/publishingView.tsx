@@ -7,6 +7,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { AnyARecord } from "dns";
 
+
 interface User {
   userId: string;
   firstName: string;
@@ -78,7 +79,10 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
   
   return (
     <div className="main-container">
-      Publishing view
+      <div className = "publishing-title">
+     Create-A-Book
+      </div>
+      
       <form onSubmit={() => {}} className="image-container">
         <section className="cover-image">
           Cover Image{" "}
@@ -139,15 +143,19 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
         ></input>
       </div>
       <div className="add-buttons">
-        <button className="button-comp2" onClick={resetInputField}>
-          {" "}
-          Cancel{" "}
-        </button>
+       
+        <Button 
+              label="Clear"
+              styleName="button-clear"
+              handleClick={resetInputField}
+            />
 
-        <button className="button-comp3" onClick={handleFormSubmit}>
-          {" "}
-          Publish{" "}
-        </button>
+        
+        <Button 
+              label="Next >>"
+              styleName="button-chapter"
+              handleClick={handleFormSubmit}
+            />
       </div>
     </div>
   );
