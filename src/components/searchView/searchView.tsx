@@ -7,6 +7,7 @@ import { SliderData2 } from './SliderData2';
 import './searchView.scss';
 import BookCard from '../BookCard/BookCard';
 import axios from 'axios';
+import Button from '../Button/Button';
 
 const SearchView: React.FC = () => {
   //need 15 "objects to fill array from back end"
@@ -33,15 +34,21 @@ const SearchView: React.FC = () => {
   const handleSearchSubmit = () => {
     if (searchInput && bookLists) {
       const filteredBooks = bookLists.filter((book: any) =>
-        book.title.includes(searchInput)
+        book.title.toLowerCase().includes(searchInput.toLowerCase())
       );
       setFilter(true);
       setFilteredBookList(filteredBooks);
+      setSearchInput('');
     }
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+  };
+
+  const clearFilter = () => {
+    setFilteredBookList([]);
+    setFilter(false);
   };
 
   // axios.get("/api/books").then((res) => {
@@ -137,6 +144,13 @@ const SearchView: React.FC = () => {
               <div className={`gradient-bottom-border2`}></div>
             </section>
           </div>
+          {filter && (
+            <Button
+              label='Clear Filter'
+              styleName='search-button'
+              handleClick={clearFilter}
+            />
+          )}
         </div>
         <div className='search-result-container'>
           {/* <div className="search-result"> {listBooks}</div> */}
