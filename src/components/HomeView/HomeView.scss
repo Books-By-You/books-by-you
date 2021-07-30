@@ -1,0 +1,57 @@
+
+#home-view{
+    display: flex;
+    background-color: #F0F0F0;
+}
+
+.home-carousel{
+    height: 150px;
+    margin-top: 80px;
+    padding: 20px;
+    background-color: white;
+}
+
+.home-carousel h1{
+    font-size: 35px;
+    margin-bottom: 5px;
+}
+
+.carousel-body-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.book-map{
+    height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+    padding : 5px;
+    background-color: white;
+    
+}
+
+.book-narrow{
+   height: 150px;
+}
+
+
+.genre-tag{
+    position: relative;
+    top: 90px;
+    font-size: 30px;
+}
+
+.home-view-links{
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-top: 10px
+}
+
+
+

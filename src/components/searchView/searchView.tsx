@@ -59,21 +59,23 @@ const SearchView: React.FC = () => {
     });
   }, []);
 
+  let fantasyBooks = bookLists.filter((e: any, i: any) => {
+    return e.tags.includes("Fantasy");
+  });
+
   function arraySplitter() {
     //write a function that takes in an array of 15 objects [{},{},{}] then aplit them into 3 other arrays with 5 opobjects each
   }
 
   const listBooks = bookLists.map(arrayMapper);
-  const listBooks2 = SliderData2.map(arrayMapper);
-
+  const listBooks2 = fantasyBooks.map(arrayMapper);
+  let fantasyPartOne = listBooks2.slice(0, 5);
   return (
     <div className="searchView">
       <div className="carousel-container">
         <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
-          <div className="book-carousel-1">{listBooks2}</div>
-          <div className="book-carousel-1">{listBooks2}</div>
-          <div className="book-carousel-1">{listBooks2}</div>
-          <div className="book-carousel-1">{listBooks2}</div>
+          <div className="book-carousel-1">{fantasyPartOne}</div>
+          <div className="book-carousel-1">{fantasyPartOne}</div>
         </Carousel>
         <div className="heading">
           <h1> Our Popular Books!</h1>
