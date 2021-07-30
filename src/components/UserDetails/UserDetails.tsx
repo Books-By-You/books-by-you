@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Button from '../Button/Button';
@@ -17,6 +18,7 @@ interface User {
 const UserDetails: React.FC<{ userLoggedIn: User; openSettings: () => void }> =
   ({ userLoggedIn, openSettings }) => {
     const location = useLocation();
+    const history = useHistory();
     const [user, setUser] = useState<User>();
     const userIdFromPath = location.pathname.split('/')[2];
 
@@ -36,6 +38,10 @@ const UserDetails: React.FC<{ userLoggedIn: User; openSettings: () => void }> =
         'https://techpowerusa.com/wp-content/uploads/2017/06/default-user.png';
     };
 
+    const redirectToPublish = () => {
+      history.push('/publishing');
+    };
+
     return (
       <div className='user-details-container'>
         {user ? (
@@ -47,11 +53,18 @@ const UserDetails: React.FC<{ userLoggedIn: User; openSettings: () => void }> =
             />
             <h3>{user.username}</h3>
             {user.userId && user.userId === location.pathname.split('/')[2] && (
-              <Button
-                label='Settings'
-                styleName=''
-                handleClick={openSettings}
-              />
+              <div className='user-details-buttons'>
+                <Button
+                  label='Settings'
+                  styleName='settings'
+                  handleClick={openSettings}
+                />
+                <Button
+                  label='Publish'
+                  styleName='publish'
+                  handleClick={redirectToPublish}
+                />
+              </div>
             )}
           </>
         ) : (
