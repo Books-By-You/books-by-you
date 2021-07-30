@@ -1,7 +1,7 @@
 .profile-data-container {
   height: 80vh;
-  border: 2px solid black;
-  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 3px 3px 5px 6px #ccc;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -14,7 +14,7 @@
   justify-content: space-around;
   margin-top: 20px;
   padding-bottom: 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
 
   button {
     font-size: 24px;
