@@ -1,6 +1,7 @@
 export interface InitialStateInt {
   loading: boolean;
-  errorMessage: string;
+  registerErrorMessage: string;
+  loginErrorMessage: string;
   username: string;
   userId: string;
   profileImage: string;

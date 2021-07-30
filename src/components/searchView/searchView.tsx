@@ -3,6 +3,7 @@ import search1 from "./search.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { SliderData } from "./SliderData";
+import { SliderData2 } from "./SliderData2";
 import "./searchView.scss";
 import BookCard from "../BookCard/BookCard";
 import axios from "axios";
@@ -19,7 +20,6 @@ const SearchView: React.FC = () => {
   const [books, setBooks] = useState([]);
 
   const handleChange = (e: any) => {
-    console.log(e.target.value);
     setCategory(e.target.value);
   };
 
@@ -66,7 +66,6 @@ const SearchView: React.FC = () => {
 
   useLayoutEffect(() => {
     axios.get("/api/books").then((res) => {
-      console.log({ res });
       setBookLists(res.data);
     });
   }, []);
@@ -138,7 +137,7 @@ const SearchView: React.FC = () => {
             </section>
           </div>
           {filter && (
-            <Button 
+            <Button
               label="Clear Filter"
               styleName="search-button"
               handleClick={clearFilter}
