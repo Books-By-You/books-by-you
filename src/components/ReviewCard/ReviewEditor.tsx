@@ -54,8 +54,9 @@ const ReviewEditor: React.FC<{
         })
         .then(() => {
           setRating(0);
+          props.updateReviews();
         });
-      props.updateReviews();
+
       props.closeModalFn();
     } else {
       axios
@@ -70,8 +71,8 @@ const ReviewEditor: React.FC<{
         })
         .then(() => {
           setRating(0);
+          props.updateReviews();
         });
-      props.updateReviews();
       props.closeModalFn();
     }
   }

@@ -87,20 +87,23 @@ const BookView: React.FC<Props> = (props) => {
       ownerCheck();
     } else console.log("no authorID");
   }, [book]);
-
-  let mappedReviews = reviews.map((e: any, i: any) => (
-    <ReviewCard
-      width={"1100px"}
-      _id={e._id}
-      author={e.userID}
-      content={e.content}
-      date={e.date}
-      user={props.userReducer.userId}
-      bookId={book._id}
-      ratings={book.ratings}
-      updateReviews={updateReviews}
-    />
-  ));
+  useEffect(() => {
+    mappedReviews();
+  }, [reviews]);
+  let mappedReviews = () =>
+    reviews.map((e: any, i: any) => (
+      <ReviewCard
+        width={"1100px"}
+        _id={e._id}
+        author={e.userID}
+        content={e.content}
+        date={e.date}
+        user={props.userReducer.userId}
+        bookId={book._id}
+        ratings={book.ratings}
+        updateReviews={updateReviews}
+      />
+    ));
 
   function loadCheck() {
     if (!isLoading) {
@@ -143,7 +146,7 @@ const BookView: React.FC<Props> = (props) => {
             <h1 style={{ marginTop: 10, marginLeft: 30 }} className="font-lg">
               Reviews
             </h1>
-            {mappedReviews}
+            {mappedReviews()}
           </section>
         </section>
       );
