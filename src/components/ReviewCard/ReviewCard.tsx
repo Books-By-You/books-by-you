@@ -53,7 +53,7 @@ const ReviewCard: React.FC<Props> = (props) => {
   let editButton = () => {
     if (owner) {
       return (
-        <div>
+        <div className="edit">
           <Button
             label="Edit"
             styleName="review-buttons"
