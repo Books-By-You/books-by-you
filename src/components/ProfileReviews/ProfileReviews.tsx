@@ -63,6 +63,7 @@ const ProfileReviews: React.FC = () => {
           user={review.userID}
           content={review.content}
           date={review.date}
+          editRemover={true}
           updateReviews={() => {
             return null;
           }}
