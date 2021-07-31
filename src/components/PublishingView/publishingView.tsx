@@ -87,11 +87,11 @@ const PublishingView: React.FC<{ user: User }> = (props) => {
   };
 
   const submitEdit = async () => {
-    let requestObj = { ...inputs, coverImage: previewSource, tags: [category] };
+    let requestObj = { ...inputs, coverImage: previewSource, tag: [category] };
     await axios
       .put(`/api/book/${bookId}`, requestObj)
       .then((res) => {
-        console.log({ resData: res.data });
+        history.push('/login')
         return res.data;
       })
       .catch((err) => console.log(err));
