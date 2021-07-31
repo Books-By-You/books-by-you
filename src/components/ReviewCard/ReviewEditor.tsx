@@ -115,15 +115,22 @@ const ReviewEditor: React.FC<{
       </article>
       <section className="review-submit">
         <Button
-          styleName="delete-review"
-          label="Delete"
-          handleClick={deleteRateReview}
+          styleName="review-edit-buttons"
+          label="Cancel"
+          handleClick={props.closeModalFn}
         />
-        <Button
-          styleName="submit-review"
-          label="Submit"
-          handleClick={sendRateReview}
-        />
+        <section>
+          <Button
+            styleName="review-edit-buttons"
+            label="Delete"
+            handleClick={deleteRateReview}
+          />
+          <Button
+            styleName="review-edit-buttons"
+            label="Submit"
+            handleClick={sendRateReview}
+          />
+        </section>
       </section>
     </div>
   );
