@@ -7,7 +7,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { AnyARecord } from "dns";
 
-
 interface User {
   userId: string;
   firstName: string;
@@ -18,14 +17,14 @@ interface User {
 }
 
 const PublishingView: React.FC<{ user: User }> = (props) => {
-  const {user} = props
+  const { user } = props;
   const location = useLocation<any>();
   const { state: locationState } = location;
-  let bookId = '';
-  if(locationState) {
-    bookId = locationState.bookId
+  let bookId = "";
+  if (locationState) {
+    bookId = locationState.bookId;
   }
-  const editingBook = bookId ? true : false
+  const editingBook = bookId ? true : false;
   const history = useHistory();
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
@@ -41,7 +40,7 @@ const PublishingView: React.FC<{ user: User }> = (props) => {
     description: "",
     coverImage: "",
     chapters: [],
-  })
+  });
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -88,12 +87,15 @@ const PublishingView: React.FC<{ user: User }> = (props) => {
   };
 
   const submitEdit = async () => {
-    let requestObj = {...inputs, coverImage: previewSource, tags: [category]}
-    await axios.put(`/api/book/${bookId}`, requestObj ).then(res => {
-      console.log({resData:res.data})
-      return res.data
-    }).catch(err => console.log(err))
-  }
+    let requestObj = { ...inputs, coverImage: previewSource, tags: [category] };
+    await axios
+      .put(`/api/book/${bookId}`, requestObj)
+      .then((res) => {
+        console.log({ resData: res.data });
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  };
 
   const resetInputField = () => {
     setFileInputState("");
@@ -102,117 +104,108 @@ const PublishingView: React.FC<{ user: User }> = (props) => {
     setInputs({ ...inputs, title: " ", description: " " });
     setCategory("Filter");
   };
-  
-   async function startEditing(){
-    if(location.state){
-      await axios.get(`/api/book/${location.state.bookId}`).then(res => {
-        console.log({resData: res.data})
-        setBookToEdit(res.data)
-        setEditing(true)
-        setPreviewSource(res.data.coverImage)
-        setCategory(res.data.tags[0])
-      })
+
+  async function startEditing() {
+    if (location.state) {
+      await axios.get(`/api/book/${location.state.bookId}`).then((res) => {
+        console.log({ resData: res.data });
+        setBookToEdit(res.data);
+        setEditing(true);
+        setPreviewSource(res.data.coverImage);
+        setCategory(res.data.tags[0]);
+      });
     }
   }
-   
+
   useEffect(() => {
-    startEditing()
-  },[])
+    startEditing();
+  }, []);
 
   useEffect(() => {
     setInputs({
       title: bookToEdit.title,
-      description: bookToEdit.description
-    })
-  }, [bookToEdit])
-  
-  console.log({selectedFile, previewSource})
+      description: bookToEdit.description,
+    });
+  }, [bookToEdit]);
+
   return (
     <div className="main-container">
-      <div className = "publishing-title">
-        {editing ? <>Edit-Your-Book</> : <>Create-A-Book</> }
-      </div>
-      
-      <form onSubmit={() => {}} className="image-container">
-        <section className="cover-image">
-          
-          Cover Image{" "}
-          
-          
-          {previewSource && (
-            <img
-              src={previewSource}
-              alt="chosen book"
-              style={{ height: "350px", width: "450px" }}
+      <div className="main-section image-editing-container">
+        <div className="image-container">
+          <section className="cover-image-container">
+            {previewSource ? (
+              <img
+                src={previewSource}
+                alt="chosen book"
+                className="cover-image"
+              />
+            ) : (
+              <div
+                className="placeholder-image cover-image"
+              >
+                <p className="publishing-label">Upload Cover Image</p>
+              </div>
+            )}
+            <input
+              type="file"
+              name="image"
+              title=" "
+              onChange={handleFileInputChange}
+              value={fileInputState}
+              className="book-pub-file-button custom-file-input"
+              
             />
-          )}
-          
-        </section>
-
-        <input
-          className="button-comp"
-          type="file"
-          name="image"
-          onChange={handleFileInputChange}
-          value={fileInputState}
-        />
-        
-      </form>
-      <div className="input-box">
-        <input
-          name="title"
-          className="input1"
-          placeholder="title input"
-          onChange={({ target }) =>
-            setInputs((state) => ({ ...state, title: target.value }))
-          }
-          value={inputs.title}
-        ></input>
-
-        <form onSubmit={handleSubmit}>
-          <label>
-            <select className="filter" value={category} onChange={handleChange}>
-              <option value="Filter" selected disabled hidden>
-                Genre
-              </option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Science Fiction">Science Fiction</option>
-              <option value="Romance">Romance</option>
-              <option value="Non Fiction">Non Fiction</option>
-            </select>
-          </label>
-          <br />
-          <br />
-          <label></label>
-        </form>
-
-        <input
-          name="description"
-          className="input3"
-          placeholder="Add description"
-          onChange={({ target }) =>
-            setInputs((state) => ({ ...state, description: target.value }))
-          }
-          value={inputs.description}
-        ></input>
-      </div>
-      <div className="add-buttons">
-       
-        <Button 
-              label="Clear"
-              styleName="button-clear"
-              handleClick={resetInputField}
+          </section>
+        </div>
+        <div className="book-contents-container">
+          <div className="book-content">
+          <label className="publishing-label"htmlFor="filter">Book Genre:</label>
+              <select id="filter" value={category} onChange={handleChange}>
+                <option value="Filter" selected disabled hidden>
+                  Select Genre
+                </option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Non Fiction">Non Fiction</option>
+              </select>
+            <label className="publishing-label" htmlFor="title-input">Book Title:</label>
+            <textarea
+              name="title"
+              id="title-input"
+              className="textarea"
+              placeholder="Add title"
+              onChange={({ target }) =>
+                setInputs((state) => ({ ...state, title: target.value }))
+              }
+              value={inputs.title}
             />
+            <label className="publishing-label" htmlFor="description-input">Book Description</label>
+            <textarea
+              name="description"
+              id="description-input"
+              className="textarea"
+              placeholder="Add description"
+              onChange={({ target }) =>
+                setInputs((state) => ({ ...state, description: target.value }))
+              }
+              value={inputs.description}
+            />
+          </div>
 
-        { editingBook ? 
-        <button onClick={() => submitEdit()}>Save</button>
-           : <Button 
-           label="Next >>"
-           styleName="button-chapter"
-           handleClick={handleFormSubmit}
-       />
-          
-        }
+          <div className="buttons-container">
+              <button className="book-pub-buttons" onClick={resetInputField}>{`Clear`}</button>
+                {editingBook ? (
+                  <button
+                  className="book-pub-buttons" onClick={() => submitEdit()}>Save</button>
+                ) : (
+                  <button 
+                  className="book-pub-buttons" onClick={handleFormSubmit}>{` Next `}</button>
+                )}
+            </div>
+
+
+        </div>
       </div>
     </div>
   );

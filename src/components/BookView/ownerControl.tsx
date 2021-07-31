@@ -54,10 +54,10 @@ const OwnerControl: React.FC<{
         <div>
           <Button
             styleName={""}
-            label={"Delete Button"}
+            label={"Delete Book"}
             handleClick={() => {
               axios.delete(`/api/book/${props.bookId}`).then(() => {
-                history.push("/profile");
+                history.push("/login");
               });
             }}
           />
