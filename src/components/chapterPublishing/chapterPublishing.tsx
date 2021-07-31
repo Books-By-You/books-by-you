@@ -30,10 +30,6 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     content: "",
   });
 
-  // const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(event);
-  // };
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
@@ -56,54 +52,41 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     setInputs({ ...inputs, title: " ", content: " " });
   };
   return (
-    <section className="container-center">
-      <div className="main-container">
-        <span className="chap-publishing-title">
-          Let your Imagination Run Wild!
-        </span>
-
-        <div className="input-box">
-          <span className="chap-title2">Enter Chapter Title</span>
-          <input
+    <section className="chapter-publishing-section">
+      <div className="chapter-publishing-container">
+        <p id="imagination">Let your Imagination Run Wild!</p>
+        <div className="chapter-publishing-label-div" id="chapter-title-container">
+          <label className="chapter-publishing-label" htmlFor="chapter-title">
+            Chapter Title:
+          </label>
+          <textarea
             name="title"
-            className="chap-input1"
+            id="chapter-title"
             placeholder="title "
             onChange={({ target }) =>
               setInputs((state) => ({ ...state, title: target.value }))
             }
             value={inputs.title}
           />
-
-          <span className="chap-title2">Chapter Content</span>
+        </div>
+        <div className="chapter-publishing-label-div" id="chapter-content-container">
+          <label className="chapter-publishing-label" htmlFor="chapter-content">
+            Chapter Content:
+          </label>
           <textarea
             name="content"
-            className="chap-input2"
+            id="chapter-content"
             placeholder="Chapter Content"
             value={inputs.content}
             onChange={({ target }) =>
               setInputs((state) => ({ ...state, content: target.value }))
             }
-            rows={18}
-            cols={50}
           />
         </div>
-        <div className="chap-add-buttons">
-          {/* <button className="chap-button-comp2" onClick={resetInputField}>Cancel </button> */}
-          <Button
-            label="Clear"
-            styleName="chap-clear"
-            handleClick={resetInputField}
-          />
-          {/* <button className="chap-button-comp3" onClick={handleFormSubmit}>
-          {" "}
-          Publish{" "}
-        </button> */}
-          <Button
-            label="Publish"
-            styleName="button-publish"
-            handleClick={handleFormSubmit}
-          />
-        </div>
+      </div>
+      <div className="chapter-buttons-container">
+        <button className="chapter-pub-buttons" onClick={resetInputField}>Clear</button>
+        <button className="chapter-pub-buttons" onClick={handleFormSubmit}>Publish</button>
       </div>
     </section>
   );
