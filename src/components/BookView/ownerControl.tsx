@@ -37,7 +37,7 @@ const OwnerControl: React.FC<{
       if (myRating.length === 0) {
         return (
           <Button
-            styleName={""}
+            styleName={"review-buttons"}
             label={"Write Review"}
             handleClick={() => {
               openModal();
