@@ -138,6 +138,7 @@ const AuthView: React.FC<Props> = (props) => {
         <input
           className={passwordCheckerColor + styles.inpHiddenSignUp}
           placeholder="Password"
+          type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -145,6 +146,7 @@ const AuthView: React.FC<Props> = (props) => {
         <input
           className={passwordCheckerColor + styles.inpHiddenSignUp}
           placeholder="Confirm Password"
+          type="password"
           onChange={(e) => {
             setConfirmPassword(e.target.value);
           }}
