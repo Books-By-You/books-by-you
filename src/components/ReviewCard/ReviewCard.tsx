@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from "react-modal";
 import ReviewEditor from "./ReviewEditor";
 import Button from "../Button/Button";
+import { isNull } from "util";
 
 interface Props {
   width: string;
@@ -15,6 +16,7 @@ interface Props {
   bookId?: string;
   ratings?: number | any;
   updateReviews: () => void;
+  editRemover?: boolean;
 }
 
 const ReviewCard: React.FC<Props> = (props) => {
@@ -52,31 +54,33 @@ const ReviewCard: React.FC<Props> = (props) => {
   }
   let editButton = () => {
     if (owner) {
-      return (
-        <div>
-          <Button
-            label="Edit"
-            styleName="review-buttons"
-            handleClick={openModal}
-          />
-
-          <Modal
-            style={modalStyle}
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-          >
-            <ReviewEditor
-              updateReviews={props.updateReviews}
-              bookId={props.bookId}
-              userId={props.user}
-              edit={props._id}
-              closeModalFn={closeModal}
-              content={props.content}
-              ratings={props.ratings}
+      if (!props.editRemover) {
+        return (
+          <div className="edit">
+            <Button
+              label="Edit"
+              styleName="review-buttons"
+              handleClick={openModal}
             />
-          </Modal>
-        </div>
-      );
+
+            <Modal
+              style={modalStyle}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+            >
+              <ReviewEditor
+                updateReviews={props.updateReviews}
+                bookId={props.bookId}
+                userId={props.user}
+                edit={props._id}
+                closeModalFn={closeModal}
+                content={props.content}
+                ratings={props.ratings}
+              />
+            </Modal>
+          </div>
+        );
+      }
     }
   };
 

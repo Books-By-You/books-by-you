@@ -13,6 +13,10 @@
     justify-content: space-between;
   }
 }
+.edit {
+  display: flex;
+  justify-content: flex-end;
+}
 .review-item {
   margin-right: 10px;
   margin-bottom: 20px;
