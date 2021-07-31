@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import "./publishingView.scss";
 import Button from "../Button/Button";
 import axios from "axios";
@@ -17,12 +17,31 @@ interface User {
   profileImage: string;
 }
 
-const PublishingView: React.FC<{ user: User }> = ({ user }) => {
+const PublishingView: React.FC<{ user: User }> = (props) => {
+  const {user} = props
+  const location = useLocation<any>();
+  const { state: locationState } = location;
+  let bookId = '';
+  if(locationState) {
+    bookId = locationState.bookId
+  }
+  const editingBook = bookId ? true : false
   const history = useHistory();
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState<any>("");
   const [category, setCategory] = useState("Filter");
+  const [editing, setEditing] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState({
+    _id: "",
+    title: "",
+    tags: [],
+    ratings: 0,
+    authorID: "",
+    description: "",
+    coverImage: "",
+    chapters: [],
+  })
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -68,6 +87,14 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     history.push(`/book/${createdBook._id}/new-chapter`);
   };
 
+  const submitEdit = async () => {
+    let requestObj = {...inputs, coverImage: previewSource, tags: [category]}
+    await axios.put(`/api/book/${bookId}`, requestObj ).then(res => {
+      console.log({resData:res.data})
+      return res.data
+    }).catch(err => console.log(err))
+  }
+
   const resetInputField = () => {
     setFileInputState("");
     setSelectedFile("");
@@ -75,17 +102,43 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
     setInputs({ ...inputs, title: " ", description: " " });
     setCategory("Filter");
   };
-
   
+   async function startEditing(){
+    if(location.state){
+      await axios.get(`/api/book/${location.state.bookId}`).then(res => {
+        console.log({resData: res.data})
+        setBookToEdit(res.data)
+        setEditing(true)
+        setPreviewSource(res.data.coverImage)
+        setCategory(res.data.tags[0])
+      })
+    }
+  }
+   
+  useEffect(() => {
+    startEditing()
+  },[])
+
+  useEffect(() => {
+    setInputs({
+      title: bookToEdit.title,
+      description: bookToEdit.description
+    })
+  }, [bookToEdit])
+  
+  console.log({selectedFile, previewSource})
   return (
     <div className="main-container">
       <div className = "publishing-title">
-     Create-A-Book
+        {editing ? <>Edit-Your-Book</> : <>Create-A-Book</> }
       </div>
       
       <form onSubmit={() => {}} className="image-container">
         <section className="cover-image">
+          
           Cover Image{" "}
+          
+          
           {previewSource && (
             <img
               src={previewSource}
@@ -93,6 +146,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
               style={{ height: "350px", width: "450px" }}
             />
           )}
+          
         </section>
 
         <input
@@ -119,7 +173,7 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
           <label>
             <select className="filter" value={category} onChange={handleChange}>
               <option value="Filter" selected disabled hidden>
-                Filter
+                Genre
               </option>
               <option value="Fantasy">Fantasy</option>
               <option value="Science Fiction">Science Fiction</option>
@@ -150,12 +204,15 @@ const PublishingView: React.FC<{ user: User }> = ({ user }) => {
               handleClick={resetInputField}
             />
 
-        
-        <Button 
-              label="Next >>"
-              styleName="button-chapter"
-              handleClick={handleFormSubmit}
-            />
+        { editingBook ? 
+        <button onClick={() => submitEdit()}>Save</button>
+           : <Button 
+           label="Next >>"
+           styleName="button-chapter"
+           handleClick={handleFormSubmit}
+       />
+          
+        }
       </div>
     </div>
   );
