@@ -12,7 +12,7 @@ const OwnerControl: React.FC<{
   bookId: string;
   userReducer: any;
   ratings: any;
-  updateReviews: () => {};
+  updateReviews: () => void;
 }> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -56,7 +56,7 @@ const OwnerControl: React.FC<{
             styleName={""}
             label={"Delete Button"}
             handleClick={() => {
-              axios.delete(`/api/books/${props.bookId}`).then(() => {
+              axios.delete(`/api/book/${props.bookId}`).then(() => {
                 history.push("/login");
               });
             }}
@@ -72,7 +72,7 @@ const OwnerControl: React.FC<{
             styleName={""}
             label={"Add Chapter"}
             handleClick={() => {
-              history.push(`/`);
+              history.push(`/book/${props.bookId}/new-chapter`);
             }}
           />
         </div>

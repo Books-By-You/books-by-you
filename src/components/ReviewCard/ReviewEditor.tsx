@@ -10,7 +10,7 @@ const ReviewEditor: React.FC<{
   userId: string;
   bookId: string | undefined;
   ratings?: any;
-  updateReviews: () => {};
+  updateReviews: () => void;
 }> = (props) => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState(props.userId);
@@ -36,10 +36,9 @@ const ReviewEditor: React.FC<{
     editCheck();
   }, []);
 
-  async function sendRateReview() {
-    props.updateReviews();
+  function sendRateReview() {
     if (isEditing === 0) {
-      await axios
+      axios
         .post("/api/bookreview", {
           review: content,
           userID: props.userId,
@@ -48,7 +47,7 @@ const ReviewEditor: React.FC<{
         .then(() => {
           setContent("");
         });
-      await axios
+      axios
         .post(`/api/bookrating/${props.bookId}`, {
           userId: props.userId,
           rating: rating,
@@ -56,14 +55,15 @@ const ReviewEditor: React.FC<{
         .then(() => {
           setRating(0);
         });
+      props.updateReviews();
       props.closeModalFn();
     } else {
-      await axios
+      axios
         .put(`/api/bookreview/${props.edit}`, { review: content })
         .then(() => {
           setContent("");
         });
-      await axios
+      axios
         .put(`/api/bookrating/${props.bookId}`, {
           userId: props.userId,
           rating: rating,
@@ -71,14 +71,21 @@ const ReviewEditor: React.FC<{
         .then(() => {
           setRating(0);
         });
+      props.updateReviews();
       props.closeModalFn();
     }
   }
-
   function deleteRateReview() {
+    axios
+      .delete(`/api/bookreview/${props.edit}`)
+      .then((res) => "Review deleted")
+      .catch((err) => {
+        console.error(err);
+      });
+    axios.delete(`/api/bookrating/${props.bookId}`, {
+      data: { userId: props.userId },
+    });
     props.updateReviews();
-    axios.delete(`/api/bookreview/${props.edit}`);
-    axios.delete(``);
     props.closeModalFn();
   }
 

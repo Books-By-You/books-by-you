@@ -1,12 +1,11 @@
-require('dotenv').config({ path: '../.env' });
-import mongoose from 'mongoose';
-const Book = require('../db/models/booksSchema');
+require("dotenv").config({ path: "../.env" });
+import mongoose from "mongoose";
+const Book = require("../db/models/booksSchema");
 
 module.exports = {
   createBook: async (req, res) => {
     const { title, authorID, description, coverImage, tag } = req.body;
-    console.log("getting here")
-    console.log(req.body)
+
     const book = new Book({
       _id: new mongoose.Types.ObjectId(),
       title: title,
@@ -21,30 +20,30 @@ module.exports = {
       res.status(201).send(savedBook);
       return;
     }
-    res.status(400).send('unable to save book');
+    res.status(400).send("unable to save book");
   },
   getBook: async (req, res) => {
     const { id } = req.params;
-    console.log(id)
+    console.log(id);
     let foundBook = await Book.findOne({ _id: id })
       .then((book) => {
         if (book) {
-          console.log('here 1')
+          console.log("here 1");
           return book;
         } else {
-          console.log('here 2')
+          console.log("here 2");
           return null;
         }
       })
       .catch((err) => {
         return err;
       });
-    console.log(foundBook)
+    console.log(foundBook);
     if (foundBook) {
       res.status(200).send(foundBook);
       return;
     } else {
-      res.status(400).send('Unable to find Book!');
+      res.status(400).send("Unable to find Book!");
     }
   },
   getChapterCount: async (req, res) => {
@@ -76,7 +75,7 @@ module.exports = {
         res.sendStatus(200);
         return;
       } else {
-        res.status(400).send('Unable to find Book!');
+        res.status(400).send("Unable to find Book!");
       }
     });
   },
@@ -122,7 +121,7 @@ module.exports = {
       if (updatedBook) {
         res.sendStatus(200);
       } else {
-        res.status(400).send('Book not updated');
+        res.status(400).send("Book not updated");
       }
     }
   },
@@ -133,7 +132,7 @@ module.exports = {
       res.status(201).send(getBooks);
       return;
     }
-    res.status(400).send('unable to get books');
+    res.status(400).send("unable to get books");
   },
   getBooksByAuthorId: async (req, res) => {
     const { id: authorId } = req.params;
@@ -142,6 +141,6 @@ module.exports = {
     if (getBooks.length > 0) {
       return res.status(200).send(getBooks);
     }
-    return res.status(404).send('No books found.');
+    return res.status(404).send("No books found.");
   },
 };

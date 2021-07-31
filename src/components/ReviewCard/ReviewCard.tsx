@@ -3,6 +3,8 @@ import "./ReviewCard.scss";
 import axios from "axios";
 import Modal from "react-modal";
 import ReviewEditor from "./ReviewEditor";
+import Button from "../Button/Button";
+
 interface Props {
   width: string;
   _id: string;
@@ -11,8 +13,8 @@ interface Props {
   date: string;
   user: any;
   bookId?: string;
-  ratings?: number;
-  updateReviews: () => {};
+  ratings?: number | any;
+  updateReviews: () => void;
 }
 
 const ReviewCard: React.FC<Props> = (props) => {
@@ -34,12 +36,14 @@ const ReviewCard: React.FC<Props> = (props) => {
       setAuthor(res.data.username);
     });
   };
+
   useEffect(() => {
     getAuthor();
     if (props.user) {
       ownerCheck();
     }
   }, []);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -50,9 +54,12 @@ const ReviewCard: React.FC<Props> = (props) => {
     if (owner) {
       return (
         <div>
-          <button style={{ marginRight: 10 }} onClick={openModal}>
-            edit
-          </button>
+          <Button
+            label="Edit"
+            styleName="review-buttons"
+            handleClick={openModal}
+          />
+
           <Modal
             style={modalStyle}
             isOpen={modalIsOpen}
@@ -77,12 +84,12 @@ const ReviewCard: React.FC<Props> = (props) => {
     <div className="review-container" style={{ width: `${props.width}` }}>
       <section className="review-body">
         <article>
-          <img />
           <h1 className="review-item">{`By- ${author}`}</h1>
-          {editButton()}
-          <small className="review-item">{props.date}</small>
+
+          <small className="review-item2">{props.date}</small>
         </article>
         <p>{props.content}</p>
+        {editButton()}
       </section>
     </div>
   );

@@ -52,9 +52,9 @@ const BookView: React.FC<Props> = (props) => {
     updateReviews();
   }
 
-  async function updateReviews() {
+  function updateReviews() {
     console.log("hit update reviews");
-    await axios
+    axios
       .get(`/api/bookreview/${bookId}`)
       .then((res) => {
         if (res.data) {
@@ -88,20 +88,19 @@ const BookView: React.FC<Props> = (props) => {
     } else console.log("no authorID");
   }, [book]);
 
-  let mappedReviews = () =>
-    reviews.map((e: any, i: any) => (
-      <ReviewCard
-        width={"1100px"}
-        _id={e._id}
-        author={e.userID}
-        content={e.content}
-        date={e.date}
-        user={props.userReducer.userId}
-        bookId={book._id}
-        ratings={book.ratings}
-        updateReviews={updateReviews}
-      />
-    ));
+  let mappedReviews = reviews.map((e: any, i: any) => (
+    <ReviewCard
+      width={"1100px"}
+      _id={e._id}
+      author={e.userID}
+      content={e.content}
+      date={e.date}
+      user={props.userReducer.userId}
+      bookId={book._id}
+      ratings={book.ratings}
+      updateReviews={updateReviews}
+    />
+  ));
 
   function loadCheck() {
     if (!isLoading) {
@@ -144,7 +143,7 @@ const BookView: React.FC<Props> = (props) => {
             <h1 style={{ marginTop: 10, marginLeft: 30 }} className="font-lg">
               Reviews
             </h1>
-            {mappedReviews()}
+            {mappedReviews}
           </section>
         </section>
       );
