@@ -57,7 +57,7 @@ const OwnerControl: React.FC<{
             label={"Delete"}
             handleClick={() => {
               axios.delete(`/api/book/${props.bookId}`).then(() => {
-                history.push("/profile");
+                history.push("/login");
               });
             }}
           />
@@ -66,8 +66,8 @@ const OwnerControl: React.FC<{
             label={"Edit Book"}
             handleClick={() => {
               history.push({
-                pathname: '/publishing',
-                state: {bookId: props.bookId}
+                pathname: "/publishing",
+                state: { bookId: props.bookId },
               });
             }}
           />
