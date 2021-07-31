@@ -53,8 +53,8 @@ const OwnerControl: React.FC<{
       {props.owner ? (
         <div>
           <Button
-            styleName={""}
-            label={"Delete Button"}
+            styleName={"review-buttons"}
+            label={"Delete"}
             handleClick={() => {
               axios.delete(`/api/book/${props.bookId}`).then(() => {
                 history.push("/login");
@@ -62,14 +62,14 @@ const OwnerControl: React.FC<{
             }}
           />
           <Button
-            styleName={""}
+            styleName={"review-buttons"}
             label={"Edit Book"}
             handleClick={() => {
               history.push(`/`);
             }}
           />
           <Button
-            styleName={""}
+            styleName={"review-buttons"}
             label={"Add Chapter"}
             handleClick={() => {
               history.push(`/book/${props.bookId}/new-chapter`);
@@ -80,7 +80,7 @@ const OwnerControl: React.FC<{
         <section>
           <Link to="/login">
             <Button
-              styleName={"add-book-shelf"}
+              styleName={"review-buttons"}
               label={"Add to Bookshelf"}
               handleClick={() => {
                 axios.post(`/api/bookshelf/${props.bookId}`, {
