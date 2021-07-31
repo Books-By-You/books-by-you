@@ -108,7 +108,6 @@ module.exports = {
         })
             .catch((err) => {
             console.log(err);
-            return null;
         });
         if (foundBook) {
             let bookToUpdate = {
@@ -132,6 +131,9 @@ module.exports = {
             else {
                 res.status(400).send("Book not updated");
             }
+        }
+        else {
+            return res.sendStatus(400);
         }
     }),
     getAllBooks: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

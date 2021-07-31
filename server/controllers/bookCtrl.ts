@@ -94,7 +94,6 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err);
-        return null;
       });
 
     if (foundBook) {
@@ -104,7 +103,7 @@ module.exports = {
         coverImage: foundBook.coverImage,
         description: foundBook.description,
         tags: foundBook.tags,
-      };
+      }
 
       const updatedBook = await Book.updateOne(
         { _id: id },
@@ -123,6 +122,8 @@ module.exports = {
       } else {
         res.status(400).send("Book not updated");
       }
+    } else {
+      return res.sendStatus(400);
     }
   },
 
