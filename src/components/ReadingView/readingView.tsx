@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack } from 'react-icons/io'
 import ReactDOM from "react-dom";
 import { Props } from "../auth/authInterface";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -8,29 +10,46 @@ import "./readingView.scss";
 
 const ReadingView: React.FC<Props> = (props) => {
   const [bookId] = useState(props.match.params.book);
-  const [chapterNumber] = useState(props.match.params.chapter);
+  const [chapterNumber, setChapterNumber] = useState(props.match.params.chapter);
   const [bookTitle, setBookTitle] = useState("Book Title")
-  const [chapter, setChapter] = useState({
-    title: "",
-    content: ""
-  }); 
+  const [chapters, setChapters] = useState([{title: "", content: ""}]);
 
   function fetchBook() {
     axios
       .get(`/api/book/${bookId}`)
       .then((res) => {  
-        setChapter(res.data.chapters[chapterNumber - 1])
+        setChapters(res.data.chapters)
         setBookTitle(res.data.title)
       })
       .catch((err) => err);
   }
 
+  function nextChapter() {
+    if (chapterNumber === chapters.length) {
+      return
+    }
+    setChapterNumber(+chapterNumber + 1)
+  }
+
+  function lastChapter() {
+    if (chapterNumber === 1) {
+      return
+    }
+    setChapterNumber(+chapterNumber - 1)
+  }
+
   useEffect(() => {
     fetchBook()
   }, [])
-  
+
+  let chapter = chapters[chapterNumber - 1] ? chapters[chapterNumber - 1] : {title: "loading", content: "loading"}
+
+  let backButton = chapterNumber > 1 ? <button className="chapter-nav-btn" onClick={() => lastChapter()}><IoIosArrowBack/></button> : <button disabled className="chapter-nav-btn-disabled" onClick={() => lastChapter()}><IoIosArrowBack/></button>
+  let nextButton = chapterNumber < chapters.length ? <button className="chapter-nav-btn" onClick={() => nextChapter()}><IoIosArrowForward/></button> : <button disabled className="chapter-nav-btn-disabled" onClick={() => nextChapter()}><IoIosArrowForward/></button>
+
   return (
     <section className="reading-section">
+    {backButton}
     <div className="body-cover">
       <div className="book-title">
         <h1 className="chapter-heading"> {bookTitle} </h1>
@@ -122,6 +141,7 @@ const ReadingView: React.FC<Props> = (props) => {
         </Carousel>
       </div> */}
     </div>
+    {nextButton}
     </section>
   );
 };

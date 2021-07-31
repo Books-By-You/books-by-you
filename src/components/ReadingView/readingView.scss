@@ -1,6 +1,7 @@
 .reading-section {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .book-title {
@@ -54,6 +55,24 @@
   position: relative;
   box-shadow: 3px 3px 5px 6px #ccc;
   z-index: 0;
+}
+
+.chapter-nav-btn {
+  height: 40px;
+  width: 40px;
+  margin: 20px;
+  color: black;
+  border: none;
+  font-size: 36px;
+}
+
+.chapter-nav-btn-disabled {
+  height: 40px;
+  width: 40px;
+  margin: 20px;
+  color: rgb(130, 130, 130);
+  border: none;
+  font-size: 36px;
 }
 
 .chapter {

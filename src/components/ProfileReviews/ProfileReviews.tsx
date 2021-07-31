@@ -64,7 +64,7 @@ const ProfileReviews: React.FC = () => {
           content={review.content}
           date={review.date}
           updateReviews={() => {
-            return "no";
+            return null;
           }}
         />
       </div>
