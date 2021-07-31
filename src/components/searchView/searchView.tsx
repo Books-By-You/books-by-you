@@ -63,6 +63,16 @@ const SearchView: React.FC = () => {
       />
     );
   }
+  function carouselMapper(book: any, index: any) {
+    return (
+      <BookCard
+        title={book.title}
+        image_url={book.coverImage}
+        ratings={book.ratings}
+        bookId={book._id}
+      />
+    );
+  }
 
   useLayoutEffect(() => {
     axios.get("/api/books").then((res) => {
@@ -74,20 +84,17 @@ const SearchView: React.FC = () => {
     return e.tags.includes("Fantasy");
   });
 
-  function arraySplitter() {
-    //write a function that takes in an array of 15 objects [{},{},{}] then aplit them into 3 other arrays with 5 opobjects each
-  }
-
   const listBooks = bookLists.map(arrayMapper);
-  const listBooks2 = fantasyBooks.map(arrayMapper);
-  let fantasyPartOne = listBooks2.slice(0, 5);
+  const carouselBooks = fantasyBooks.map(carouselMapper);
+  let carouselPartOne = carouselBooks.slice(0, 5);
+  let carouselPartTwo = carouselBooks.slice(6, 10);
   const filteredBooks = filteredBookList.map(arrayMapper);
   return (
     <div className="searchView">
       <div className="carousel-container">
         <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
-          <div className="book-carousel-1">{fantasyPartOne}</div>
-          <div className="book-carousel-1">{fantasyPartOne}</div>
+          <div className="book-carousel-1">{carouselPartOne}</div>
+          <div className="book-carousel-1">{carouselPartTwo}</div>
         </Carousel>
         <div className="heading">
           <h1> Our Popular Books!</h1>
@@ -142,7 +149,6 @@ const SearchView: React.FC = () => {
               styleName="search-button"
               handleClick={clearFilter}
             />
-            
           )}
         </div>
         <div className="search-result-container">

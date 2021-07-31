@@ -12,7 +12,7 @@ const OwnerControl: React.FC<{
   bookId: string;
   userReducer: any;
   ratings: any;
-  updateReviews: () => {};
+  updateReviews: () => void;
 }> = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 

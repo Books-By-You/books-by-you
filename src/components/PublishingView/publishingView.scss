@@ -11,7 +11,7 @@
 .cover-image {
   height: 350px;
   width: 200px;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   border-radius: 3px 3px 3px 3px;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 
   &:hover {
     cursor: pointer;
@@ -53,8 +53,8 @@
   top: -200px;
   display: flex;
   flex-direction: column;
-  width:200px;
-//   border-radius: 3px 3px 3px 3px;
+  width: 200px;
+  //   border-radius: 3px 3px 3px 3px;
 }
 .input1 {
   width: 600px;
@@ -62,7 +62,7 @@
   position: relative;
   top: -140px;
   border-radius: 3px 3px 3px 3px;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 .input2 {
   width: 600px;
@@ -70,86 +70,84 @@
   position: relative;
   top: -40px;
   border-radius: 3px 3px 3px 3px;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
-.input3{
-    width: 600px;
-    height: 100px;
-    position: relative;
-    top: 80px;
-    border-radius: 3px 3px 3px 3px;
-   background-color: #F0F0F0;
-   }
+.input3 {
+  width: 600px;
+  height: 100px;
+  position: relative;
+  top: 80px;
+  border-radius: 3px 3px 3px 3px;
+  background-color: #f0f0f0;
+}
 .add-buttons {
   display: flex;
   flex-direction: row;
-   justify-content: space-around;
-
+  justify-content: space-around;
 }
 
 .button-comp3 {
-    font-family: "Quicksand";
-    font-weight: 600;
-    padding: 0 50px 0 0;
-    font-size: 20px;
-    text-decoration: none;
-    border: none;
-    width: 120px;
-    height: 30px;
-    position: relative;
-    left: -150px;
-    top: 40px;
-    display: flex;
+  font-family: "Quicksand";
+  font-weight: 600;
+  padding: 0 50px 0 0;
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+  width: 120px;
+  height: 30px;
+  position: relative;
+  left: -150px;
+  top: 40px;
+  display: flex;
   //   align-items: center;
   //   justify-content: center;
-    border-radius: 3px 3px 3px 3px;
-    background-color: #4bee53;
-   
-  
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-.dropdown-content1 {
-    display: none;
-    position: absolute;
-    top: -10px;
-    left: 0px;
-    background-color: white;
-    min-width: 500px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
+  border-radius: 3px 3px 3px 3px;
+  background-color: #4bee53;
 
-  .btn{
-      height:30px;
-      width:60px;
-      position:relative;
-      top:60px;
-      left:130px;
-      background-color: rgb(8, 89, 8);
-      color:white;
-      border-radius: 3px 3px 3px 3px;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
-  .filter{
-      width:600px;
-      height:40px;
-  }
-  .publishing-title{
-    color:white;
-    height:50px;
-    width:490px;
-    background-image: linear-gradient(to bottom right, #3B283C, #4d1f27);
-    justify-content: center;
-    align-items: center;
-    padding-top: 40px;
-    padding-left: 150px;
-    font-size: xx-large;
-    font-style: Quicksand;
-    font-weight: bolder;
-    letter-spacing: 10px;
-    position: relative;
-    left:400px;
-    top:15px;
-  }
+}
+.dropdown-content1 {
+  display: none;
+  position: absolute;
+  top: -10px;
+  left: 0px;
+  background-color: white;
+  min-width: 500px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.btn {
+  height: 30px;
+  width: 60px;
+  position: relative;
+  top: 60px;
+  left: 130px;
+  background-color: rgb(8, 89, 8);
+  color: white;
+  border-radius: 3px 3px 3px 3px;
+}
+.filter {
+  width: 600px;
+  height: 40px;
+}
+.publishing-title {
+  color: white;
+  height: 50px;
+  width: 490px;
+  background-image: linear-gradient(to bottom right, #3b283c, #4d1f27);
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-left: 150px;
+  font-size: xx-large;
+  font-style: Quicksand;
+  font-weight: bolder;
+  letter-spacing: 10px;
+  position: relative;
+  left: 400px;
+  top: 15px;
+}

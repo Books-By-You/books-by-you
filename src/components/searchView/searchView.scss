@@ -121,12 +121,11 @@ $color-nav-bottom: linear-gradient(
   padding: 50px;
   position: relative;
   left: 169px;
-  
 }
 
 .book-carousel-1 {
   display: flex;
-
+  justify-content: space-evenly;
   width: 1100px;
 }
 
